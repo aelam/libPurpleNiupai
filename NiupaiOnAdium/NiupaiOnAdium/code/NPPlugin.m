@@ -12,21 +12,14 @@
 #import <Adium/AIListObject.h>
 #import <Adium/AIService.h>
 
-
 extern gboolean purple_init_np_plugin(void);
 
 @implementation NPPlugin
 
 - (void)installPlugin {
-#ifdef DEBUG
-    NSString *logPath = @"/Users/ryan/Desktop/VIXcode.log";
-    [[NSFileManager defaultManager] removeItemAtPath:logPath error:nil];
-    freopen([logPath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
-#endif
 
     [NPService registerService];
     purple_init_np_plugin();
-
 }
 
 - (void) uninstallPlugin {
@@ -38,13 +31,13 @@ extern gboolean purple_init_np_plugin(void);
 - (void) loadLibpurplePlugin {
 }
 
-//- (NSString*) pluginAuthor {
-//    return @"Ryan Wang";
-//}
-//
-//- (NSString*) pluginVersion {
-//    return @"0.1";
-//}
+- (NSString*) pluginAuthor {
+    return @"Ryan Wang";
+}
+
+- (NSString*) pluginVersion {
+    return @"0.1";
+}
 
 - (NSString*) pluginDescription {
     return @"Allows Adium to connect to Niupai accounts";

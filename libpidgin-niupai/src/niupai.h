@@ -34,6 +34,8 @@
 #define LIBNIUPAI_VERSION 	"0.1"
 
 
+#define PLUGIN_NAME         "Niupai"
+
 #include "internal.h"
 
 

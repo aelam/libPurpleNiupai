@@ -18,15 +18,6 @@
     return "prpl-np";
 }
 
-- (NSString *)host
-{
-	return @"ims.niupai.com";
-}
-
-- (int)port {
-    return 9000;
-}
-
 - (BOOL) canSendFolders {
     return NO;
 }

@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		944181EE1601D8F900E14F64 /* buddy_list.c in Sources */ = {isa = PBXBuildFile; fileRef = 944181ED1601D8F900E14F64 /* buddy_list.c */; };
+		945D3B7616022CE600AF6E0C /* Niupai-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 945D3B7416022CE600AF6E0C /* Niupai-small.png */; };
+		945D3B7716022CE600AF6E0C /* Niupai.png in Resources */ = {isa = PBXBuildFile; fileRef = 945D3B7516022CE600AF6E0C /* Niupai.png */; };
+		945D3B7C16022D1900AF6E0C /* PurpleDefaultsNiupai.plist in Resources */ = {isa = PBXBuildFile; fileRef = 945D3B7B16022D1900AF6E0C /* PurpleDefaultsNiupai.plist */; };
+		945D3B7F1602356A00AF6E0C /* NIDebuggingTools.c in Sources */ = {isa = PBXBuildFile; fileRef = 945D3B7D1602356A00AF6E0C /* NIDebuggingTools.c */; };
 		9480B4B816018361000A5CA7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9480B4B716018361000A5CA7 /* Cocoa.framework */; };
 		9480B4C216018361000A5CA7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9480B4C016018361000A5CA7 /* InfoPlist.strings */; };
 		9480B4DA160184CB000A5CA7 /* Adium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9480B4D2160184CB000A5CA7 /* Adium.framework */; };
@@ -21,9 +25,6 @@
 		9480B4EA16018772000A5CA7 /* NPAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480B4E916018772000A5CA7 /* NPAccount.m */; };
 		9480B4ED1601878A000A5CA7 /* NPPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480B4EC1601878A000A5CA7 /* NPPlugin.m */; };
 		94FA1C4D16018B4B00A910C0 /* libpurple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FA1C4C16018B4B00A910C0 /* libpurple.framework */; };
-		94FA1C501601905D00A910C0 /* NPAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FA1C4F1601905D00A910C0 /* NPAccountViewController.m */; };
-		94FA1C7C160195EF00A910C0 /* Niupai.png in Resources */ = {isa = PBXBuildFile; fileRef = 94FA1C7B160195EF00A910C0 /* Niupai.png */; };
-		94FA1C7E1601970E00A910C0 /* Niupai-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 94FA1C7D1601970E00A910C0 /* Niupai-small.png */; };
 		94FA1CC41601B95B00A910C0 /* niupai.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FA1CC31601B95B00A910C0 /* niupai.c */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,11 @@
 		944181E31601CCE500E14F64 /* internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = internal.h; sourceTree = "<group>"; };
 		944181EC1601D8EE00E14F64 /* buddy_list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buddy_list.h; sourceTree = "<group>"; };
 		944181ED1601D8F900E14F64 /* buddy_list.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buddy_list.c; sourceTree = "<group>"; };
+		945D3B7416022CE600AF6E0C /* Niupai-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Niupai-small.png"; sourceTree = "<group>"; };
+		945D3B7516022CE600AF6E0C /* Niupai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Niupai.png; sourceTree = "<group>"; };
+		945D3B7B16022D1900AF6E0C /* PurpleDefaultsNiupai.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PurpleDefaultsNiupai.plist; sourceTree = "<group>"; };
+		945D3B7D1602356A00AF6E0C /* NIDebuggingTools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NIDebuggingTools.c; sourceTree = "<group>"; };
+		945D3B7E1602356A00AF6E0C /* NIDebuggingTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDebuggingTools.h; sourceTree = "<group>"; };
 		9480B4B416018361000A5CA7 /* NiupaiOnAdium.AdiumLibpurplePlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NiupaiOnAdium.AdiumLibpurplePlugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		9480B4B716018361000A5CA7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9480B4BA16018361000A5CA7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -52,10 +58,6 @@
 		9480B4EB1601878A000A5CA7 /* NPPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPPlugin.h; sourceTree = "<group>"; };
 		9480B4EC1601878A000A5CA7 /* NPPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPPlugin.m; sourceTree = "<group>"; };
 		94FA1C4C16018B4B00A910C0 /* libpurple.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libpurple.framework; sourceTree = "<group>"; };
-		94FA1C4E1601905D00A910C0 /* NPAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPAccountViewController.h; sourceTree = "<group>"; };
-		94FA1C4F1601905D00A910C0 /* NPAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPAccountViewController.m; sourceTree = "<group>"; };
-		94FA1C7B160195EF00A910C0 /* Niupai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Niupai.png; sourceTree = "<group>"; };
-		94FA1C7D1601970E00A910C0 /* Niupai-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Niupai-small.png"; sourceTree = "<group>"; };
 		94FA1CC31601B95B00A910C0 /* niupai.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = niupai.c; sourceTree = "<group>"; };
 		94FA1CC51601B96600A910C0 /* niupai.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = niupai.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,6 +88,16 @@
 				944181E31601CCE500E14F64 /* internal.h */,
 			);
 			path = libpurple;
+			sourceTree = "<group>";
+		};
+		945D3B7316022CE600AF6E0C /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				945D3B7B16022D1900AF6E0C /* PurpleDefaultsNiupai.plist */,
+				945D3B7416022CE600AF6E0C /* Niupai-small.png */,
+				945D3B7516022CE600AF6E0C /* Niupai.png */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		9480B4A916018361000A5CA7 = {
@@ -129,8 +141,8 @@
 			isa = PBXGroup;
 			children = (
 				9480B4D01601846D000A5CA7 /* code */,
+				945D3B7316022CE600AF6E0C /* Resource */,
 				9480B4BE16018361000A5CA7 /* Supporting Files */,
-				94FA1C7A160195EF00A910C0 /* Resource */,
 			);
 			path = NiupaiOnAdium;
 			sourceTree = "<group>";
@@ -154,8 +166,6 @@
 				9480B4E916018772000A5CA7 /* NPAccount.m */,
 				9480B4EB1601878A000A5CA7 /* NPPlugin.h */,
 				9480B4EC1601878A000A5CA7 /* NPPlugin.m */,
-				94FA1C4E1601905D00A910C0 /* NPAccountViewController.h */,
-				94FA1C4F1601905D00A910C0 /* NPAccountViewController.m */,
 			);
 			path = code;
 			sourceTree = "<group>";
@@ -176,16 +186,6 @@
 			path = "NiupaiOnAdium/Linked Framework";
 			sourceTree = "<group>";
 		};
-		94FA1C7A160195EF00A910C0 /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-				94FA1C7D1601970E00A910C0 /* Niupai-small.png */,
-				94FA1C7B160195EF00A910C0 /* Niupai.png */,
-			);
-			name = Resource;
-			path = ../../Resource;
-			sourceTree = "<group>";
-		};
 		94FA1C7F1601978100A910C0 /* libpidgin-niupai */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,6 +203,8 @@
 				94FA1CC31601B95B00A910C0 /* niupai.c */,
 				944181EC1601D8EE00E14F64 /* buddy_list.h */,
 				944181ED1601D8F900E14F64 /* buddy_list.c */,
+				945D3B7E1602356A00AF6E0C /* NIDebuggingTools.h */,
+				945D3B7D1602356A00AF6E0C /* NIDebuggingTools.c */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -259,8 +261,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9480B4C216018361000A5CA7 /* InfoPlist.strings in Resources */,
-				94FA1C7C160195EF00A910C0 /* Niupai.png in Resources */,
-				94FA1C7E1601970E00A910C0 /* Niupai-small.png in Resources */,
+				945D3B7616022CE600AF6E0C /* Niupai-small.png in Resources */,
+				945D3B7716022CE600AF6E0C /* Niupai.png in Resources */,
+				945D3B7C16022D1900AF6E0C /* PurpleDefaultsNiupai.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,9 +277,9 @@
 				9480B4E716018533000A5CA7 /* NPService.m in Sources */,
 				9480B4EA16018772000A5CA7 /* NPAccount.m in Sources */,
 				9480B4ED1601878A000A5CA7 /* NPPlugin.m in Sources */,
-				94FA1C501601905D00A910C0 /* NPAccountViewController.m in Sources */,
 				94FA1CC41601B95B00A910C0 /* niupai.c in Sources */,
 				944181EE1601D8F900E14F64 /* buddy_list.c in Sources */,
+				945D3B7F1602356A00AF6E0C /* NIDebuggingTools.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +356,7 @@
 					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework\"/**",
 					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework\"",
 				);
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NiupaiOnAdium/NiupaiOnAdium-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -380,6 +384,7 @@
 					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework\"/**",
 					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework\"",
 				);
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NiupaiOnAdium/NiupaiOnAdium-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

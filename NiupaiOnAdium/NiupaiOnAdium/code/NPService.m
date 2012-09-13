@@ -8,7 +8,7 @@
 
 #import "NPService.h"
 #import "NPAccount.h"
-#import "NPAccountViewController.h"
+//#import "NPAccountViewController.h"
 #import <Adium/AIStatusControllerProtocol.h>
 #import <Adium/AISharedAdium.h>
 #import <AIUtilities/AIImageAdditions.h>
@@ -30,9 +30,9 @@
     return [NPAccount class];
 }
 
-- (AIAccountViewController*) accountViewController {
-    return [NPAccountViewController accountViewController];
-}
+//- (AIAccountViewController*) accountViewController {
+//    return [NPAccountViewController accountViewController];
+//}
 
 - (DCJoinChatViewController *)joinChatView{
 	return nil;
@@ -64,6 +64,10 @@
 	return AILocalizedString(@"username@example.com", "Niupai accounts");
 }
 
+- (NSCharacterSet*) allowedCharactersForUIDs {
+	return [NSCharacterSet characterSetWithCharactersInString:@"+abcdefghijklmnopqrstuvwxyz0123456789@._-"];
+}
+
 
 - (NSString*) userNameLabel {
     return @"User Name";
@@ -79,10 +83,6 @@
 
 - (NSUInteger)allowedLength{
 	return 113;
-}
-
-- (NSCharacterSet*) allowedCharactersForUIDs {
-    return [NSCharacterSet decimalDigitCharacterSet];
 }
 
 - (NSUInteger) allowedLengthForUIDs {
