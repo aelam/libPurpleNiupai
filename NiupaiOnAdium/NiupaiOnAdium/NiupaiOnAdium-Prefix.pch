@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'NiupaiOnAdium' target in the 'NiupaiOnAdium' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#define __WITHOUT_PURPLE__
+#endif

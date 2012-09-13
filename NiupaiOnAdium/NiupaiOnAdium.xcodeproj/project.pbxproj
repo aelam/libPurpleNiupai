@@ -1,0 +1,416 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		944181EE1601D8F900E14F64 /* buddy_list.c in Sources */ = {isa = PBXBuildFile; fileRef = 944181ED1601D8F900E14F64 /* buddy_list.c */; };
+		9480B4B816018361000A5CA7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9480B4B716018361000A5CA7 /* Cocoa.framework */; };
+		9480B4C216018361000A5CA7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9480B4C016018361000A5CA7 /* InfoPlist.strings */; };
+		9480B4DA160184CB000A5CA7 /* Adium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9480B4D2160184CB000A5CA7 /* Adium.framework */; };
+		9480B4DB160184CB000A5CA7 /* AdiumLibpurple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9480B4D3160184CB000A5CA7 /* AdiumLibpurple.framework */; };
+		9480B4DC160184CB000A5CA7 /* AIUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9480B4D4160184CB000A5CA7 /* AIUtilities.framework */; };
+		9480B4DD160184CB000A5CA7 /* libglib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9480B4D5160184CB000A5CA7 /* libglib.framework */; };
+		9480B4DE160184CB000A5CA7 /* libgmodule.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9480B4D6160184CB000A5CA7 /* libgmodule.framework */; };
+		9480B4DF160184CB000A5CA7 /* libintl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9480B4D7160184CB000A5CA7 /* libintl.framework */; };
+		9480B4E0160184CB000A5CA7 /* libmeanwhile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9480B4D8160184CB000A5CA7 /* libmeanwhile.framework */; };
+		9480B4E716018533000A5CA7 /* NPService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480B4E616018533000A5CA7 /* NPService.m */; };
+		9480B4EA16018772000A5CA7 /* NPAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480B4E916018772000A5CA7 /* NPAccount.m */; };
+		9480B4ED1601878A000A5CA7 /* NPPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480B4EC1601878A000A5CA7 /* NPPlugin.m */; };
+		94FA1C4D16018B4B00A910C0 /* libpurple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FA1C4C16018B4B00A910C0 /* libpurple.framework */; };
+		94FA1C501601905D00A910C0 /* NPAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FA1C4F1601905D00A910C0 /* NPAccountViewController.m */; };
+		94FA1C7C160195EF00A910C0 /* Niupai.png in Resources */ = {isa = PBXBuildFile; fileRef = 94FA1C7B160195EF00A910C0 /* Niupai.png */; };
+		94FA1C7E1601970E00A910C0 /* Niupai-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 94FA1C7D1601970E00A910C0 /* Niupai-small.png */; };
+		94FA1CC41601B95B00A910C0 /* niupai.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FA1CC31601B95B00A910C0 /* niupai.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		944181E31601CCE500E14F64 /* internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = internal.h; sourceTree = "<group>"; };
+		944181EC1601D8EE00E14F64 /* buddy_list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buddy_list.h; sourceTree = "<group>"; };
+		944181ED1601D8F900E14F64 /* buddy_list.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buddy_list.c; sourceTree = "<group>"; };
+		9480B4B416018361000A5CA7 /* NiupaiOnAdium.AdiumLibpurplePlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NiupaiOnAdium.AdiumLibpurplePlugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		9480B4B716018361000A5CA7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		9480B4BA16018361000A5CA7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		9480B4BC16018361000A5CA7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		9480B4BF16018361000A5CA7 /* NiupaiOnAdium-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NiupaiOnAdium-Info.plist"; sourceTree = "<group>"; };
+		9480B4C116018361000A5CA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9480B4C316018361000A5CA7 /* NiupaiOnAdium-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NiupaiOnAdium-Prefix.pch"; sourceTree = "<group>"; };
+		9480B4D2160184CB000A5CA7 /* Adium.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Adium.framework; sourceTree = "<group>"; };
+		9480B4D3160184CB000A5CA7 /* AdiumLibpurple.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdiumLibpurple.framework; sourceTree = "<group>"; };
+		9480B4D4160184CB000A5CA7 /* AIUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AIUtilities.framework; sourceTree = "<group>"; };
+		9480B4D5160184CB000A5CA7 /* libglib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libglib.framework; sourceTree = "<group>"; };
+		9480B4D6160184CB000A5CA7 /* libgmodule.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libgmodule.framework; sourceTree = "<group>"; };
+		9480B4D7160184CB000A5CA7 /* libintl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libintl.framework; sourceTree = "<group>"; };
+		9480B4D8160184CB000A5CA7 /* libmeanwhile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libmeanwhile.framework; sourceTree = "<group>"; };
+		9480B4E516018533000A5CA7 /* NPService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPService.h; sourceTree = "<group>"; };
+		9480B4E616018533000A5CA7 /* NPService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPService.m; sourceTree = "<group>"; };
+		9480B4E816018772000A5CA7 /* NPAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPAccount.h; sourceTree = "<group>"; };
+		9480B4E916018772000A5CA7 /* NPAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPAccount.m; sourceTree = "<group>"; };
+		9480B4EB1601878A000A5CA7 /* NPPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPPlugin.h; sourceTree = "<group>"; };
+		9480B4EC1601878A000A5CA7 /* NPPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPPlugin.m; sourceTree = "<group>"; };
+		94FA1C4C16018B4B00A910C0 /* libpurple.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libpurple.framework; sourceTree = "<group>"; };
+		94FA1C4E1601905D00A910C0 /* NPAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPAccountViewController.h; sourceTree = "<group>"; };
+		94FA1C4F1601905D00A910C0 /* NPAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPAccountViewController.m; sourceTree = "<group>"; };
+		94FA1C7B160195EF00A910C0 /* Niupai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Niupai.png; sourceTree = "<group>"; };
+		94FA1C7D1601970E00A910C0 /* Niupai-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Niupai-small.png"; sourceTree = "<group>"; };
+		94FA1CC31601B95B00A910C0 /* niupai.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = niupai.c; sourceTree = "<group>"; };
+		94FA1CC51601B96600A910C0 /* niupai.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = niupai.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9480B4B116018361000A5CA7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9480B4B816018361000A5CA7 /* Cocoa.framework in Frameworks */,
+				9480B4DA160184CB000A5CA7 /* Adium.framework in Frameworks */,
+				9480B4DB160184CB000A5CA7 /* AdiumLibpurple.framework in Frameworks */,
+				9480B4DC160184CB000A5CA7 /* AIUtilities.framework in Frameworks */,
+				9480B4DD160184CB000A5CA7 /* libglib.framework in Frameworks */,
+				9480B4DE160184CB000A5CA7 /* libgmodule.framework in Frameworks */,
+				9480B4DF160184CB000A5CA7 /* libintl.framework in Frameworks */,
+				9480B4E0160184CB000A5CA7 /* libmeanwhile.framework in Frameworks */,
+				94FA1C4D16018B4B00A910C0 /* libpurple.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		944181E21601CCE500E14F64 /* libpurple */ = {
+			isa = PBXGroup;
+			children = (
+				944181E31601CCE500E14F64 /* internal.h */,
+			);
+			path = libpurple;
+			sourceTree = "<group>";
+		};
+		9480B4A916018361000A5CA7 = {
+			isa = PBXGroup;
+			children = (
+				94FA1C7F1601978100A910C0 /* libpidgin-niupai */,
+				9480B4BD16018361000A5CA7 /* NiupaiOnAdium */,
+				9480B4B616018361000A5CA7 /* Frameworks */,
+				9480B4B516018361000A5CA7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9480B4B516018361000A5CA7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9480B4B416018361000A5CA7 /* NiupaiOnAdium.AdiumLibpurplePlugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9480B4B616018361000A5CA7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9480B4D1160184CB000A5CA7 /* Linked Framework */,
+				9480B4B916018361000A5CA7 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9480B4B916018361000A5CA7 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9480B4B716018361000A5CA7 /* Cocoa.framework */,
+				9480B4BA16018361000A5CA7 /* AppKit.framework */,
+				9480B4BC16018361000A5CA7 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		9480B4BD16018361000A5CA7 /* NiupaiOnAdium */ = {
+			isa = PBXGroup;
+			children = (
+				9480B4D01601846D000A5CA7 /* code */,
+				9480B4BE16018361000A5CA7 /* Supporting Files */,
+				94FA1C7A160195EF00A910C0 /* Resource */,
+			);
+			path = NiupaiOnAdium;
+			sourceTree = "<group>";
+		};
+		9480B4BE16018361000A5CA7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9480B4BF16018361000A5CA7 /* NiupaiOnAdium-Info.plist */,
+				9480B4C016018361000A5CA7 /* InfoPlist.strings */,
+				9480B4C316018361000A5CA7 /* NiupaiOnAdium-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9480B4D01601846D000A5CA7 /* code */ = {
+			isa = PBXGroup;
+			children = (
+				9480B4E516018533000A5CA7 /* NPService.h */,
+				9480B4E616018533000A5CA7 /* NPService.m */,
+				9480B4E816018772000A5CA7 /* NPAccount.h */,
+				9480B4E916018772000A5CA7 /* NPAccount.m */,
+				9480B4EB1601878A000A5CA7 /* NPPlugin.h */,
+				9480B4EC1601878A000A5CA7 /* NPPlugin.m */,
+				94FA1C4E1601905D00A910C0 /* NPAccountViewController.h */,
+				94FA1C4F1601905D00A910C0 /* NPAccountViewController.m */,
+			);
+			path = code;
+			sourceTree = "<group>";
+		};
+		9480B4D1160184CB000A5CA7 /* Linked Framework */ = {
+			isa = PBXGroup;
+			children = (
+				94FA1C4C16018B4B00A910C0 /* libpurple.framework */,
+				9480B4D2160184CB000A5CA7 /* Adium.framework */,
+				9480B4D3160184CB000A5CA7 /* AdiumLibpurple.framework */,
+				9480B4D4160184CB000A5CA7 /* AIUtilities.framework */,
+				9480B4D5160184CB000A5CA7 /* libglib.framework */,
+				9480B4D6160184CB000A5CA7 /* libgmodule.framework */,
+				9480B4D7160184CB000A5CA7 /* libintl.framework */,
+				9480B4D8160184CB000A5CA7 /* libmeanwhile.framework */,
+			);
+			name = "Linked Framework";
+			path = "NiupaiOnAdium/Linked Framework";
+			sourceTree = "<group>";
+		};
+		94FA1C7A160195EF00A910C0 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				94FA1C7D1601970E00A910C0 /* Niupai-small.png */,
+				94FA1C7B160195EF00A910C0 /* Niupai.png */,
+			);
+			name = Resource;
+			path = ../../Resource;
+			sourceTree = "<group>";
+		};
+		94FA1C7F1601978100A910C0 /* libpidgin-niupai */ = {
+			isa = PBXGroup;
+			children = (
+				94FA1C801601978100A910C0 /* src */,
+			);
+			name = "libpidgin-niupai";
+			path = "../libpidgin-niupai";
+			sourceTree = "<group>";
+		};
+		94FA1C801601978100A910C0 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				944181E21601CCE500E14F64 /* libpurple */,
+				94FA1CC51601B96600A910C0 /* niupai.h */,
+				94FA1CC31601B95B00A910C0 /* niupai.c */,
+				944181EC1601D8EE00E14F64 /* buddy_list.h */,
+				944181ED1601D8F900E14F64 /* buddy_list.c */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9480B4B316018361000A5CA7 /* NiupaiOnAdium */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9480B4C616018361000A5CA7 /* Build configuration list for PBXNativeTarget "NiupaiOnAdium" */;
+			buildPhases = (
+				9480B4B016018361000A5CA7 /* Sources */,
+				9480B4B116018361000A5CA7 /* Frameworks */,
+				9480B4B216018361000A5CA7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NiupaiOnAdium;
+			productName = NiupaiOnAdium;
+			productReference = 9480B4B416018361000A5CA7 /* NiupaiOnAdium.AdiumLibpurplePlugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9480B4AB16018361000A5CA7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Ryan Wang";
+			};
+			buildConfigurationList = 9480B4AE16018361000A5CA7 /* Build configuration list for PBXProject "NiupaiOnAdium" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9480B4A916018361000A5CA7;
+			productRefGroup = 9480B4B516018361000A5CA7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9480B4B316018361000A5CA7 /* NiupaiOnAdium */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9480B4B216018361000A5CA7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9480B4C216018361000A5CA7 /* InfoPlist.strings in Resources */,
+				94FA1C7C160195EF00A910C0 /* Niupai.png in Resources */,
+				94FA1C7E1601970E00A910C0 /* Niupai-small.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9480B4B016018361000A5CA7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9480B4E716018533000A5CA7 /* NPService.m in Sources */,
+				9480B4EA16018772000A5CA7 /* NPAccount.m in Sources */,
+				9480B4ED1601878A000A5CA7 /* NPPlugin.m in Sources */,
+				94FA1C501601905D00A910C0 /* NPAccountViewController.m in Sources */,
+				94FA1CC41601B95B00A910C0 /* niupai.c in Sources */,
+				944181EE1601D8F900E14F64 /* buddy_list.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		9480B4C016018361000A5CA7 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9480B4C116018361000A5CA7 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9480B4C416018361000A5CA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		9480B4C516018361000A5CA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		9480B4C716018361000A5CA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework\"/**",
+					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NiupaiOnAdium/NiupaiOnAdium-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework/libglib.framework/Headers\"",
+					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework/libpurple.framework/Headers\"",
+				);
+				INFOPLIST_FILE = "NiupaiOnAdium/NiupaiOnAdium-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Application Support/Adium 2.0/PlugIns/";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.7;
+				WRAPPER_EXTENSION = AdiumLibpurplePlugin;
+			};
+			name = Debug;
+		};
+		9480B4C816018361000A5CA7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework\"/**",
+					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NiupaiOnAdium/NiupaiOnAdium-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework/libglib.framework/Headers\"",
+					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework/libpurple.framework/Headers\"",
+				);
+				INFOPLIST_FILE = "NiupaiOnAdium/NiupaiOnAdium-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Application Support/Adium 2.0/PlugIns/";
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.7;
+				WRAPPER_EXTENSION = AdiumLibpurplePlugin;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9480B4AE16018361000A5CA7 /* Build configuration list for PBXProject "NiupaiOnAdium" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9480B4C416018361000A5CA7 /* Debug */,
+				9480B4C516018361000A5CA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9480B4C616018361000A5CA7 /* Build configuration list for PBXNativeTarget "NiupaiOnAdium" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9480B4C716018361000A5CA7 /* Debug */,
+				9480B4C816018361000A5CA7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9480B4AB16018361000A5CA7 /* Project object */;
+}
