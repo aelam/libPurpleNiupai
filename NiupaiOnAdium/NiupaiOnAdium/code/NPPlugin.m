@@ -13,17 +13,20 @@
 #import <Adium/AIService.h>
 
 
-#ifndef __WITHOUT_PURPLE__
 extern gboolean purple_init_np_plugin(void);
-#endif
 
 @implementation NPPlugin
 
 - (void)installPlugin {
-    [NPService registerService];
-#ifndef __WITHOUT_PURPLE__
-    purple_init_np_plugin();
+#ifdef DEBUG
+    NSString *logPath = @"/Users/ryan/Desktop/VIXcode.log";
+    [[NSFileManager defaultManager] removeItemAtPath:logPath error:nil];
+    freopen([logPath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
 #endif
+
+    [NPService registerService];
+    purple_init_np_plugin();
+
 }
 
 - (void) uninstallPlugin {

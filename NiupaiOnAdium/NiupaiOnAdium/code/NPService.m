@@ -12,22 +12,17 @@
 #import <Adium/AIStatusControllerProtocol.h>
 #import <Adium/AISharedAdium.h>
 #import <AIUtilities/AIImageAdditions.h>
+#import <AIUtilities/AIStringUtilities.h>
+#import <Adium/AIAccountViewController.h>
+
 
 @implementation NPService
 
 - (void) registerStatuses {
+    // Only Online or Offline
     [[adium statusController] registerStatus:STATUS_NAME_AVAILABLE
                              withDescription:[[adium statusController] localizedDescriptionForCoreStatusName:STATUS_NAME_AVAILABLE]
                                       ofType:AIAvailableStatusType
-                                  forService:self];
-    [[adium statusController] registerStatus:STATUS_NAME_INVISIBLE
-                             withDescription:[[adium statusController]
-                                              localizedDescriptionForCoreStatusName:STATUS_NAME_INVISIBLE]
-                                      ofType:AIInvisibleStatusType
-                                  forService:self];
-    [[adium statusController] registerStatus:STATUS_NAME_BUSY
-							 withDescription:[[adium statusController] localizedDescriptionForCoreStatusName:STATUS_NAME_BUSY]
-                                      ofType:AIAwayStatusType
                                   forService:self];
 }
 
@@ -64,6 +59,12 @@
     return @"牛排.Niupai";
 }
 
+- (NSString *)UIDPlaceholder
+{
+	return AILocalizedString(@"username@example.com", "Niupai accounts");
+}
+
+
 - (NSString*) userNameLabel {
     return @"User Name";
 }
@@ -97,7 +98,7 @@
 }
 
 - (BOOL) canCreateGroupChats {
-    return YES;
+    return NO;
 }
 
 - (AIServiceImportance) serviceImportance {

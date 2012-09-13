@@ -345,6 +345,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				DSTROOT = "$(HOME)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework\"/**",
@@ -357,8 +360,8 @@
 					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework/libpurple.framework/Headers\"",
 				);
 				INFOPLIST_FILE = "NiupaiOnAdium/NiupaiOnAdium-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Application Support/Adium 2.0/PlugIns/";
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				INSTALL_PATH = "/Library/Application Support/Adium 2.0/PlugIns/";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = AdiumLibpurplePlugin;
@@ -369,6 +372,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				DSTROOT = "$(HOME)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework\"/**",
@@ -381,8 +387,8 @@
 					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework/libpurple.framework/Headers\"",
 				);
 				INFOPLIST_FILE = "NiupaiOnAdium/NiupaiOnAdium-Info.plist";
-				INSTALL_PATH = "$(HOME)/Library/Application Support/Adium 2.0/PlugIns/";
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				INSTALL_PATH = "/Library/Application Support/Adium 2.0/PlugIns/";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.7;
 				WRAPPER_EXTENSION = AdiumLibpurplePlugin;
