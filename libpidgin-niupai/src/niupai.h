@@ -21,20 +21,11 @@
  *
  ************************************************************/
 
+
 #ifndef Niupai_niupai_h
 #define Niupai_niupai_h
 
-// TODO
-#define NP_MAJOR_VERSION	30
-#define NP_MINOR_VERSION	1
-
-#define NP_IM_SERVER        @"ims.niupai.com"
-#define NP_IM_PORT          9000
-
-#define LIBNIUPAI_VERSION 	"0.1"
-
-
-#define PLUGIN_NAME         "Niupai"
+#include "niupai-config.h"
 
 #include "internal.h"
 

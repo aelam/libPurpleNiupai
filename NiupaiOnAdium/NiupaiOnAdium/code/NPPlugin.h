@@ -8,6 +8,7 @@
 
 #import <Adium/AIPlugin.h>
 #import <AdiumLibpurple/AILibpurplePlugin.h>
+#include "niupai-config.h"
 
 @interface NPPlugin : AIPlugin<AILibpurplePlugin>
 

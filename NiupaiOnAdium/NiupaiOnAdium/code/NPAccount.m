@@ -7,15 +7,19 @@
 //
 
 #import "NPAccount.h"
+#include "niupai-config.h"
 
 @implementation NPAccount
 
 - (void) initAccount {
     [super initAccount];
+
+    NSLog(@"%@",self.UID);
+
 }
 
 - (const char*) protocolPlugin {
-    return "prpl-np";
+    return NP_PLUGIN_ID;
 }
 
 - (BOOL) canSendFolders {
@@ -30,28 +34,6 @@
     [super accountConnectionReportDisconnect:text withReason:reason];
 }
 
-
-/*!
- * @brief The UID will be changed. The account has a chance to perform modifications
- *
- * For example, MSN adds @hotmail.com to the proposedUID and returns the new value
- *
- * @param proposedUID The proposed, pre-filtered UID (filtered means it has no characters invalid for this servce)
- * @result The UID to use; the default implementation just returns proposedUID.
- */
-- (NSString *)accountWillSetUID:(NSString *)proposedUID
-{
-	NSString	*correctUID;
-	
-//	if (([proposedUID length] > 0) &&
-//        ([proposedUID rangeOfString:@"@"].location == NSNotFound)) {
-//		correctUID = [proposedUID stringByAppendingString:DEFAULT_MSN_PASSPORT_DOMAIN];
-//	} else {
-		correctUID = proposedUID;
-//	}
-	
-	return correctUID;
-}
 
 
 @end

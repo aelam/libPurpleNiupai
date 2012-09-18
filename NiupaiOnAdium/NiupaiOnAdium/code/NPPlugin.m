@@ -8,9 +8,11 @@
 
 #import "NPPlugin.h"
 #import "NPService.h"
-#import <glib.h>
+
 #import <Adium/AIListObject.h>
 #import <Adium/AIService.h>
+#import <Adium/ESDebugAILog.h>					//Everybody needs to debug
+#import <glib.h>
 
 extern gboolean purple_init_np_plugin(void);
 
@@ -20,6 +22,12 @@ extern gboolean purple_init_np_plugin(void);
 
     [NPService registerService];
     purple_init_np_plugin();
+    
+    NSString *logPath = @"/Users/ryan/Desktop/libpurple-np.log";
+    [[NSFileManager defaultManager] removeItemAtPath:logPath error:nil];
+    freopen([logPath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
+    
+	NSLog(@"Security details: %@",self);
 }
 
 - (void) uninstallPlugin {
@@ -32,19 +40,19 @@ extern gboolean purple_init_np_plugin(void);
 }
 
 - (NSString*) pluginAuthor {
-    return @"Ryan Wang";
+    return @NP_PLUGIN_AUTHOR;
 }
 
 - (NSString*) pluginVersion {
-    return @"0.1";
+    return @LIBNP_VERSION;
 }
 
 - (NSString*) pluginDescription {
-    return @"Allows Adium to connect to Niupai accounts";
+    return @NP_PLUGIN_DESCRIPTION;
 }
 
 - (NSString*) pluginWebsite {
-    return @"www.niupai.com";
+    return @NP_PLUGIN_HOMEPAGE;
 }
 
 - (void)dealloc{

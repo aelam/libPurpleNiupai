@@ -29,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		942438E316087F7E00F0E2AA /* niupai-config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "niupai-config.h"; sourceTree = "<group>"; };
 		944181E31601CCE500E14F64 /* internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = internal.h; sourceTree = "<group>"; };
 		944181EC1601D8EE00E14F64 /* buddy_list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buddy_list.h; sourceTree = "<group>"; };
 		944181ED1601D8F900E14F64 /* buddy_list.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buddy_list.c; sourceTree = "<group>"; };
@@ -160,10 +161,10 @@
 		9480B4D01601846D000A5CA7 /* code */ = {
 			isa = PBXGroup;
 			children = (
-				9480B4E516018533000A5CA7 /* NPService.h */,
-				9480B4E616018533000A5CA7 /* NPService.m */,
 				9480B4E816018772000A5CA7 /* NPAccount.h */,
 				9480B4E916018772000A5CA7 /* NPAccount.m */,
+				9480B4E516018533000A5CA7 /* NPService.h */,
+				9480B4E616018533000A5CA7 /* NPService.m */,
 				9480B4EB1601878A000A5CA7 /* NPPlugin.h */,
 				9480B4EC1601878A000A5CA7 /* NPPlugin.m */,
 			);
@@ -198,6 +199,7 @@
 		94FA1C801601978100A910C0 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				942438E316087F7E00F0E2AA /* niupai-config.h */,
 				944181E21601CCE500E14F64 /* libpurple */,
 				94FA1CC51601B96600A910C0 /* niupai.h */,
 				94FA1CC31601B95B00A910C0 /* niupai.c */,
@@ -359,6 +361,10 @@
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NiupaiOnAdium/NiupaiOnAdium-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"VERSION=\"\\\"r142\"\\\"",
+				);
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework/libglib.framework/Headers\"",
 					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework/libpurple.framework/Headers\"",

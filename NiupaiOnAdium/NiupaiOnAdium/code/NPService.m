@@ -8,7 +8,6 @@
 
 #import "NPService.h"
 #import "NPAccount.h"
-//#import "NPAccountViewController.h"
 #import <Adium/AIStatusControllerProtocol.h>
 #import <Adium/AISharedAdium.h>
 #import <AIUtilities/AIImageAdditions.h>
@@ -19,7 +18,7 @@
 @implementation NPService
 
 - (void) registerStatuses {
-    // Only Online or Offline
+    
     [[adium statusController] registerStatus:STATUS_NAME_AVAILABLE
                              withDescription:[[adium statusController] localizedDescriptionForCoreStatusName:STATUS_NAME_AVAILABLE]
                                       ofType:AIAvailableStatusType
@@ -40,15 +39,15 @@
 
 
 - (NSString*) serviceCodeUniqueID {
-    return @"libpurple-niupai";
+    return @NP_ADIUM_PLUGIN_ID;
 }
 
 - (NSString*) serviceID {
-    return @"Niupai";
+    return @NP_PLUGIN_NAME;
 }
 
 - (NSString*) serviceClass {
-    return @"Niupai";
+    return @NP_PLUGIN_NAME;
 }
 
 - (NSString*) shortDescription {
@@ -61,7 +60,7 @@
 
 - (NSString *)UIDPlaceholder
 {
-	return AILocalizedString(@"username@example.com", "Niupai accounts");
+	return AILocalizedString(@"steve@me.com", "Niupai accounts");
 }
 
 - (NSCharacterSet*) allowedCharactersForUIDs {
@@ -77,10 +76,6 @@
     return @"Contact UID";
 }
 
-- (NSCharacterSet *)allowedCharacters{
-	return [NSCharacterSet characterSetWithCharactersInString:@"+abcdefghijklmnopqrstuvwxyz0123456789@._-"];
-}
-
 - (NSUInteger)allowedLength{
 	return 113;
 }
@@ -94,7 +89,7 @@
 }
 
 - (BOOL) requiresPassword {
-    return YES;
+    return NO;
 }
 
 - (BOOL) canCreateGroupChats {

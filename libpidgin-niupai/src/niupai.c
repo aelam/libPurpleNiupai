@@ -1,586 +1,1210 @@
-//
-//  niupai.c
-//  NiupaiOnAdium
-//
-//  Created by Ryan Wang on 12-9-13.
-//  Copyright (c) 2012年 Ryan Wang. All rights reserved.
-//
+/**
+ * @file np.c
+ *
+ * purple
+ *
+ * Purple is the legal property of its developers, whose names are too numerous
+ * to list here.  Please refer to the COPYRIGHT file distributed with this
+ * source distribution.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02111-1301  USA
+ */
+
+#include "internal.h"
 
 #include "niupai.h"
-#include <util.h>
-#include <prpl.h>
-#include <log.h>
-#include <version.h>
+#include "accountopt.h"
+#include "debug.h"
+#include "notify.h"
+#include "prefs.h"
+#include "prpl.h"
+#include "privacy.h"
+#include "request.h"
+#include "roomlist.h"
+#include "server.h"
+#include "util.h"
+
+#include "version.h"
 #include "NIDebuggingTools.h"
 
-//
-// Addition
-//
 
-static GList *
-niupai_buddy_menu(PurpleBuddy *buddy)
+static GList *server_list_build(gchar select)
 {
-//	niupaiUser *user;
-//    
-	GList *m = NULL;
-	PurpleMenuAction *act;
-//
-//	g_return_val_if_fail(buddy != NULL, NULL);
-//    
-//	user = buddy->proto_data;
-//    
-//	if (user != NULL)
-//	{
-//		PurpleBlistNode *gnode;
-//		GList *m_copy = NULL;
-//		// GList *m_move = NULL;
-//        
-//		//		if (user->mobile)
-//		//		{
-//		//			act = purple_menu_action_new(_("Send to Mobile"),
-//		//			                           PURPLE_CALLBACK(show_send_to_mobile_cb),
-//		//			                           NULL, NULL);
-//		//			m = g_list_append(m, act);
-//		//		}
-//		//
-//		act = purple_menu_action_new(_("Send memo"), PURPLE_CALLBACK(show_send_memo_cb), NULL, NULL);
-//		m = g_list_append(m, act);
-//        
-//		act = purple_menu_action_new(_("Send SMS message"), PURPLE_CALLBACK(show_send_sms_cb), NULL, NULL);
-//		m = g_list_append(m, act);
-//        
-//		/* Copy buddy */
-//		for (gnode = purple_blist_get_root(); gnode; gnode = gnode->next)
-//		{
-//			PurpleGroup *group = (PurpleGroup *)gnode;
-//            
-//			if(!PURPLE_BLIST_NODE_IS_GROUP(gnode))
-//				continue;
-//            
-//			act = purple_menu_action_new(group->name, NULL, NULL, NULL);
-//			m_copy = g_list_append(m_copy, act);
-//		}
-//		act = purple_menu_action_new(_("Copy buddy"), NULL, NULL, m_copy);
-//		m = g_list_append(m, act);
-//	}
-//    
-//	if (g_ascii_strcasecmp(buddy->name,
-//                           purple_account_get_username(buddy->account)))
-//	{
-//		//act = purple_menu_action_new(_("Initiate _Chat"), NULL, NULL, NULL);
-////		act = purple_menu_action_new(_("Initiate _Chat"),
-////                                     PURPLE_CALLBACK(initiate_chat_cb),
-//                                     NULL, NULL);
-//		m = g_list_append(m, act);
-//	}
-//    
-	return m;
-}
+    NIDPRINT("\n===>");
 
-
-
-//
-// PurplePluginProtocolInfo
-//
-
-static const char* niupai_list_icon(PurpleAccount *a, PurpleBuddy *b)
-{
-	return "niupai";
-}
-
-static char* niupai_status_text(PurpleBuddy *buddy)
-{
-	PurplePresence *presence;
-	PurpleStatus *status;
+	GList *list = NULL;
     
-	presence = purple_buddy_get_presence(buddy);
-	status = purple_presence_get_active_status(presence);
-    
-	if (!purple_presence_is_available(presence) && !purple_presence_is_idle(presence))
-	{
-		return g_strdup(purple_status_get_name(status));
+	if ( select == 'T' || select == 'A') {
+    NIDPRINT("\n===>");
+
+		list = g_list_append(list, "219.133.60.173:443");
+		list = g_list_append(list, "219.133.49.125:443");
+		list = g_list_append(list, "58.60.15.33:443");
+		list = g_list_append(list, "tcpconn.tencent.com:8000");
+		list = g_list_append(list, "tcpconn2.tencent.com:8000");
+		list = g_list_append(list, "tcpconn3.tencent.com:8000");
+		list = g_list_append(list, "tcpconn4.tencent.com:8000");
+		list = g_list_append(list, "tcpconn5.tencent.com:8000");
+		list = g_list_append(list, "tcpconn6.tencent.com:8000");
 	}
+	if ( select == 'U' || select == 'A') {
+    NIDPRINT("\n===>");
+
+		list = g_list_append(list, "219.133.49.171:8000");
+		list = g_list_append(list, "58.60.14.37:8000");
+		list = g_list_append(list, "219.133.60.36:8000");
+		list = g_list_append(list, "sz.tencent.com:8000");
+		list = g_list_append(list, "sz2.tencent.com:8000");
+		list = g_list_append(list, "sz3.tencent.com:8000");
+		list = g_list_append(list, "sz4.tencent.com:8000");
+		list = g_list_append(list, "sz5.tencent.com:8000");
+		list = g_list_append(list, "sz6.tencent.com:8000");
+		list = g_list_append(list, "sz7.tencent.com:8000");
+		list = g_list_append(list, "sz8.tencent.com:8000");
+		list = g_list_append(list, "sz9.tencent.com:8000");
+	}
+	return list;
+}
+
+static void server_list_create(PurpleAccount *account)
+{
+    NIDPRINT("\n===>");
+
+//	PurpleConnection *gc;
+//	np_data *qd;
+//	const gchar *custom_server;
+//    
+//	gc = purple_account_get_connection(account);
+//	g_return_if_fail(gc != NULL  && gc->proto_data != NULL);
+//	qd = gc->proto_data;
+//    
+//	qd->use_tcp = purple_account_get_bool(account, "use_tcp", TRUE);
+//    
+//	custom_server = purple_account_get_string(account, "server", NULL);
+//    
+//	if (custom_server != NULL) {
+    NIDPRINT("\n===>");
+
+//		purple_debug_info("np", "Select server '%s'\n", custom_server);
+//		if (*custom_server != '\0' && g_ascii_strcasecmp(custom_server, "auto") != 0) {
+    NIDPRINT("\n===>");
+
+//			qd->servers = g_list_append(qd->servers, g_strdup(custom_server));
+//			return;
+//		}
+//	}
+//    
+//	if (qd->use_tcp) {
+    NIDPRINT("\n===>");
+
+//		qd->servers =	server_list_build('T');
+//		return;
+//	}
+//    
+//	qd->servers =	server_list_build('U');
+}
+
+//static void server_list_remove_all(np_data *qd)
+//{
+
+//	g_return_if_fail(qd != NULL);
+//    
+//	purple_debug_info("np", "free server list\n");
+//	g_list_free(qd->servers);
+//	qd->curr_server = NULL;
+//}
+
+static void np_login(PurpleAccount *account)
+{
+    PurpleConnection *gc;
+	PurplePresence *presence;
+
+    NIDPRINT("\n===>");
+
+    fprintf(stdout, "=================> Hello\n");
+    
+    NIDPRINT("account->alias = %s\n",account->alias);
+    NIDPRINT("account->username = %s\n",account->username);
+    NIDPRINT("account->password = %s\n",account->password);
+    NIDPRINT("account->user_info = %s\n",account->user_info);
+    
+    NIDINFO("=======> LOGIN === \n");
+    
+    g_return_if_fail(account != NULL);
+    
+	gc = purple_account_get_connection(account);
+	g_return_if_fail(gc != NULL);
+    
+	gc->flags |= PURPLE_CONNECTION_HTML | PURPLE_CONNECTION_NO_BGCOLOR | PURPLE_CONNECTION_AUTO_RESP;
+
+    presence = purple_account_get_presence(account);
+
+    gboolean show_notice = purple_account_get_bool(account, "show_notice", TRUE);
+    NIDINFO("=======> show_notice : %d === \n",show_notice);
+
+}
+
+/* clean up the given np connection and free all resources */
+static void np_close(PurpleConnection *gc)
+{
+    NIDPRINT("\n===>");
+
+}
+
+/* returns the icon name for a buddy or protocol */
+static const gchar *np_list_icon(PurpleAccount *a, PurpleBuddy *b)
+{
+    NIDPRINT("\n===>");
+
+	return "np";
+}
+
+
+/* a short status text beside buddy icon*/
+static gchar *np_status_text(PurpleBuddy *b)
+{
+    NIDPRINT("\n===>");
+
+    NIDPRINT("\n===> ");
+    
+	PurpleStatus *status;
+	PurplePresence *presence;
+	gchar *moodtext, *ret;
+    
+	presence = purple_buddy_get_presence(b);
+	status = purple_presence_get_status(presence, "mood");
+    
+	/* we only provide Mood here
+     switch(bd->status) {
+    NIDPRINT("\n===>");
+
+     case np_BUDDY_OFFLINE:
+     g_string_append(status, _("Offline"));
+     break;
+     case np_BUDDY_ONLINE_NORMAL:
+     g_string_append(status, _("Online"));
+     break;
+     case np_BUDDY_CHANGE_TO_OFFLINE:
+     g_string_append(status, _("Offline"));
+     break;
+     case np_BUDDY_ONLINE_AWAY:
+     g_string_append(status, _("Away"));
+     break;
+     case np_BUDDY_ONLINE_INVISIBLE:
+     g_string_append(status, _("Invisible"));
+     break;
+     case np_BUDDY_ONLINE_BUSY:
+     g_string_append(status, _("Busy"));
+     break;
+     default:
+     g_string_printf(status, _("Unknown-%d"), bd->status);
+     }
+     */
+//	moodtext = purple_status_get_attr_string(status, PURPLE_MOOD_COMMENT);
+//	if (moodtext)
+//	{
+    NIDPRINT("\n===>");
+
+//		ret = g_strdup(moodtext);		//ret will be free by invoker
+//		return ret;
+//	}
     
 	return NULL;
 }
 
-static void
-niupai_tooltip_text(PurpleBuddy *buddy, PurpleNotifyUserInfo *user_info, gboolean full)
+
+/* a floating text when mouse is on the icon, show connection status here */
+static void np_tooltip_text(PurpleBuddy *b, PurpleNotifyUserInfo *user_info, gboolean full)
 {
-//	NiupaiUser *user;
-//	PurplePresence *presence = purple_buddy_get_presence(buddy);
-//	PurpleStatus *status = purple_presence_get_active_status(presence);
+    NIDPRINT("\n===>");
+
+//	np_buddy_data *bd;
+//	gchar *tmp;
+//	GString *str;
+//	PurplePresence *presence;
+//	PurpleStatus *status;
+//	gchar *moodtext;
 //    
-//	user = buddy->proto_data;
+//	g_return_if_fail(b != NULL);
+//	presence = purple_buddy_get_presence(b);
+//	bd = purple_buddy_get_protocol_data(b);
+//	if (bd == NULL)
+//		return;
 //    
-//	if (user)
-//	{
-//		purple_notify_user_info_add_pair(user_info, _("Name"), user->friendly_name);
+//	if (bd->level == NULL)
+//		np_request_get_level(purple_account_get_connection(purple_buddy_get_account(b)), bd->uid);
+//    
+//	/* if (PURPLE_BUDDY_IS_ONLINE(b) && bd != NULL) */
+//	if (bd->ip.s_addr != 0) {
+    NIDPRINT("\n===>");
+
+//		str = g_string_new(NULL);
+//		g_string_printf(str, "%s:%d", inet_ntoa(bd->ip), bd->port);
+//		if (bd->comm_flag & np_COMM_FLAG_TCP_MODE) {
+    NIDPRINT("\n===>");
+
+//			g_string_append(str, " TCP");
+//		} else {
+    NIDPRINT("\n===>");
+
+//			g_string_append(str, " UDP");
+//		}
+//		g_string_free(str, TRUE);
 //	}
 //    
-//	if (purple_presence_is_online(presence))
-//	{
-//		purple_notify_user_info_add_pair(user_info, _("Status"), purple_presence_is_idle(presence) ? _("Idle") : purple_status_get_name(status));
+//	tmp = g_strdup_printf("%d", bd->age);
+//	purple_notify_user_info_add_pair(user_info, _("Age"), tmp);
+//	g_free(tmp);
+//    
+//	switch (bd->gender) {
+    NIDPRINT("\n===>");
+
+//		case np_BUDDY_GENDER_GG:
+//			purple_notify_user_info_add_pair(user_info, _("Gender"), _("Male"));
+//			break;
+//		case np_BUDDY_GENDER_MM:
+//			purple_notify_user_info_add_pair(user_info, _("Gender"), _("Female"));
+//			break;
+//		default:
+//			purple_notify_user_info_add_pair(user_info, _("Gender"), _("Unknown"));
 //	}
-    
-	//	if (full && user)
-	//	{
-	//		purple_notify_user_info_add_pair(user_info, _("Has you"), ((user->list_op & (1 << niupai_LIST_RL)) ? _("Yes") : _("No")));
-	//
-	//	}
-	//
-	//	/* XXX: This is being shown in non-full tooltips because the
-	//	 * XXX: blocked icon overlay isn't always accurate for niupai.
-	//	 * XXX: This can die as soon as purple_privacy_check() knows that
-	//	 * XXX: this prpl always honors both the allow and deny lists. */
-	//	if (user)
-	//	{
-	//		purple_notify_user_info_add_pair(user_info, _("Blocked"), ((user->list_op & (1 << niupai_LIST_BL)) ? _("Yes") : _("No")));
-	//	}
+//    
+//	if (bd->level) {
+    NIDPRINT("\n===>");
+
+//		tmp = g_strdup_printf("%d", bd->level);
+//		purple_notify_user_info_add_pair(user_info, _("Level"), tmp);
+//		g_free(tmp);
+//	}
+//    
+//	str = g_string_new(NULL);
+//	if (bd->comm_flag & np_COMM_FLAG_np_MEMBER) {
+    NIDPRINT("\n===>");
+
+//		g_string_append( str, _("Member") );
+//	}
+//	if (bd->comm_flag & np_COMM_FLAG_np_VIP) {
+    NIDPRINT("\n===>");
+
+//		g_string_append( str, _(" VIP") );
+//	}
+//	if (bd->comm_flag & np_COMM_FLAG_TCP_MODE) {
+    NIDPRINT("\n===>");
+
+//		g_string_append( str, _(" TCP") );
+//	}
+//	if (bd->comm_flag & np_COMM_FLAG_MOBILE) {
+    NIDPRINT("\n===>");
+
+//		g_string_append( str, _(" FromMobile") );
+//	}
+//	if (bd->comm_flag & np_COMM_FLAG_BIND_MOBILE) {
+    NIDPRINT("\n===>");
+
+//		g_string_append( str, _(" BindMobile") );
+//	}
+//	if (bd->comm_flag & np_COMM_FLAG_VIDEO) {
+    NIDPRINT("\n===>");
+
+//		g_string_append( str, _(" Video") );
+//	}
+//	if (bd->ext_flag & np_EXT_FLAG_ZONE) {
+    NIDPRINT("\n===>");
+
+//		g_string_append( str, _(" Zone") );
+//	}
+//    
+//	purple_notify_user_info_add_pair(user_info, _("Flag"), str->str);
+//	g_string_free(str, TRUE);
+//    
+//	status = purple_presence_get_status(presence, PURPLE_MOOD_NAME);
+//	moodtext = purple_status_get_attr_string(status, PURPLE_MOOD_COMMENT);
+//	if (moodtext)
+//	{
+    NIDPRINT("\n===>");
+
+//		purple_notify_user_info_add_pair(user_info, _("Signature"), moodtext);
+//	}
+//    
+//#ifdef DEBUG
+//	tmp = g_strdup_printf( "%s (%04X)",
+//                          np_get_ver_desc(bd->client_tag),
+//                          bd->client_tag );
+//	purple_notify_user_info_add_pair(user_info, _("Ver"), tmp);
+//	g_free(tmp);
+//    
+//	tmp = g_strdup_printf( "Ext 0x%X, Comm 0x%X",
+//                          bd->ext_flag, bd->comm_flag );
+//	purple_notify_user_info_add_pair(user_info, _("Flag"), tmp);
+//	g_free(tmp);
+//#endif
 }
 
-static GList *
-niupai_status_types(PurpleAccount *account)
+/* we can show tiny icons on the four corners of buddy icon, */
+static const char *np_list_emblem(PurpleBuddy *b)
 {
+    NIDPRINT("\n===>");
+
+//	PurpleAccount *account;
+//	np_buddy_data *buddy;
+//    
+//	if (!b || !(account = purple_buddy_get_account(b)) ||
+//		!purple_account_get_connection(account))
+//		return NULL;
+//    
+//	buddy = purple_buddy_get_protocol_data(b);
+//	if (!buddy) {
+    NIDPRINT("\n===>");
+
+//		return "not-authorized";
+//	}
+//    
+//	if (buddy->comm_flag & np_COMM_FLAG_MOBILE)
+//		return "mobile";
+//	if (buddy->comm_flag & np_COMM_FLAG_VIDEO)
+//		return "video";
+//	if (buddy->comm_flag & np_COMM_FLAG_np_MEMBER)
+//		return "np_member";
+    
+	return NULL;
+}
+
+/* np away status (used to initiate np away packet) */
+static GList *np_status_types(PurpleAccount *ga)
+{
+    NIDPRINT("\n===> %s",ga->alias);
+    NIDPRINT("\n===> %p",ga->system_log);
+    NIDPRINT("\n===> %s",ga->username);
+    NIDPRINT("\n===> %s",ga->password);
+
 	PurpleStatusType *status;
 	GList *types = NULL;
     
 	status = purple_status_type_new_full(PURPLE_STATUS_AVAILABLE,
-                                         "O", NULL, FALSE, TRUE, FALSE);
+                                         "available", _("Available"), TRUE, TRUE, FALSE);
 	types = g_list_append(types, status);
     
+    status = purple_status_type_new_full(PURPLE_STATUS_OFFLINE,
+                                         "offline", _("Offline"), TRUE, TRUE, FALSE);
+	types = g_list_append(types, status);
+
+/*
 	status = purple_status_type_new_full(PURPLE_STATUS_AWAY,
-                                         "A", NULL, FALSE, TRUE, FALSE);
-	types = g_list_append(types, status);
-    
-	status = purple_status_type_new_full(PURPLE_STATUS_UNAVAILABLE,
-                                         "B", _("Busy"), FALSE, TRUE, FALSE);
-	types = g_list_append(types, status);
-    
-	status = purple_status_type_new_full(PURPLE_STATUS_UNAVAILABLE,
-                                         "P", _("On The Phone"), FALSE, TRUE, FALSE);
-	types = g_list_append(types, status);
-    
-	status = purple_status_type_new_full(PURPLE_STATUS_AWAY,
-                                         "M", _("In meeting"), FALSE, TRUE, FALSE);
+                                         "away", _("Away"), TRUE, TRUE, FALSE);
 	types = g_list_append(types, status);
     
 	status = purple_status_type_new_full(PURPLE_STATUS_INVISIBLE,
-                                         "X", NULL, FALSE, TRUE, FALSE);
+                                         "invisible", _("Invisible"), TRUE, TRUE, FALSE);
 	types = g_list_append(types, status);
     
-	status = purple_status_type_new_full(PURPLE_STATUS_OFFLINE,
-                                         NULL, NULL, FALSE, TRUE, FALSE);
+	status = purple_status_type_new_full(PURPLE_STATUS_UNAVAILABLE,
+                                         "busy", _("Busy"), TRUE, TRUE, FALSE);
+	types = g_list_append(types, status);
+    
+    status = purple_status_type_new_full(PURPLE_STATUS_MOBILE,
+                                        "mobile", NULL, FALSE, FALSE, TRUE);
+    types = g_list_append(types, status);
+
+ */
+    
+	status = purple_status_type_new_with_attrs(PURPLE_STATUS_MOOD,
+                                               PURPLE_MOOD_NAME, _("Mood"), TRUE, TRUE, TRUE, PURPLE_MOOD_COMMENT, _("Mood Text"), purple_value_new(PURPLE_TYPE_STRING), NULL);
 	types = g_list_append(types, status);
     
 	return types;
 }
 
-static GList *niupai_blist_node_menu(PurpleBlistNode *node)
+/* initiate np away with proper change_status packet */
+static void np_change_status(PurpleAccount *account, PurpleStatus *status)
 {
-	if(PURPLE_BLIST_NODE_IS_BUDDY(node))
-	{
-		return niupai_buddy_menu((PurpleBuddy *) node);
-	}
-	else
-	{
-		return NULL;
-	}
+    NIDPRINT("\n===>");
+
+//	PurpleConnection *gc = purple_account_get_connection(account);
+//	np_request_change_status(gc, 0);
 }
 
-static void
-niupai_login(PurpleAccount *account)
+/* send packet to get who's detailed information */
+static void np_show_buddy_info(PurpleConnection *gc, const gchar *who)
 {
-    
-    NIDINFO("Login\n");
+    NIDPRINT("\n===>");
 
-	PurpleConnection *gc;
-//	niupaiSession *session;
-	const char *username;
-	const char *host;
-	gboolean prs_method = FALSE;
-	int port;
-    
-    NIDPRINT("Login\n");
-
-	gc = purple_account_get_connection(account);
-    
-	//	if (!purple_ssl_is_supported())
-	//	{
-	//		gc->wants_to_die = TRUE;
-	//		purple_connection_error(gc,
-	//			_("SSL support is needed for niupai. Please install a supported "
-	//			  "SSL library. See http://purple.sf.net/faq-ssl.php for more "
-	//			  "information."));
-	//
-	//		return;
-	//	}
-	//
-//	prs_method = purple_account_get_bool(account, "prs_method", FALSE);
+//	guint32 uid;
+//	np_data *qd;
 //    
-//	host = purple_account_get_string(account, "server", niupai_SERVER);
-//	port = purple_account_get_int(account, "port", niupai_PORT);
+//	qd = gc->proto_data;
+//	uid = purple_name_to_uid(who);
 //    
-//	session = niupai_session_new(account);
+//	if (uid <= 0) {
+    NIDPRINT("\n===>");
+
+//		purple_debug_error("np", "Not valid npid: %s\n", who);
+//		purple_notify_error(gc, NULL, _("Invalid name"), NULL);
+//		return;
+//	}
 //    
-//	gc->proto_data = session;
-//	gc->flags |= PURPLE_CONNECTION_HTML | PURPLE_CONNECTION_FORMATTING_WBFO |
-//    PURPLE_CONNECTION_NO_BGCOLOR | PURPLE_CONNECTION_NO_FONTSIZE |
-//    PURPLE_CONNECTION_NO_URLDESC | PURPLE_CONNECTION_ALLOW_CUSTOM_SMILEY;
+//	np_request_get_level(gc, uid);
 //    
-//	niupai_session_set_login_step(session, niupai_LOGIN_STEP_START);
-//    
-//	/* Hmm, I don't like this. */
-//	/* XXX shx: Me neither */
-//	username = niupai_normalize(account, purple_account_get_username(account));
-//    
-//	if (strcmp(username, purple_account_get_username(account)))
-//		purple_account_set_username(account, username);
-//    
-//	if (!niupai_session_connect(session, host, port, prs_method))
-//		purple_connection_error(gc, _("Failed to connect to server."));
-}
-
-static void
-niupai_close(PurpleConnection *gc)
-{
-    NIDPRINT("Close\n");
-
-//	niupaiSession *session;
-//    
-//	session = gc->proto_data;
-//    
-//	g_return_if_fail(session != NULL);
-//    
-//	niupai_session_destroy(session);
-//    
-//	gc->proto_data = NULL;
-}
-
-
-static int
-niupai_send_im(PurpleConnection *gc, const char *who, const char *message,
-               PurpleMessageFlags flags)
-{
-    
-    return FALSE;
-}
-
-
-static void
-niupai_get_info(PurpleConnection *gc, const char *name)
-{
-
-}
-
-static void niupai_set_status(PurpleAccount *account, PurpleStatus *status)
-{
-	PurpleConnection *gc;
-
-}
-
-static void
-niupai_add_buddy(PurpleConnection *gc, PurpleBuddy *buddy, PurpleGroup *group)
-{
-    
-}
-
-static void
-niupai_rem_buddy(PurpleConnection *gc, PurpleBuddy *buddy, PurpleGroup *group)
-{
-    
-}
-
-static void
-niupai_add_permit(PurpleConnection *gc, const char *who)
-{
-    
-}
-
-static void
-niupai_chat_leave(PurpleConnection *gc, int id)
-{
-    
-}
-
-
-static int niupai_chat_send(PurpleConnection *gc, int id, const char *message, PurpleMessageFlags flags)
-{
-    
-    return 1;
-}
-
-
-//static unsigned int
-//niupai_send_typing(PurpleConnection *gc, const char *who, PurpleTypingState state)
-//{
-//    return FALSE;
-//}
-
-//static void niupai_set_status(PurpleAccount *account, PurpleStatus *status)
-//{
-//	PurpleConnection *gc;
-////	niupaiSession *session;
-//    
-////	purple_debug_info("niupai" ,"[%s]\n", __FUNCTION__);
-////    
-////	gc = purple_account_get_connection(account);
-////    
-////	if (gc != NULL)
-////	{
-////		purple_debug_info("niupai" ,"[%s] gc존재\n", __FUNCTION__);
-////		session = gc->proto_data;
-////		niupai_change_status(session);
-////	}
-//}
-
-static gboolean
-niupai_can_receive_file(PurpleConnection *gc, const char *who)
-{
-    return FALSE;
-}
-
-
-static void
-niupai_send_file(PurpleConnection *gc, const char *who, const char *file)
-{
-    
-}
-
-/* This function is the callback for the plugin action we added. All we're
- * doing here is displaying a message. When the user selects the plugin
- * action, this function is called. */
-//static void
-//plugin_action_test_cb (PurplePluginAction * action)
-//{
-//	purple_notify_message (helloworld_plugin, PURPLE_NOTIFY_MSG_INFO,
-//                           "Plugin Actions Test", "This is a plugin actions test :)", NULL, NULL,
-//                           NULL);
-//}
-
-/* we tell libpurple in the PurplePluginInfo struct to call this function to
- * get a list of plugin actions to use for the plugin.  This function gives
- * libpurple that list of actions. */
-//static GList *
-//plugin_actions (PurplePlugin * plugin, gpointer context)
-//{
-//	/* some C89 (a.k.a. ANSI C) compilers will warn if any variable declaration
-//	 * includes an initilization that calls a function.  To avoid that, we
-//	 * generally initialize our variables first with constant values like NULL
-//	 * or 0 and assign to them with function calls later */
-//	GList *list = NULL;
-//	PurplePluginAction *action = NULL;
-//    
-//	/* The action gets created by specifying a name to show in the UI and a
-//	 * callback function to call. */
-//	action = purple_plugin_action_new ("Plugin Action Test", plugin_action_test_cb);
-//    
-//	/* libpurple requires a GList of plugin actions, even if there is only one
-//	 * action in the list.  We append the action to a GList here. */
-//	list = g_list_append (list, action);
-//    
-//	/* Once the list is complete, we send it to libpurple. */
-//	return list;
+//	np_request_get_buddy_info(gc, uid, 0, np_BUDDY_INFO_DISPLAY);
 //}
 //
+//static void action_update_all_rooms(PurplePluginAction *action)
+//{
+    NIDPRINT("\n===>");
 
-/**************************************************************************
- * Protocol Plugin ops
- **************************************************************************/
+//	PurpleConnection *gc = (PurpleConnection *) action->context;
+//	np_data *qd;
+//    
+//	g_return_if_fail(NULL != gc && NULL != gc->proto_data);
+//	qd = (np_data *) gc->proto_data;
+//    
+//	if ( !qd->is_login ) {
+    NIDPRINT("\n===>");
 
-static gboolean
-niupai_load (PurplePlugin * plugin)
-{
-    NIDINFO("Loaded\n");
-//	purple_notify_message (plugin, PURPLE_NOTIFY_MSG_INFO, "Hello World!",
-//                           "This is the Hello World! plugin :)", NULL, NULL,
-//                           NULL);
-//    NIDINFO("Loaded\n");
-    
-	return TRUE;
+//		return;
+//	}
+//    
+//	np_update_all_rooms(gc, 0, 0);
 }
 
-static gboolean
-niupai_unload(PurplePlugin * plugin)
+static void action_change_icon(PurplePluginAction *action)
 {
-    
-    NIDINFO("Unloaded\n");
-    return TRUE;
+    NIDPRINT("\n===>");
+
+//	PurpleConnection *gc = (PurpleConnection *) action->context;
+//	np_data *qd;
+//	gchar *icon_name;
+//	gchar *icon_path;
+//    
+//	g_return_if_fail(NULL != gc && NULL != gc->proto_data);
+//	qd = (np_data *) gc->proto_data;
+//    
+//	if ( !qd->is_login ) {
+    NIDPRINT("\n===>");
+
+//		return;
+//	}
+//    
+//	icon_name = np_get_icon_name(qd->my_icon);
+//	icon_path = np_get_icon_path(icon_name);
+//	g_free(icon_name);
+//    
+//	purple_debug_info("np", "Change prev icon %s to...\n", icon_path);
+//	purple_request_file(action, _("Select icon..."), icon_path,
+//                        FALSE,
+//                        G_CALLBACK(np_change_icon_cb), NULL,
+//                        purple_connection_get_account(gc), NULL, NULL,
+//                        gc);
+//	g_free(icon_path);
 }
 
-
-static GList *
-niupai_actions(PurplePlugin *plugin, gpointer context)
+static void action_modify_info_base(PurplePluginAction *action)
 {
-	//	PurpleConnection *gc = (PurpleConnection *)context;
-	//	PurpleAccount *account;
-	//	const char *user;
+    NIDPRINT("\n===>");
+
+//	PurpleConnection *gc = (PurpleConnection *) action->context;
+//	np_data *qd;
+//    
+//	g_return_if_fail(NULL != gc && NULL != gc->proto_data);
+//	qd = (np_data *) gc->proto_data;
+//	np_request_get_buddy_info(gc, qd->uid, 0, np_BUDDY_INFO_MODIFY_BASE);
+}
+
+static void action_modify_info_ext(PurplePluginAction *action)
+{
+    NIDPRINT("\n===>");
+
+//	PurpleConnection *gc = (PurpleConnection *) action->context;
+//	np_data *qd;
+//    
+//	g_return_if_fail(NULL != gc && NULL != gc->proto_data);
+//	qd = (np_data *) gc->proto_data;
+//	np_request_get_buddy_info(gc, qd->uid, 0, np_BUDDY_INFO_MODIFY_EXT);
+}
+
+static void action_modify_info_addr(PurplePluginAction *action)
+{
+    NIDPRINT("\n===>");
+
+//	PurpleConnection *gc = (PurpleConnection *) action->context;
+//	np_data *qd;
+//    
+//	g_return_if_fail(NULL != gc && NULL != gc->proto_data);
+//	qd = (np_data *) gc->proto_data;
+//	np_request_get_buddy_info(gc, qd->uid, 0, np_BUDDY_INFO_MODIFY_ADDR);
+}
+
+static void action_modify_info_contact(PurplePluginAction *action)
+{
+    NIDPRINT("\n===>");
+
+//	PurpleConnection *gc = (PurpleConnection *) action->context;
+//	np_data *qd;
+//    
+//	g_return_if_fail(NULL != gc && NULL != gc->proto_data);
+//	qd = (np_data *) gc->proto_data;
+//	np_request_get_buddy_info(gc, qd->uid, 0, np_BUDDY_INFO_MODIFY_CONTACT);
+}
+
+static void action_change_password(PurplePluginAction *action)
+{
+    NIDPRINT("\n===>");
+
+	PurpleConnection *gc = (PurpleConnection *) action->context;
     
-	GList *m = NULL;
+	g_return_if_fail(NULL != gc && NULL != gc->proto_data);
+	purple_notify_uri(NULL, "https://password.np.com");
+}
+
+/* show a brief summary of what we get from login packet */
+static void action_show_account_info(PurplePluginAction *action)
+{
+    NIDPRINT("\n===>");
+
+	PurpleConnection *gc = (PurpleConnection *) action->context;
+//	np_data *qd;
+//	GString *info;
+//	struct tm *tm_local;
+//	int index;
+//    
+//	g_return_if_fail(NULL != gc && NULL != gc->proto_data);
+//	qd = (np_data *) gc->proto_data;
+//	info = g_string_new("<html><body>");
+//    
+//	tm_local = localtime(&qd->login_time);
+//	g_string_append_printf(info, _("<b>Login time</b>: %d-%d-%d, %d:%d:%d<br>\n"),
+//                           (1900 +tm_local->tm_year), (1 + tm_local->tm_mon), tm_local->tm_mday,
+//                           tm_local->tm_hour, tm_local->tm_min, tm_local->tm_sec);
+//	g_string_append_printf(info, _("<b>Total Online Buddies</b>: %d<br>\n"), qd->online_total);
+//	tm_local = localtime(&qd->online_last_update);
+//	g_string_append_printf(info, _("<b>Last Refresh</b>: %d-%d-%d, %d:%d:%d<br>\n"),
+//                           (1900 +tm_local->tm_year), (1 + tm_local->tm_mon), tm_local->tm_mday,
+//                           tm_local->tm_hour, tm_local->tm_min, tm_local->tm_sec);
+//    
+//	g_string_append(info, "<hr>");
+//    
+//	g_string_append_printf(info, _("<b>Server</b>: %s<br>\n"), qd->curr_server);
+//	g_string_append_printf(info, _("<b>Client Tag</b>: %s<br>\n"), np_get_ver_desc(qd->client_tag));
+//	g_string_append_printf(info, _("<b>Connection Mode</b>: %s<br>\n"), qd->use_tcp ? "TCP" : "UDP");
+//	g_string_append_printf(info, _("<b>My Internet IP</b>: %s:%d<br>\n"), inet_ntoa(qd->my_ip), qd->my_port);
+//    
+//	g_string_append(info, "<hr>");
+//	g_string_append(info, "<i>Network Status</i><br>\n");
+//	g_string_append_printf(info, _("<b>Sent</b>: %lu<br>\n"), qd->net_stat.sent);
+//	g_string_append_printf(info, _("<b>Resend</b>: %lu<br>\n"), qd->net_stat.resend);
+//	g_string_append_printf(info, _("<b>Lost</b>: %lu<br>\n"), qd->net_stat.lost);
+//	g_string_append_printf(info, _("<b>Received</b>: %lu<br>\n"), qd->net_stat.rcved);
+//	g_string_append_printf(info, _("<b>Received Duplicate</b>: %lu<br>\n"), qd->net_stat.rcved_dup);
+//    
+//	g_string_append(info, "<hr>");
+//	g_string_append(info, "<i>Last Login Information</i><br>\n");
+//    
+//	for (index = 0; index < sizeof(qd->last_login_time) / sizeof(time_t); index++) {
+    NIDPRINT("\n===>");
+
+//		tm_local = localtime(&qd->last_login_time[index]);
+//		g_string_append_printf(info, _("<b>Time</b>: %d-%d-%d, %d:%d:%d<br>\n"),
+//                               (1900 +tm_local->tm_year), (1 + tm_local->tm_mon), tm_local->tm_mday,
+//                               tm_local->tm_hour, tm_local->tm_min, tm_local->tm_sec);
+//	}
+//	if (qd->last_login_ip.s_addr != 0) {
+    NIDPRINT("\n===>");
+
+//		g_string_append_printf(info, _("<b>IP</b>: %s<br>\n"), inet_ntoa(qd->last_login_ip));
+//	}
+//    
+//	g_string_append(info, "</body></html>");
+//    
+//	purple_notify_formatted(gc, NULL, _("Login Information"), NULL, info->str, NULL, NULL);
+//    
+//	g_string_free(info, TRUE);
+}
+
+static void action_about_libnp(PurplePluginAction *action)
+{
+    NIDPRINT("\n===>");
+
+	PurpleConnection *gc = (PurpleConnection *) action->context;
+	GString *info;
+	gchar *title;
+    
+	g_return_if_fail(NULL != gc);
+    
+	info = g_string_new("<html><body>");
+	g_string_append(info, _("<p><b>Original Author</b>:<br>\n"));
+	g_string_append(info, "puzzlebird<br>\n");
+	g_string_append(info, "<br>\n");
+    
+	g_string_append(info, _("<p><b>Code Contributors</b>:<br>\n"));
+	g_string_append(info, "gfhuang(poppyer) : patches for libpurple 2.0.0beta2, maintainer<br>\n");
+	g_string_append(info, "Yuan Qingyun : patches for libpurple 1.5.0, maintainer<br>\n");
+	g_string_append(info, "henryouly : file transfer, udp sock5 proxy and np_show, maintainer<br>\n");
+	g_string_append(info, "hzhr : maintainer<br>\n");
+	g_string_append(info, "joymarquis : maintainer<br>\n");
+	g_string_append(info, "arfankai : fixed bugs in char_conv.c<br>\n");
+	g_string_append(info, "rakescar : provided filter for HTML tag<br>\n");
+	g_string_append(info, "yyw : improved performance on PPC linux<br>\n");
+	g_string_append(info, "lvxiang : provided ip to location original code<br>\n");
+	g_string_append(info, "markhuetsch : OpenQ merge into libpurple, maintainer 2006-2007<br>\n");
+	g_string_append(info, "ccpaging : maintainer since 2007<br>\n");
+	g_string_append(info, "icesky : maintainer since 2007<br>\n");
+	g_string_append(info, "csyfek : faces, maintainer since 2007<br>\n");
+	g_string_append(info, "V.E.O : maintainer since 2011, OpenQ rename to Libnp<br>\n");
+	g_string_append(info, "cnangel : maintainer since 2012<br>\n");
+	g_string_append(info, "worr : maintainer / Adiumnp developer<br>\n");
+	g_string_append(info, "<br>\n");
+    
+	g_string_append(info, _("<p><b>Lovely Patch Writers</b>:<br>\n"));
+	g_string_append(info, "gnap : message displaying, documentation<br>\n");
+	g_string_append(info, "manphiz : room processing<br>\n");
+	g_string_append(info, "moo : room processing<br>\n");
+	g_string_append(info, "Coly Li : room processing<br>\n");
+	g_string_append(info, "Emil Alexiev : captcha verification on login based on Lumanp for MAC (2007), login, add buddy, remove buddy, message exchange and logout<br>\n");
+	g_string_append(info, "Chengming Wang : buddy memo<br>\n");
+	g_string_append(info, "lonicerae : chat room window bugfix, server list bugfix, buddy memo<br>\n");
+	g_string_append(info, "<br>\n");
+    
+	g_string_append(info, _("<p><b>Acknowledgement</b>:<br>\n"));
+	g_string_append(info, "Shufeng Tan : http://sf.net/projects/perl-oicq<br>\n");
+	g_string_append(info, "Jeff Ye : http://www.sinomac.com<br>\n");
+	g_string_append(info, "Hu Zheng : http://forlinux.yeah.net<br>\n");
+	g_string_append(info, "yunfan : http://www.myswear.net<br>\n");
+	g_string_append(info, "OpenQ Team : http://openq.linuxsir.org<br>\n");
+	g_string_append(info, "Lumanp Team : http://lumanp.linuxsir.org<br>\n");
+	g_string_append(info, "Pidgin Team : http://www.pidgin.im<br>\n");
+	g_string_append(info, "Huang Guan : http://home.xxsyzx.com<br>\n");
+	g_string_append(info, "OpenQ Google Group : http://groups.google.com/group/openq<br>\n");
+	g_string_append(info, "Libnp Google Code : http://libnp-pidgin.googlecode.com<br>\n");
+	g_string_append(info, "Libnp Github Code : https://github.com/cnangel/pidgin-libnp<br>\n");
+	g_string_append(info, "<br>\n");
+    
+	g_string_append(info, _("<p><b>Scrupulous Testers</b>:<br>\n"));
+	g_string_append(info, "yegle<br>\n");
+	g_string_append(info, "cnzhangbx<br>\n");
+	g_string_append(info, "casparant<br>\n");
+	g_string_append(info, "wd<br>\n");
+	g_string_append(info, "x6719620<br>\n");
+	g_string_append(info, "netelk<br>\n");
+	g_string_append(info, _("and more, please let me know... thank you!))"));
+	g_string_append(info, "<br>\n<br>\n");
+	g_string_append(info, _("<p><i>And, all the boys in the backroom...</i><br>\n"));
+	g_string_append(info, _("<i>Feel free to join us!</i> :)"));
+	g_string_append(info, "</body></html>");
+    
+	title = g_strdup_printf(_("About Libnp %s"), LIBNP_VERSION);
+	purple_notify_formatted(gc, title, title, NULL, info->str, NULL, NULL);
+    
+	g_free(title);
+	g_string_free(info, TRUE);
+}
+
+/*
+ static void _np_menu_search_or_add_permanent_group(PurplePluginAction *action)
+ {
+    NIDPRINT("\n===>");
+
+ purple_roomlist_show_with_account(NULL);
+ }
+ */
+
+/*
+ static void _np_menu_create_permanent_group(PurplePluginAction * action)
+ {
+    NIDPRINT("\n===>");
+
+ PurpleConnection *gc = (PurpleConnection *) action->context;
+ purple_request_input(gc, _("Create np Qun"),
+ _("Input Qun name here"),
+ _("Only np members can create permanent Qun"),
+ "libnp", FALSE, FALSE, NULL,
+ _("Create"), G_CALLBACK(np_create_room), _("Cancel"), NULL, gc);
+ }
+ */
+
+static void action_chat_quit(PurpleBlistNode * node)
+{
+    NIDPRINT("\n===>");
+
+//	PurpleChat *chat = (PurpleChat *)node;
+//	PurpleAccount *account = purple_chat_get_account(chat);
+//	PurpleConnection *gc = purple_account_get_connection(account);
+//	GHashTable *components = purple_chat_get_components(chat);
+//	gchar *num_str;
+//	guint32 room_id;
+//    
+//	
+//	g_return_if_fail(PURPLE_BLIST_NODE_IS_CHAT(node));
+//    
+//	g_return_if_fail(components != NULL);
+//    
+//	num_str = g_hash_table_lookup(components, np_ROOM_KEY_INTERNAL_ID);
+//	if (!num_str)
+//	{
+    NIDPRINT("\n===>");
+
+//		purple_debug_error("np", "Cannot find Room! Wait and Retry");
+//		return;
+//	}
+//	room_id = strtoul(num_str, NULL, 10);
+//	g_return_if_fail(room_id != 0);
+//    
+//	np_room_quit(gc, room_id);
+}
+
+static void action_show_chat(PurpleBlistNode * node, gpointer flag)
+{
+    NIDPRINT("\n===>");
+
+//	PurpleChat *chat = (PurpleChat *)node;
+//	PurpleAccount *account = purple_chat_get_account(chat);
+//	PurpleConnection *gc = purple_account_get_connection(account);
+//	GHashTable *components = purple_chat_get_components(chat);
+//	gchar *num_str;
+//	guint32 room_id;
+//	np_room_data *rmd;
+//    
+//	g_return_if_fail(PURPLE_BLIST_NODE_IS_CHAT(node));
+//    
+//	g_return_if_fail(components != NULL);
+//    
+//	num_str = g_hash_table_lookup(components, np_ROOM_KEY_INTERNAL_ID);
+//	if (!num_str)
+//	{
+    NIDPRINT("\n===>");
+
+//		purple_debug_error("np", "Cannot find Room! Wait and Retry");
+//		return;
+//	}
+//	room_id = strtoul(num_str, NULL, 10);
+//	g_return_if_fail(room_id != 0);
+//    
+//	rmd = np_room_data_find(gc, room_id);
+//	g_return_if_fail(rmd != NULL);
+//	
+//	if (flag)
+//	{
+    NIDPRINT("\n===>");
+
+//		rmd->is_show_chat = TRUE;
+//		g_hash_table_replace(components, g_strdup(np_ROOM_KEY_ISSHOW), g_strdup_printf("%u", TRUE));
+//		purple_notify_info(gc, _("np Chat Room"), _("Receive and Show np Chat Room Message"), num_str);
+//	} else {
+    NIDPRINT("\n===>");
+
+//		rmd->is_show_chat = FALSE;
+//		g_hash_table_replace(components, g_strdup(np_ROOM_KEY_ISSHOW), g_strdup_printf("%u", FALSE));
+//		purple_notify_info(gc, _("np Chat Room"), _("np Chat Room Message Blocked"), num_str);
+//	}
+}
+static void action_chat_get_info(PurpleBlistNode * node)
+{
+    NIDPRINT("\n===>");
+
+//	PurpleChat *chat = (PurpleChat *)node;
+//	PurpleAccount *account = purple_chat_get_account(chat);
+//	PurpleConnection *gc = purple_account_get_connection(account);
+//	GHashTable *components = purple_chat_get_components(chat);
+//	gchar *num_str;
+//	guint32 room_id;
+//    
+//	g_return_if_fail(PURPLE_BLIST_NODE_IS_CHAT(node));
+//    
+//	g_return_if_fail(components != NULL);
+//    
+//	num_str = g_hash_table_lookup(components, np_ROOM_KEY_INTERNAL_ID);
+//	if (!num_str)
+//	{
+    NIDPRINT("\n===>");
+
+//		purple_debug_error("np", "Cannot find Room! Wait and Retry");
+//		return;
+//	}
+//	room_id = strtoul(num_str, NULL, 10);
+//	g_return_if_fail(room_id != 0);
+//    
+//	np_send_room_cmd_mess(gc, np_ROOM_CMD_GET_INFO, room_id, NULL, 0,
+//                          0, np_ROOM_INFO_DISPLAY);
+}
+
+#if 0
+/* TODO: re-enable this */
+static void _np_menu_send_file(PurpleBlistNode * node, gpointer ignored)
+{
+    NIDPRINT("\n===>");
+
+	PurpleBuddy *buddy;
+	PurpleConnection *gc;
+	np_buddy_data *bd;
+    
+	g_return_if_fail (PURPLE_BLIST_NODE_IS_BUDDY (node));
+	buddy = (PurpleBuddy *) node;
+	bd = (np_buddy_data *) buddy->proto_data;
+	/*	if (is_online (bd->status)) {
+    NIDPRINT("\n===>");
+ */
+	gc = purple_account_get_connection (buddy->account);
+	g_return_if_fail (gc != NULL && gc->proto_data != NULL);
+	np_send_file(gc, buddy->name, NULL);
+	/*	} */
+}
+#endif
+
+/* protocol related menus */
+static GList *np_actions(PurplePlugin *plugin, gpointer context)
+{
+    NIDPRINT("\n===>");
+
+	GList *m;
 	PurplePluginAction *act;
     
-//	act = purple_plugin_action_new(_("Set Friendly Name..."), niupai_show_set_friendly_name);
-//	m = g_list_append(m, act);
-//	m = g_list_append(m, NULL);
-//    
-//	act = purple_plugin_action_new(_("View Buddies By..."), niupai_show_view_buddies_by);
-//	m = g_list_append(m, act);
-//	m = g_list_append(m, NULL);
-//    
-//	act = purple_plugin_action_new(_("Send SMS message..."), niupai_show_send_sms);
-//	m = g_list_append(m, act);
+	m = NULL;
+	/* TODO: MASK ALL UNFIXED BUT TOUCHABLE FUNCTION !!*/
     
-	//	act = purple_plugin_action_new(_("Set Home Phone Number..."),
-	//								 niupai_show_set_home_phone);
-	//	m = g_list_append(m, act);
-	//
-	//	act = purple_plugin_action_new(_("Set Work Phone Number..."),
-	//			niupai_show_set_work_phone);
-	//	m = g_list_append(m, act);
-	//
-	//	act = purple_plugin_action_new(_("Set Mobile Phone Number..."),
-	//			niupai_show_set_mobile_phone);
-	//	m = g_list_append(m, act);
-	//	m = g_list_append(m, NULL);
-	//
-	//#if 0
-	//	act = purple_plugin_action_new(_("Enable/Disable Mobile Devices..."),
-	//			niupai_show_set_mobile_support);
-	//	m = g_list_append(m, act);
-	//#endif
-	//
-	//	act = purple_plugin_action_new(_("Allow/Disallow Mobile Pages..."),
-	//			niupai_show_set_mobile_pages);
-	//	m = g_list_append(m, act);
-	//
-	//	account = purple_connection_get_account(gc);
-	//	user = niupai_normalize(account, purple_account_get_username(account));
-	//
-	//	if (strstr(user, "@hotmail.com") != NULL)
-	//	{
-	//		m = g_list_append(m, NULL);
-	//		act = purple_plugin_action_new(_("Open Hotmail Inbox"),
-	//				niupai_show_hotmail_inbox);
-	//		m = g_list_append(m, act);
-	//	}
+     act = purple_plugin_action_new(_("Change Icon"), action_change_icon);
+     m = g_list_append(m, act);
+     
+     act = purple_plugin_action_new(_("Modify Information"), action_modify_info_base);
+     m = g_list_append(m, act);
+     
+     act = purple_plugin_action_new(_("Modify Extended Information"), action_modify_info_ext);
+     m = g_list_append(m, act);
+     
+     act = purple_plugin_action_new(_("Modify Address"), action_modify_info_addr);
+     m = g_list_append(m, act);
+     
+     act = purple_plugin_action_new(_("Modify Contact"), action_modify_info_contact);
+     m = g_list_append(m, act);
+     
+     act = purple_plugin_action_new(_("Change Password"), action_change_password);
+     m = g_list_append(m, act);
+     
+     act = purple_plugin_action_new(_("Account Information"), action_show_account_info);
+     m = g_list_append(m, act);
+     
+	act = purple_plugin_action_new(_("About LibNiupai"), action_about_libnp);
+	m = g_list_append(m, act);
     
 	return m;
 }
 
+static void np_add_buddy_from_menu_cb(PurpleBlistNode *node, gpointer data)
+{
+    NIDPRINT("\n===>");
+
+//	PurpleBuddy *buddy;
+//	PurpleConnection *gc;
+//    
+//	g_return_if_fail(PURPLE_BLIST_NODE_IS_BUDDY(node));
+//    
+//	buddy = (PurpleBuddy *) node;
+//	gc = purple_account_get_connection(purple_buddy_get_account(buddy));
+//    
+//	np_add_buddy(gc, buddy, NULL);
+}
+
+static void np_modify_buddy_memo_from_menu_cb(PurpleBlistNode *node, gpointer data)
+{
+    NIDPRINT("\n===>");
+
+//	PurpleBuddy *buddy;
+//	np_buddy_data *bd;
+//	PurpleConnection *gc;
+//	guint32 bd_uid;
+//    
+//	g_return_if_fail(PURPLE_BLIST_NODE_IS_BUDDY(node));
+//    
+//	buddy = (PurpleBuddy *)node;
+//	g_return_if_fail(NULL != buddy);
+//    
+//	gc = purple_account_get_connection(purple_buddy_get_account(buddy));
+//	g_return_if_fail(NULL != gc);
+//    
+//	bd = (np_buddy_data *)purple_buddy_get_protocol_data(buddy);
+//	g_return_if_fail(NULL != bd);
+//	bd_uid = bd->uid;
+//    
+//	/* param: gc, uid, update_class, action
+//	 * here, update_class is set to bd_uid. because some memo packages returned
+//	 * without uid, which will make us confused */
+//	np_request_buddy_memo(gc, bd_uid, 0, np_BUDDY_MEMO_MODIFY);
+}
+
+static GList *np_buddy_menu(PurpleBuddy *buddy)
+{
+    NIDPRINT("\n===>");
+
+	GList *m = NULL;
+	PurpleMenuAction *act;
+//	np_buddy_data *bd = purple_buddy_get_protocol_data(buddy);
+//    
+//	if (bd == NULL) {
+    NIDPRINT("\n===>");
+
+//		act = purple_menu_action_new(_("Add Buddy"),
+//                                     PURPLE_CALLBACK(np_add_buddy_from_menu_cb),
+//                                     NULL, NULL);
+//		m = g_list_append(m, act);
+//		return m;
+//	}
+//    
+//	/* TODO: MASK ALL UNFIXED BUT TOUCHABLE FUNCTION !!
+//     act = purple_menu_action_new(_("Modify Buddy Alias"),
+//     PURPLE_CALLBACK(np_modify_buddy_memo_from_menu_cb),
+//     NULL, NULL);
+//     m = g_list_append(m, act);
+//     */
+//    
+//    
+//	/* TODO : not working, temp commented out by gfhuang */
+//#if 0
+//	if (bd && is_online(bd->status)) {
+    NIDPRINT("\n===>");
+
+//		act = purple_menu_action_new(_("Send File"), PURPLE_CALLBACK(_np_menu_send_file), NULL, NULL); /* add NULL by gfhuang */
+//		m = g_list_append(m, act);
+//	}
+//#endif
+	return m;
+}
+
+/* chat-related (np Qun) menu shown up with right-click */
+static GList *np_chat_menu(PurpleBlistNode *node)
+{
+    NIDPRINT("\n===>");
+
+	GList *m;
+	PurpleMenuAction *act;
+    
+	m = NULL;
+    
+	act = purple_menu_action_new(_(" Block chat room msg"), PURPLE_CALLBACK(action_show_chat), NULL, NULL);
+	m = g_list_append(m, act);
+    
+	act = purple_menu_action_new(_(" Show chat room msg"), PURPLE_CALLBACK(action_show_chat), (gpointer)1, NULL);
+	m = g_list_append(m, act);
+    
+	act = purple_menu_action_new(_("Get Info"), PURPLE_CALLBACK(action_chat_get_info), NULL, NULL);
+	m = g_list_append(m, act);
+    
+	/* TODO: MASK ALL UNFIXED BUT TOUCHABLE FUNCTION !!
+     act = purple_menu_action_new(_("Quit Qun"), PURPLE_CALLBACK(action_chat_quit), NULL, NULL);
+     m = g_list_append(m, act);
+     */
+	return m;
+}
+
+/* buddy-related menu shown up with right-click */
+static GList *np_blist_node_menu(PurpleBlistNode * node)
+{
+    NIDPRINT("\n===>");
+
+	if(PURPLE_BLIST_NODE_IS_CHAT(node))
+		return np_chat_menu(node);
+    
+	if(PURPLE_BLIST_NODE_IS_BUDDY(node))
+		return np_buddy_menu((PurpleBuddy *) node);
+    
+	return NULL;
+}
+
+/* convert name displayed in a chat channel to original np UID */
+static gchar *chat_name_to_purple_name(const gchar *const name)
+{
+    NIDPRINT("\n===>");
+
+	const char *start;
+	const char *end;
+	gchar *ret;
+    
+	g_return_val_if_fail(name != NULL, NULL);
+    
+	/* Sample: (1234567)*/
+	start = strchr(name, '(');
+	g_return_val_if_fail(start != NULL, NULL);
+	end = strchr(start, ')');
+	g_return_val_if_fail(end != NULL && (end - start) > 1, NULL);
+    
+	ret = g_strndup(start + 1, end - start - 1);
+    
+	return ret;
+}
+
+/* convert chat nickname to uid to get this buddy info */
+/* who is the nickname of buddy in np chat-room (Qun) */
+//static void np_get_chat_buddy_info(PurpleConnection *gc, gint channel, const gchar *who)
+//{
+
+//	np_data *qd;
+//	gchar *uid_str;
+//	guint32 uid;
+//    
+//	purple_debug_info("np", "Get chat buddy info of %s\n", who);
+//	g_return_if_fail(who != NULL);
+//    
+//	uid_str = chat_name_to_purple_name(who);
+//	if (uid_str == NULL) {
+
+//		return;
+//	}
+//    
+//	qd = gc->proto_data;
+//	uid = purple_name_to_uid(uid_str);
+//	g_free(uid_str);
+//    
+//	if (uid <= 0) {
+
+//		purple_debug_error("np", "Not valid chat name: %s\n", who);
+//		purple_notify_error(gc, NULL, _("Invalid name"), NULL);
+//		return;
+//	}
+//    
+//	np_request_get_buddy_info(gc, uid, 0, np_BUDDY_INFO_DISPLAY);
+//}
+
+/* convert chat nickname to uid to invite individual IM to buddy */
+/* who is the nickname of buddy in np chat-room (Qun) */
+static gchar *np_get_chat_buddy_real_name(PurpleConnection *gc, gint channel, const gchar *who)
+{
+    NIDPRINT("\n===>");
+
+	g_return_val_if_fail(who != NULL, NULL);
+	return chat_name_to_purple_name(who);
+}
+
+
+static gboolean np_load(PurplePlugin *plugin)
+{
+    NIDPRINT("=======>n");
+    
+    NIDPRINT("====================> \n");
+	return TRUE;
+}
+
+static gboolean np_unload(PurplePlugin *plugin)
+{
+    
+    return TRUE;
+}
+
+
 
 static PurplePluginProtocolInfo prpl_info =
 {
-	0, //OPT_PROTO_MAIL_CHECK,
-	NULL,						/* user_splits */
+
+	OPT_PROTO_CHAT_TOPIC | OPT_PROTO_USE_POINTSIZE | OPT_PROTO_IM_IMAGE,
+	NULL,						/* user_splits	*/
 	NULL,						/* protocol_options */
-	{ "bmp,jpg", 0, 0, 500, 500, 0, PURPLE_ICON_SCALE_SEND},    /* icon_spec */
-	niupai_list_icon,			/* list_icon */
-	NULL,						/* list_emblems */
-	niupai_status_text,			/* status_text */
-	niupai_tooltip_text,		/* tooltip_text */
-	niupai_status_types,		/* away_states */
-	niupai_blist_node_menu,		/* blist_node_menu */
-	NULL,						/* chat_info */
-	NULL,						/* chat_info_defaults */
-	niupai_login,				/* login */
-	niupai_close,				/* close */
-	niupai_send_im,				/* send_im */
-	NULL,						/* set_info */
-	NULL,                       /* send_typing */
-	niupai_get_info,			/* get_info */
-	niupai_set_status,			/* set_away */
-	NULL,                       /* set_idle */
+	{"png", 96, 96, 96, 96, 0, PURPLE_ICON_SCALE_SEND}, /* icon_spec */
+	np_list_icon,				/* list_icon */
+	np_list_emblem,				/* list_emblems */
+	np_status_text,				/* status_text	*/
+	np_tooltip_text,			/* tooltip_text */
+	np_status_types,			/* away_states	*/
+	np_blist_node_menu,			/* blist_node_menu */
+	NULL,				/* chat_info */
+	NULL,		/* chat_info_defaults */
+	np_login,					/* open */
+	np_close,					/* close */
+	NULL,                 /* send_im */
+	NULL,                       /* set_info */
+	NULL,				/* send_typing	*/
+	np_show_buddy_info,         /* get_info */
+	np_change_status,			/* change status */
+	NULL,						/* set_idle */
 	NULL,						/* change_passwd */
-	niupai_add_buddy,			/* add_buddy */
-	NULL,						/* add_buddies */
-	niupai_rem_buddy,			/* remove_buddy */
+	NULL,               /* add_buddy */
+	NULL,						/* add_buddies	*/
+	NULL,            /* remove_buddy */
 	NULL,						/* remove_buddies */
-	niupai_add_permit,			/* add_permit */
-	NULL,                       /* add_deny */
-	NULL,                       /* rem_permit */
-	NULL,                       /* rem_deny */
-	NULL,                       /* set_permit_deny */
-	NULL,						/* join_chat */
-	NULL,						/* reject chat invite */
+	NULL,						/* add_permit */
+	NULL,						/* add_deny */
+	NULL,						/* rem_permit */
+	NULL,						/* rem_deny */
+	NULL,						/* set_permit_deny */
+	NULL,              /* join_chat */
+	NULL,						/* reject chat	invite */
 	NULL,						/* get_chat_name */
-	NULL,                       /* chat_invite */
-	niupai_chat_leave,			/* chat_leave */
+	NULL,						/* chat_invite	*/
+	NULL,						/* chat_leave */
 	NULL,						/* chat_whisper */
-	niupai_chat_send,			/* chat_send */
-	NULL, //niupai_keepalive,	/* keepalive */
+	NULL,               /* chat_send */
+	NULL,						/* keepalive */
 	NULL,						/* register_user */
-	NULL,						/* get_cb_info */
-	NULL,						/* get_cb_away */
-	NULL,						/* alias_buddy */
-	NULL,//niupai_group_buddy,			/* group_buddy */
-	NULL,                       /* rename_group */
-	NULL,						/* buddy_free */
-	NULL,//niupai_convo_closed,		/* convo_closed */
-	NULL,                       /* normalize */
-	NULL, //niupai_set_buddy_icon,	/* set_buddy_icon */
-	NULL,		/* remove_group */
-	NULL,						/* get_cb_real_name */
-	NULL,						/* set_chat_topic */
-	NULL,						/* find_blist_chat */
-	NULL,						/* roomlist_get_list */
-	NULL,						/* roomlist_cancel */
-	NULL,						/* roomlist_expand_category */
-	niupai_can_receive_file,	/* can_receive_file */
-	niupai_send_file,			/* send_file */
-	NULL, //niupai_new_xfer,	/* new_xfer */
-	NULL,						/* offline_message */
-	NULL,						/* whiteboard_prpl_ops */
-	NULL,						/* send_raw */
-	NULL,						/* roomlist_room_serialize */
-    NULL,						/* unregister_user */
-    NULL,						/* send_attention */
-    NULL,						/* get_attention_types */
-    sizeof(PurplePluginProtocolInfo), /* struct_size */
-    NULL,						/* get_account_text_table */
-    NULL,						/* initiate_media */
-    NULL,						/* get_media_caps */
-    NULL,						/* get_moods */
-    NULL,						/* set_public_alias */
-    NULL,						/* get_public_alias */
+	NULL,		/* get_cb_info	*/
+	NULL,							/* get_cb_away	*/
+	NULL,							/* alias_buddy	*/
+	NULL,							/* change buddy's group	*/
+	NULL,							/* rename_group */
+	NULL,							/* buddy_free */
+	NULL,							/* convo_closed */
+	NULL,							/* normalize */
+	NULL,
+	NULL,							/* remove_group */
+	NULL,    /* get_cb_real_name */
+	NULL,							/* set_chat_topic */
+	NULL,							/* find_blist_chat */
+	purple_roomlist_get_list,           /* roomlist_get_list */
+	NULL,             /* roomlist_cancel */
+	NULL,							/* roomlist_expand_category */
+	NULL,							/* can_receive_file */
+	NULL,							/* np_send_file send_file */
+	NULL,							/* new xfer */
+	NULL,							/* offline_message */
+	NULL,							/* PurpleWhiteboardPrplOps */
+	NULL,							/* send_raw */
+	NULL,							/* roomlist_room_serialize */
+	NULL,							/* unregister_user */
+	NULL,							/* send_attention */
+	NULL,							/* get attention_types */
     
-	/* padding */
-    /*
-     NULL,
-     NULL,
-     NULL,
-     NULL
-     */
+	sizeof(PurplePluginProtocolInfo), /* struct_size */
+	NULL,							/* get_account_text_table */
+	NULL,							/* initiate_media */
+	NULL,							/* get_media_caps */
+	NULL,							/* get_moods */
+	NULL,							/* set_public_alias */
+	NULL							/* get_public_alias */
 };
 
-
-/* For specific notes on the meanings of each of these members, consult the C Plugin Howto
- * on the website. */
 static PurplePluginInfo info = {
+
 	PURPLE_PLUGIN_MAGIC,
 	PURPLE_MAJOR_VERSION,
 	PURPLE_MINOR_VERSION,
-	PURPLE_PLUGIN_STANDARD,
-	NULL,
-	0,
-	NULL,
-	PURPLE_PRIORITY_DEFAULT,
+	PURPLE_PLUGIN_PROTOCOL,         /**< type           */
+	NULL,                           /**< ui_requirement	*/
+	0,                              /**< flags          */
+	NULL,                           /**< dependencies	*/
+	PURPLE_PRIORITY_DEFAULT,		/**< priority		*/
     
-	"prpl-np",
-	"Niupai",
-	LIBNIUPAI_VERSION,
-	N_("niupai Protocol Plugin"),
-	N_("niupai Protocol Plugin"),
-	"Ryan Wang <wanglun02@gmail.com>",	/**< author         */
-	"http://www.niupai.com",
+	NP_PLUGIN_ID,                   /**< id             */
+	NP_PLUGIN_NAME,                 /**< name           */
+	LIBNP_VERSION,                  /**< version		*/
+	N_(NP_PLUGIN_SUMMARY),              /**< summary		*/
+
+	N_(NP_PLUGIN_DESCRIPTION),          /**< description	*/
+	NP_PLUGIN_AUTHOR,               /**< author         */
+	PURPLE_WEBSITE,                 /**< homepage       */
     
-	niupai_load,				/**< load           */
-	niupai_unload,				/**< unload         */
-	NULL,					/**< destroy        */
+	np_load,                        /**< load		*/
+	np_unload,                      /**< unload		*/
+	NULL,                           /**< destroy		*/
     
-	NULL,					/**< ui_info        */
-	NULL,//&prpl_info, 				/**< extra_info     */
-	NULL, 					/**< prefs_info     */
-	niupai_actions,
+	NULL,                           /**< ui_info		*/
+	&prpl_info,                     /**< extra_info		*/
+	NULL,                           /**< prefs_info		*/
+	np_actions,
     
 	/* padding */
 	NULL,
@@ -589,13 +1213,19 @@ static PurplePluginInfo info = {
 	NULL
 };
 
-static void init_plugin(PurplePlugin *plugin)
+static void
+init_plugin(PurplePlugin *plugin)
 {
-    
-    freopen("/Users/ryan/Desktop/purple.log", "a+",stdout);
-//    fprintf(stdout, "=============== Log Start ================ \n");
+    NIDPRINT("\n===>");
+
+    freopen("/Users/ryan/Desktop/purple-np.log", "a+",stdout);
     NIMaxLogLevel = NILOGLEVEL_INFO;
-    NIDINFO("\n=============== Log Start ================ \n");
+    time_t now;
+    now = time ( NULL );
+    
+    fprintf(stdout, "=================> Hello\n");
+    NIDPRINT("\n===> Log Start %s\n",asctime(gmtime(&now)));
+    
 }
 
 PURPLE_INIT_PLUGIN(np, init_plugin, info);
