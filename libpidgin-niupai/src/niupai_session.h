@@ -37,8 +37,11 @@ typedef enum
 	NP_LOGIN_STEP_END
 } NPLoginStep;
 
+#define NP_LOGIN_STEPS NP_LOGIN_STEP_END
+
 #include "user.h"
 #include "userlist.h"
+#include "notification.h"
 
 
 struct _NPSession {
@@ -55,7 +58,7 @@ struct _NPSession {
 
     guint    login_timeout; /**< Timeout to force status change if ADL/FQY fail. */
 
-//    NPNotification *notification;
+    NPNotification *notification;
     NPUserList *userList;
 };
 

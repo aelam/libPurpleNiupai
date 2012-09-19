@@ -29,10 +29,17 @@
 #define NP_MAJOR_VERSION        30
 #define NP_MINOR_VERSION        1
 
-#define NP_IM_SERVER            @"ims.niupai.com"
-#define NP_IM_PORT              9000
-
 
 #define NP_ADIUM_PLUGIN_ID     "libpurple-ryanwang-np"
+
+
+#define NP_BUF_LEN 8192
+
+/* IM Server*/
+#define NP_IM_SERVER            "ims.niupai.com"
+#define NP_IM_PORT              9000
+
+#define NP_HTTPCONN_SERVER      "http://mapi.niupai.com"
+
 
 #endif /* __NIUPAI_CONFIG_H__ */

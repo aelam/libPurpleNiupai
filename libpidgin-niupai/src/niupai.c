@@ -25,7 +25,7 @@
 #include "internal.h"
 
 #include "niupai.h"
-//#include "accountopt.h"
+#include "accountopt.h"
 //#include "debug.h"
 #include "notify.h"
 //#include "prefs.h"
@@ -128,7 +128,11 @@ static void server_list_create(PurpleAccount *account)
 static void np_login(PurpleAccount *account)
 {
     PurpleConnection *gc;
+    NPSession *session;
 	PurplePresence *presence;
+	const char *host;
+	gboolean http_method = FALSE;
+	int port;
 
     NIDPRINT("\n===>");
 
@@ -143,21 +147,35 @@ static void np_login(PurpleAccount *account)
     
     g_return_if_fail(account != NULL);
     
-	gc = purple_account_get_connection(account);
+
+    http_method = purple_account_get_bool(account, "http_method", FALSE);
+    
+	if (http_method)
+		host = purple_account_get_string(account, "http_method_server", NP_HTTPCONN_SERVER);
+	else
+		host = purple_account_get_string(account, "server", NP_IM_SERVER);
+	port = purple_account_get_int(account, "port", NP_IM_PORT);
+
+    session = np_session_new(account);
+
+    gc = purple_account_get_connection(account);
 	g_return_if_fail(gc != NULL);
+
+    gc->proto_data = session;
     
 	gc->flags |= PURPLE_CONNECTION_HTML | PURPLE_CONNECTION_NO_BGCOLOR | PURPLE_CONNECTION_AUTO_RESP;
+
+    np_session_set_login_step(session, NP_LOGIN_STEP_START);
 
     presence = purple_account_get_presence(account);
 
     gboolean show_notice = purple_account_get_bool(account, "show_notice", TRUE);
     NIDINFO("=======> show_notice : %d === \n",show_notice);
 
-	/* 1. connect to server */
-	purple_connection_update_progress(gc, _("Connecting"),
-                                      0,   /* which connection step this is */
-                                      4);  /* total */
-                        
+	if (!np_session_connect(session, host, port, http_method))
+		purple_connection_error_reason(gc,
+                                       PURPLE_CONNECTION_ERROR_NETWORK_ERROR,
+                                       _("Unable to connect"));
     
 }
 
@@ -1231,6 +1249,42 @@ init_plugin(PurplePlugin *plugin)
     fprintf(stdout, "=================> Hello\n");
     NIDPRINT("\n===> Log Start %s\n",asctime(gmtime(&now)));
     
+    
+    PurpleAccountOption *option;
+
+    option = purple_account_option_string_new(_("Server"), "server",
+                                              NP_IM_SERVER);
+	prpl_info.protocol_options = g_list_append(prpl_info.protocol_options,
+											   option);
+    
+	option = purple_account_option_int_new(_("Port"), "port", NP_IM_PORT);
+	prpl_info.protocol_options = g_list_append(prpl_info.protocol_options,
+											   option);
+    
+	option = purple_account_option_bool_new(_("Use HTTP Method"),
+                                            "http_method", FALSE);
+	prpl_info.protocol_options = g_list_append(prpl_info.protocol_options,
+											   option);
+    
+	option = purple_account_option_string_new(_("HTTP Method Server"),
+                                              "http_method_server", NP_HTTPCONN_SERVER);
+	prpl_info.protocol_options = g_list_append(prpl_info.protocol_options,
+											   option);
+    
+    option = purple_account_option_bool_new(_("Allow direct connections"),
+                                            "direct_connect", TRUE);
+	prpl_info.protocol_options = g_list_append(prpl_info.protocol_options,
+											   option);
+    
+	option = purple_account_option_bool_new(_("Allow connecting from multiple locations"),
+                                            "mpop", TRUE);
+	prpl_info.protocol_options = g_list_append(prpl_info.protocol_options,
+											   option);
+    
+    purple_prefs_remove("/plugins/prpl/np");
+    
+//	purple_signal_connect(purple_get_core(), "uri-handler", plugin,
+//                          PURPLE_CALLBACK(msn_uri_handler), NULL);
 }
 
 PURPLE_INIT_PLUGIN(np, init_plugin, info);
