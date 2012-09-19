@@ -25,17 +25,16 @@
 #include "internal.h"
 
 #include "niupai.h"
-#include "accountopt.h"
-#include "debug.h"
+//#include "accountopt.h"
+//#include "debug.h"
 #include "notify.h"
-#include "prefs.h"
-#include "prpl.h"
-#include "privacy.h"
-#include "request.h"
-#include "roomlist.h"
-#include "server.h"
-#include "util.h"
-
+//#include "prefs.h"
+//#include "prpl.h"
+//#include "privacy.h"
+//#include "request.h"
+//#include "roomlist.h"
+//#include "server.h"
+//#include "util.h"
 #include "version.h"
 #include "NIDebuggingTools.h"
 
@@ -154,6 +153,12 @@ static void np_login(PurpleAccount *account)
     gboolean show_notice = purple_account_get_bool(account, "show_notice", TRUE);
     NIDINFO("=======> show_notice : %d === \n",show_notice);
 
+	/* 1. connect to server */
+	purple_connection_update_progress(gc, _("Connecting"),
+                                      0,   /* which connection step this is */
+                                      4);  /* total */
+                        
+    
 }
 
 /* clean up the given np connection and free all resources */
@@ -181,7 +186,7 @@ static gchar *np_status_text(PurpleBuddy *b)
     
 	PurpleStatus *status;
 	PurplePresence *presence;
-	gchar *moodtext, *ret;
+//	gchar *moodtext, *ret;
     
 	presence = purple_buddy_get_presence(b);
 	status = purple_presence_get_status(presence, "mood");
@@ -572,7 +577,7 @@ static void action_show_account_info(PurplePluginAction *action)
 {
     NIDPRINT("\n===>");
 
-	PurpleConnection *gc = (PurpleConnection *) action->context;
+//	PurpleConnection *gc = (PurpleConnection *) action->context;
 //	np_data *qd;
 //	GString *info;
 //	struct tm *tm_local;
@@ -945,7 +950,7 @@ static GList *np_buddy_menu(PurpleBuddy *buddy)
     NIDPRINT("\n===>");
 
 	GList *m = NULL;
-	PurpleMenuAction *act;
+//	PurpleMenuAction *act;
 //	np_buddy_data *bd = purple_buddy_get_protocol_data(buddy);
 //    
 //	if (bd == NULL) {

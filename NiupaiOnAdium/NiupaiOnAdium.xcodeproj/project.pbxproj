@@ -24,6 +24,10 @@
 		9480B4E716018533000A5CA7 /* NPService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480B4E616018533000A5CA7 /* NPService.m */; };
 		9480B4EA16018772000A5CA7 /* NPAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480B4E916018772000A5CA7 /* NPAccount.m */; };
 		9480B4ED1601878A000A5CA7 /* NPPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480B4EC1601878A000A5CA7 /* NPPlugin.m */; };
+		94A0C2AA16097E2400207999 /* group.c in Sources */ = {isa = PBXBuildFile; fileRef = 94A0C2A916097E2400207999 /* group.c */; };
+		94A0C2B616098BCB00207999 /* niupai_session.c in Sources */ = {isa = PBXBuildFile; fileRef = 94A0C2AF16098BCA00207999 /* niupai_session.c */; };
+		94A0C2B716098BCB00207999 /* user.c in Sources */ = {isa = PBXBuildFile; fileRef = 94A0C2B116098BCB00207999 /* user.c */; };
+		94A0C2B816098BCB00207999 /* userlist.c in Sources */ = {isa = PBXBuildFile; fileRef = 94A0C2B316098BCB00207999 /* userlist.c */; };
 		94FA1C4D16018B4B00A910C0 /* libpurple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FA1C4C16018B4B00A910C0 /* libpurple.framework */; };
 		94FA1CC41601B95B00A910C0 /* niupai.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FA1CC31601B95B00A910C0 /* niupai.c */; };
 /* End PBXBuildFile section */
@@ -58,6 +62,14 @@
 		9480B4E916018772000A5CA7 /* NPAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPAccount.m; sourceTree = "<group>"; };
 		9480B4EB1601878A000A5CA7 /* NPPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPPlugin.h; sourceTree = "<group>"; };
 		9480B4EC1601878A000A5CA7 /* NPPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPPlugin.m; sourceTree = "<group>"; };
+		94A0C2A816097E1B00207999 /* group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = group.h; sourceTree = "<group>"; };
+		94A0C2A916097E2400207999 /* group.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = group.c; sourceTree = "<group>"; };
+		94A0C2AF16098BCA00207999 /* niupai_session.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = niupai_session.c; sourceTree = "<group>"; };
+		94A0C2B016098BCA00207999 /* niupai_session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = niupai_session.h; sourceTree = "<group>"; };
+		94A0C2B116098BCB00207999 /* user.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = user.c; sourceTree = "<group>"; };
+		94A0C2B216098BCB00207999 /* user.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = user.h; sourceTree = "<group>"; };
+		94A0C2B316098BCB00207999 /* userlist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = userlist.c; sourceTree = "<group>"; };
+		94A0C2B416098BCB00207999 /* userlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = userlist.h; sourceTree = "<group>"; };
 		94FA1C4C16018B4B00A910C0 /* libpurple.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libpurple.framework; sourceTree = "<group>"; };
 		94FA1CC31601B95B00A910C0 /* niupai.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = niupai.c; sourceTree = "<group>"; };
 		94FA1CC51601B96600A910C0 /* niupai.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = niupai.h; sourceTree = "<group>"; };
@@ -205,6 +217,14 @@
 				94FA1CC31601B95B00A910C0 /* niupai.c */,
 				944181EC1601D8EE00E14F64 /* buddy_list.h */,
 				944181ED1601D8F900E14F64 /* buddy_list.c */,
+				94A0C2AF16098BCA00207999 /* niupai_session.c */,
+				94A0C2B016098BCA00207999 /* niupai_session.h */,
+				94A0C2B216098BCB00207999 /* user.h */,
+				94A0C2B116098BCB00207999 /* user.c */,
+				94A0C2B416098BCB00207999 /* userlist.h */,
+				94A0C2B316098BCB00207999 /* userlist.c */,
+				94A0C2A816097E1B00207999 /* group.h */,
+				94A0C2A916097E2400207999 /* group.c */,
 				945D3B7E1602356A00AF6E0C /* NIDebuggingTools.h */,
 				945D3B7D1602356A00AF6E0C /* NIDebuggingTools.c */,
 			);
@@ -282,6 +302,10 @@
 				94FA1CC41601B95B00A910C0 /* niupai.c in Sources */,
 				944181EE1601D8F900E14F64 /* buddy_list.c in Sources */,
 				945D3B7F1602356A00AF6E0C /* NIDebuggingTools.c in Sources */,
+				94A0C2AA16097E2400207999 /* group.c in Sources */,
+				94A0C2B616098BCB00207999 /* niupai_session.c in Sources */,
+				94A0C2B716098BCB00207999 /* user.c in Sources */,
+				94A0C2B816098BCB00207999 /* userlist.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

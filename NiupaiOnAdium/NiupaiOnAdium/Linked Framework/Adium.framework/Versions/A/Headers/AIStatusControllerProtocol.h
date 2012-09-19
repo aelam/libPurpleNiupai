@@ -138,5 +138,5 @@
 - (AIStatusGroup *)rootStateGroup;
 
 - (void)savedStatusesChanged;
-- (void)statusStateDidSetUniqueStatusID;
+//- (void)statusStateDidSetUniqueStatusID;
 @end

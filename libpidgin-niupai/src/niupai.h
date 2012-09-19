@@ -22,13 +22,14 @@
  ************************************************************/
 
 
-#ifndef Niupai_niupai_h
-#define Niupai_niupai_h
+#ifndef __NP_NIUPAI_H__
+#define __NP_NIUPAI_H__
 
 #include "niupai-config.h"
-
 #include "internal.h"
 
+#include "account.h"
 
+#include "niupai_session.h"
 
-#endif  /* Niupai_niupai_h */
+#endif  /* __NP_NIUPAI_H__ */

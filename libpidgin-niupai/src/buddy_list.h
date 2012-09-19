@@ -6,8 +6,8 @@
 //  Copyright (c) 2012年 Ryan Wang. All rights reserved.
 //
 
-#ifndef NiupaiOnAdium_buddy_list_h
-#define NiupaiOnAdium_buddy_list_h
+#ifndef BUDDY_LIST_H
+#define BUDDY_LIST_H
 
 #include <glib.h>
 #include <connection.h>
