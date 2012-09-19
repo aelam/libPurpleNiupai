@@ -9,12 +9,11 @@
 #ifndef __NP_USERLIST_H__
 #define __NP_USERLIST_H__
 
-#include "user.h"
-#include "userlist.h"
-#include "group.h"
-#include "niupai.h"
-
 typedef struct _NPUserList NPUserList;
+
+#include "user.h"
+//#include "niupai.h"
+#include "group.h"
 
 struct _NPUserList {
     NPSession *session;
@@ -27,6 +26,8 @@ struct _NPUserList {
 
 };
 
+NPUserList *np_userlist_new(NPSession *session);
+void np_userlist_destory(NPSession *session);
 
 void np_userlist_add_user(NPUserList *userlist, NPUser *user);
 void np_userlist_remove_user(NPUserList *userlist, NPUser *user);

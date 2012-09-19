@@ -24,6 +24,8 @@
 		9480B4E716018533000A5CA7 /* NPService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480B4E616018533000A5CA7 /* NPService.m */; };
 		9480B4EA16018772000A5CA7 /* NPAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480B4E916018772000A5CA7 /* NPAccount.m */; };
 		9480B4ED1601878A000A5CA7 /* NPPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480B4EC1601878A000A5CA7 /* NPPlugin.m */; };
+		94905289160A2215001B79C2 /* state.c in Sources */ = {isa = PBXBuildFile; fileRef = 94905288160A2215001B79C2 /* state.c */; };
+		9490528C160A2443001B79C2 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 9490528B160A2443001B79C2 /* error.c */; };
 		94A0C2AA16097E2400207999 /* group.c in Sources */ = {isa = PBXBuildFile; fileRef = 94A0C2A916097E2400207999 /* group.c */; };
 		94A0C2B616098BCB00207999 /* niupai_session.c in Sources */ = {isa = PBXBuildFile; fileRef = 94A0C2AF16098BCA00207999 /* niupai_session.c */; };
 		94A0C2B716098BCB00207999 /* user.c in Sources */ = {isa = PBXBuildFile; fileRef = 94A0C2B116098BCB00207999 /* user.c */; };
@@ -66,6 +68,10 @@
 		9480B4E916018772000A5CA7 /* NPAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPAccount.m; sourceTree = "<group>"; };
 		9480B4EB1601878A000A5CA7 /* NPPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPPlugin.h; sourceTree = "<group>"; };
 		9480B4EC1601878A000A5CA7 /* NPPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPPlugin.m; sourceTree = "<group>"; };
+		94905286160A21F1001B79C2 /* state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = state.h; sourceTree = "<group>"; };
+		94905288160A2215001B79C2 /* state.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = state.c; sourceTree = "<group>"; };
+		9490528A160A242C001B79C2 /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
+		9490528B160A2443001B79C2 /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error.c; sourceTree = "<group>"; };
 		94A0C2A816097E1B00207999 /* group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = group.h; sourceTree = "<group>"; };
 		94A0C2A916097E2400207999 /* group.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = group.c; sourceTree = "<group>"; };
 		94A0C2AF16098BCA00207999 /* niupai_session.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = niupai_session.c; sourceTree = "<group>"; };
@@ -237,6 +243,8 @@
 				94A0C2B316098BCB00207999 /* userlist.c */,
 				94A0C2A816097E1B00207999 /* group.h */,
 				94A0C2A916097E2400207999 /* group.c */,
+				94905286160A21F1001B79C2 /* state.h */,
+				94905288160A2215001B79C2 /* state.c */,
 				94A0C2E91609BD8900207999 /* notification.h */,
 				94A0C2F21609BDA700207999 /* notification.c */,
 				94A0C2F51609BDFF00207999 /* directconn.h */,
@@ -245,6 +253,8 @@
 				94A0C2F81609BE1500207999 /* httpconn.c */,
 				94A0C3031609CE2000207999 /* servconn.h */,
 				94A0C3041609CE2A00207999 /* servconn.c */,
+				9490528A160A242C001B79C2 /* error.h */,
+				9490528B160A2443001B79C2 /* error.c */,
 				945D3B7E1602356A00AF6E0C /* NIDebuggingTools.h */,
 				945D3B7D1602356A00AF6E0C /* NIDebuggingTools.c */,
 			);
@@ -330,6 +340,8 @@
 				94A0C2F71609BE0A00207999 /* directconn.c in Sources */,
 				94A0C2F91609BE1500207999 /* httpconn.c in Sources */,
 				94A0C3051609CE2A00207999 /* servconn.c in Sources */,
+				94905289160A2215001B79C2 /* state.c in Sources */,
+				9490528C160A2443001B79C2 /* error.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

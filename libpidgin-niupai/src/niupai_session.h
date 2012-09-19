@@ -12,8 +12,7 @@
 typedef struct _NPSession NPSession;
 
 //#include "niupai_session.h"
-#include "user.h"
-
+//#include "user.h"
 //#include "internal.h"
 
 //#include "account.h"
@@ -39,27 +38,29 @@ typedef enum
 
 #define NP_LOGIN_STEPS NP_LOGIN_STEP_END
 
+//#include "niupai.h"
+#include "account.h"
 #include "user.h"
 #include "userlist.h"
 #include "notification.h"
 
 
 struct _NPSession {
-    PurpleAccount *account;
+    PurpleAccount   *account;
+    NPUser          *user;
+    guint           protocol_ver;
+
+    NPLoginStep     login_step;
     
-    guint protocol_ver;
+	gboolean        connected:1;
+	gboolean        logged_in:1; /**< A temporal flag to ignore local buddy list adds. */
+	gboolean        destroying:1; /**< A flag that states if the session is being destroyed. */
+	gboolean        http_method:1;
 
-    NPLoginStep login_step;
-    
-	gboolean connected:1;
-	gboolean logged_in:1; /**< A temporal flag to ignore local buddy list adds. */
-	gboolean destroying:1; /**< A flag that states if the session is being destroyed. */
-	gboolean http_method:1;
+    guint           login_timeout; /**< Timeout to force status change if ADL/FQY fail. */
 
-    guint    login_timeout; /**< Timeout to force status change if ADL/FQY fail. */
-
-    NPNotification *notification;
-    NPUserList *userList;
+    NPNotification  *notification;
+    NPUserList      *userList;
 };
 
 /**

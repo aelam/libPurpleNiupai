@@ -6,6 +6,7 @@
 //  Copyright (c) 2012年 Ryan Wang. All rights reserved.
 //
 
+#include "contact.h"
 #include "niupai_session.h"
 #include "NIDebuggingTools.h"
 
@@ -18,6 +19,8 @@ NPSession *np_session_new(PurpleAccount *account)
     session = g_new0(NPSession, 1);
     
     session->account = account;
+    session->notification = np_notification_new(session);
+//    session->user = np_user
     
     return session;
 }

@@ -25,10 +25,10 @@
 #ifndef __NP_NIUPAI_H__
 #define __NP_NIUPAI_H__
 
-#include "niupai-config.h"
 #include "internal.h"
+#include "niupai-config.h"
 
-#include "account.h"
+//#include "account.h"
 
 #include "niupai_session.h"
 
