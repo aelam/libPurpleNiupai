@@ -1,23 +1,37 @@
 //
-//  niupai_session.h
+//  session.h
 //  NiupaiOnAdium
 //
 //  Created by Ryan Wang on 12-9-19.
 //  Copyright (c) 2012年 Ryan Wang. All rights reserved.
 //
 
-#ifndef __NP_NIUPAI_SESSION_H__
-#define __NP_NIUPAI_SESSION_H__
+#ifndef __NP_SESSION_H__
+#define __NP_SESSION_H__
 
 typedef struct _NPSession NPSession;
 
-//#include "niupai_session.h"
+//#include "session.h"
 //#include "user.h"
 //#include "internal.h"
 
 //#include "account.h"
 //#include "group.h"
 
+/**
+ * Types of errors.
+ */
+typedef enum
+{
+	NP_ERROR_SERVCONN,
+	NP_ERROR_UNSUPPORTED_PROTOCOL,
+	NP_ERROR_HTTP_MALFORMED,
+	NP_ERROR_AUTH,
+	NP_ERROR_BAD_BLIST,
+	NP_ERROR_SIGN_OTHER,
+	NP_ERROR_SERV_DOWN,
+	NP_ERROR_SERV_UNAVAILABLE
+} NPErrorType;
 
 
 /**
@@ -60,7 +74,7 @@ struct _NPSession {
     guint           login_timeout; /**< Timeout to force status change if ADL/FQY fail. */
 
     NPNotification  *notification;
-    NPUserList      *userList;
+    NPUserList      *userlist;
 };
 
 /**

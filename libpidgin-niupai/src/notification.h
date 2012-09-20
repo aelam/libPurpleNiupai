@@ -11,8 +11,9 @@
 
 typedef struct _NPNotification NPNotification;
 
-#include "niupai_session.h"
-
+#include "session.h"
+#include "servconn.h"
+#include "cmdproc.h"
 
 struct _NPNotification
 {
@@ -22,8 +23,8 @@ struct _NPNotification
 	 * This is a convenience pointer that always points to
 	 * servconn->cmdproc
 	 */
-//	MsnCmdProc *cmdproc;
-//	MsnServConn *servconn;
+	NPServConn *cmdproc;
+	NPServConn *servconn;
     
 	gboolean in_use;
 };
@@ -36,6 +37,15 @@ void np_notification_destroy(NPNotification *notification);
 gboolean np_notification_connect(NPNotification *notification,
                                   const char *host, int port);
 void np_notification_disconnect(NPNotification *notification);
+
+/**
+ * Closes a notification.
+ *
+ * It's first closed, and then disconnected.
+ *
+ * @param notification The notification object to close.
+ */
+void np_notification_close(NPNotification *notification);
 
 
 #endif /* __NP_NOTIFICATION_H__ */

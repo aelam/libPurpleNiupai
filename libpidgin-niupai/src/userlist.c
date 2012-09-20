@@ -27,15 +27,47 @@ NPUserList
 
     /* buddy_icon_window is the number of allowed simultaneous buddy icon requests.
 	 * XXX With smarter rate limiting code, we could allow more at once... 5 was the limit set when
-	 * we weren't retrieiving any more than 5 per MSN session. */
+	 * we weren't retrieiving any more than 5 per NP session. */
 	userlist->buddy_icon_window = 1;
+    NIDPRINT("=============>");
 
-    return NULL;
+    return userlist;
 }
 
 
 void
-np_userlist_destroy(NPSession *userlist)
+np_userlist_destroy(NPUserList *userlist)
 {
-    
+    //TODO
+    GList *l;
+
+	/*destroy userlist*/
+	for (l = userlist->users; l != NULL; l = l->next)
+	{
+		np_user_unref(l->data);
+	}
+	g_list_free(userlist->users);
+
+    g_queue_free(userlist->buddy_icon_requests);
+
+	if (userlist->buddy_icon_request_timer)
+		purple_timeout_remove(userlist->buddy_icon_request_timer);
+
+	g_free(userlist);
+
 }
+
+void
+np_userlist_add_user(NPUserList *userlist, NPUser *user)
+{
+    np_user_ref(user);
+	userlist->users = g_list_prepend(userlist->users, user);
+}
+
+void
+np_userlist_remove_user(NPUserList *userlist, NPUser *user)
+{
+    userlist->users = g_list_remove(userlist->users, user);
+    np_user_unref(user);
+}
+

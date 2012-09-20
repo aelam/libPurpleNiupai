@@ -136,7 +136,7 @@ static void np_login(PurpleAccount *account)
 	gboolean http_method = FALSE;
 	int port;
 
-    NIDPRINT("\n===>");
+    NIDPRINT("\n===> %p ",account);
 
     fprintf(stdout, "=================> Hello\n");
     
@@ -160,6 +160,8 @@ static void np_login(PurpleAccount *account)
 
     session = np_session_new(account);
 
+    NIDPRINT("=====> session : %p ",session);
+    
     gc = purple_account_get_connection(account);
 	g_return_if_fail(gc != NULL);
 
@@ -185,6 +187,15 @@ static void np_login(PurpleAccount *account)
 static void np_close(PurpleConnection *gc)
 {
     NIDPRINT("\n===>");
+    NPSession *session;
+    
+	session = gc->proto_data;
+    
+	g_return_if_fail(session != NULL);
+    
+	np_session_destroy(session);
+    
+	gc->proto_data = NULL;
 
 }
 
@@ -767,12 +778,12 @@ static void action_chat_quit(PurpleBlistNode * node)
 //	GHashTable *components = purple_chat_get_components(chat);
 //	gchar *num_str;
 //	guint32 room_id;
-//    
+//
 //	
 //	g_return_if_fail(PURPLE_BLIST_NODE_IS_CHAT(node));
-//    
+//
 //	g_return_if_fail(components != NULL);
-//    
+//
 //	num_str = g_hash_table_lookup(components, np_ROOM_KEY_INTERNAL_ID);
 //	if (!num_str)
 //	{
@@ -1286,7 +1297,7 @@ init_plugin(PurplePlugin *plugin)
     purple_prefs_remove("/plugins/prpl/np");
     
 //	purple_signal_connect(purple_get_core(), "uri-handler", plugin,
-//                          PURPLE_CALLBACK(msn_uri_handler), NULL);
+//                          PURPLE_CALLBACK(np_uri_handler), NULL);
 }
 
 PURPLE_INIT_PLUGIN(np, init_plugin, info);

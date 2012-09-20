@@ -9,7 +9,7 @@
 #ifndef __NP_GROUP_H__
 #define __NP_GROUP_H__
 
-#include "niupai_session.h"
+#include "session.h"
 #include "userlist.h"
 
 

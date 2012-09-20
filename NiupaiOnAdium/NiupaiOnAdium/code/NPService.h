@@ -8,7 +8,7 @@
 
 #import <AdiumLibpurple/PurpleService.h>
 #import <Cocoa/Cocoa.h>
-#import "niupai-config.h"
+#import "npconfig.h"
 
 @interface NPService : PurpleService
 

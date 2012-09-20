@@ -1,14 +1,17 @@
 //
-//  niupai-config.h
+//  npconfig.h
 //  NiupaiOnAdium
 //
 //  Created by Ryan Wang on 12-9-18.
 //  Copyright (c) 2012年 Ryan Wang. All rights reserved.
 //
 
-#ifndef __NIUPAI_CONFIG_H__
-#define __NIUPAI_CONFIG_H__
+#ifndef __NP_NPCONFIG_H__
+#define __NP_NPCONFIG_H__
 
+#ifdef DEBUG
+#include "NIDebuggingTools.h"
+#endif
 
 /* Niupai Purple Version */
 #define LIBNP_VERSION          "0.1"
@@ -42,4 +45,4 @@
 #define NP_HTTPCONN_SERVER      "http://mapi.niupai.com"
 
 
-#endif /* __NIUPAI_CONFIG_H__ */
+#endif /* __NP_NPCONFIG_H__ */

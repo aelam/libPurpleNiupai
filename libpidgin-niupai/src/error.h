@@ -9,6 +9,8 @@
 #ifndef __NP_ERROR_H__
 #define __NP_ERROR_H__
 
+#include "session.h"
+
 
 
 #endif /* __NP_ERROR_H__ */

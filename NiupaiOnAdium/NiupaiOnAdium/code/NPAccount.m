@@ -9,7 +9,7 @@
 #import <Adium/AIStatus.h>
 
 #import "NPAccount.h"
-#include "niupai-config.h"
+#include "npconfig.h"
 
 @implementation NPAccount
 

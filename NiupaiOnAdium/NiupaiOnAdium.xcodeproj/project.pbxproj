@@ -7,11 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		944181EE1601D8F900E14F64 /* buddy_list.c in Sources */ = {isa = PBXBuildFile; fileRef = 944181ED1601D8F900E14F64 /* buddy_list.c */; };
 		945D3B7616022CE600AF6E0C /* Niupai-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 945D3B7416022CE600AF6E0C /* Niupai-small.png */; };
 		945D3B7716022CE600AF6E0C /* Niupai.png in Resources */ = {isa = PBXBuildFile; fileRef = 945D3B7516022CE600AF6E0C /* Niupai.png */; };
 		945D3B7C16022D1900AF6E0C /* PurpleDefaultsNiupai.plist in Resources */ = {isa = PBXBuildFile; fileRef = 945D3B7B16022D1900AF6E0C /* PurpleDefaultsNiupai.plist */; };
-		945D3B7F1602356A00AF6E0C /* NIDebuggingTools.c in Sources */ = {isa = PBXBuildFile; fileRef = 945D3B7D1602356A00AF6E0C /* NIDebuggingTools.c */; };
 		9480B4B816018361000A5CA7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9480B4B716018361000A5CA7 /* Cocoa.framework */; };
 		9480B4C216018361000A5CA7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9480B4C016018361000A5CA7 /* InfoPlist.strings */; };
 		9480B4DA160184CB000A5CA7 /* Adium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9480B4D2160184CB000A5CA7 /* Adium.framework */; };
@@ -24,30 +22,35 @@
 		9480B4E716018533000A5CA7 /* NPService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480B4E616018533000A5CA7 /* NPService.m */; };
 		9480B4EA16018772000A5CA7 /* NPAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480B4E916018772000A5CA7 /* NPAccount.m */; };
 		9480B4ED1601878A000A5CA7 /* NPPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480B4EC1601878A000A5CA7 /* NPPlugin.m */; };
-		94905289160A2215001B79C2 /* state.c in Sources */ = {isa = PBXBuildFile; fileRef = 94905288160A2215001B79C2 /* state.c */; };
-		9490528C160A2443001B79C2 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 9490528B160A2443001B79C2 /* error.c */; };
-		94A0C2AA16097E2400207999 /* group.c in Sources */ = {isa = PBXBuildFile; fileRef = 94A0C2A916097E2400207999 /* group.c */; };
-		94A0C2B616098BCB00207999 /* niupai_session.c in Sources */ = {isa = PBXBuildFile; fileRef = 94A0C2AF16098BCA00207999 /* niupai_session.c */; };
-		94A0C2B716098BCB00207999 /* user.c in Sources */ = {isa = PBXBuildFile; fileRef = 94A0C2B116098BCB00207999 /* user.c */; };
-		94A0C2B816098BCB00207999 /* userlist.c in Sources */ = {isa = PBXBuildFile; fileRef = 94A0C2B316098BCB00207999 /* userlist.c */; };
-		94A0C2F31609BDA700207999 /* notification.c in Sources */ = {isa = PBXBuildFile; fileRef = 94A0C2F21609BDA700207999 /* notification.c */; };
-		94A0C2F71609BE0A00207999 /* directconn.c in Sources */ = {isa = PBXBuildFile; fileRef = 94A0C2F61609BE0A00207999 /* directconn.c */; };
-		94A0C2F91609BE1500207999 /* httpconn.c in Sources */ = {isa = PBXBuildFile; fileRef = 94A0C2F81609BE1500207999 /* httpconn.c */; };
-		94A0C3051609CE2A00207999 /* servconn.c in Sources */ = {isa = PBXBuildFile; fileRef = 94A0C3041609CE2A00207999 /* servconn.c */; };
 		94FA1C4D16018B4B00A910C0 /* libpurple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FA1C4C16018B4B00A910C0 /* libpurple.framework */; };
-		94FA1CC41601B95B00A910C0 /* niupai.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FA1CC31601B95B00A910C0 /* niupai.c */; };
+		94FD7C76160B6DEA008AF095 /* buddy.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C52160B6DEA008AF095 /* buddy.c */; };
+		94FD7C77160B6DEA008AF095 /* buddy_list.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C54160B6DEA008AF095 /* buddy_list.c */; };
+		94FD7C78160B6DEA008AF095 /* cmdproc.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C56160B6DEA008AF095 /* cmdproc.c */; };
+		94FD7C79160B6DEA008AF095 /* directconn.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C58160B6DEA008AF095 /* directconn.c */; };
+		94FD7C7A160B6DEA008AF095 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C5A160B6DEA008AF095 /* error.c */; };
+		94FD7C7B160B6DEA008AF095 /* group.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C5C160B6DEA008AF095 /* group.c */; };
+		94FD7C7C160B6DEA008AF095 /* httpconn.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C5E160B6DEA008AF095 /* httpconn.c */; };
+		94FD7C7D160B6DEA008AF095 /* NIDebuggingTools.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C62160B6DEA008AF095 /* NIDebuggingTools.c */; };
+		94FD7C7E160B6DEA008AF095 /* niupai.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C64160B6DEA008AF095 /* niupai.c */; };
+		94FD7C7F160B6DEA008AF095 /* session.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C66160B6DEA008AF095 /* session.c */; };
+		94FD7C80160B6DEA008AF095 /* notification.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C68160B6DEA008AF095 /* notification.c */; };
+		94FD7C81160B6DEA008AF095 /* servconn.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C6B160B6DEA008AF095 /* servconn.c */; };
+		94FD7C82160B6DEA008AF095 /* state.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C6D160B6DEA008AF095 /* state.c */; };
+		94FD7C83160B6DEA008AF095 /* transaction.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C6F160B6DEA008AF095 /* transaction.c */; };
+		94FD7C84160B6DEA008AF095 /* user.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C71160B6DEA008AF095 /* user.c */; };
+		94FD7C85160B6DEA008AF095 /* userlist.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C73160B6DEA008AF095 /* userlist.c */; };
+		94FD7C88160B6E15008AF095 /* history.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C86160B6E15008AF095 /* history.c */; };
+		94FD7C8B160B6E23008AF095 /* msg.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C89160B6E23008AF095 /* msg.c */; };
+		94FD7C8E160B6E3B008AF095 /* table.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C8C160B6E3B008AF095 /* table.c */; };
+		94FD7C91160B6EEA008AF095 /* command.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C8F160B6EEA008AF095 /* command.c */; };
+		94FD7C94160B715B008AF095 /* switchboard.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C92160B715A008AF095 /* switchboard.c */; };
+		94FD7C97160B7587008AF095 /* nputils.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C95160B7586008AF095 /* nputils.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		942438E316087F7E00F0E2AA /* niupai-config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "niupai-config.h"; sourceTree = "<group>"; };
-		944181E31601CCE500E14F64 /* internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = internal.h; sourceTree = "<group>"; };
-		944181EC1601D8EE00E14F64 /* buddy_list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buddy_list.h; sourceTree = "<group>"; };
-		944181ED1601D8F900E14F64 /* buddy_list.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buddy_list.c; sourceTree = "<group>"; };
 		945D3B7416022CE600AF6E0C /* Niupai-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Niupai-small.png"; sourceTree = "<group>"; };
 		945D3B7516022CE600AF6E0C /* Niupai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Niupai.png; sourceTree = "<group>"; };
 		945D3B7B16022D1900AF6E0C /* PurpleDefaultsNiupai.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PurpleDefaultsNiupai.plist; sourceTree = "<group>"; };
-		945D3B7D1602356A00AF6E0C /* NIDebuggingTools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NIDebuggingTools.c; sourceTree = "<group>"; };
-		945D3B7E1602356A00AF6E0C /* NIDebuggingTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDebuggingTools.h; sourceTree = "<group>"; };
 		9480B4B416018361000A5CA7 /* NiupaiOnAdium.AdiumLibpurplePlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NiupaiOnAdium.AdiumLibpurplePlugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		9480B4B716018361000A5CA7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9480B4BA16018361000A5CA7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -68,29 +71,53 @@
 		9480B4E916018772000A5CA7 /* NPAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPAccount.m; sourceTree = "<group>"; };
 		9480B4EB1601878A000A5CA7 /* NPPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPPlugin.h; sourceTree = "<group>"; };
 		9480B4EC1601878A000A5CA7 /* NPPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPPlugin.m; sourceTree = "<group>"; };
-		94905286160A21F1001B79C2 /* state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = state.h; sourceTree = "<group>"; };
-		94905288160A2215001B79C2 /* state.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = state.c; sourceTree = "<group>"; };
-		9490528A160A242C001B79C2 /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
-		9490528B160A2443001B79C2 /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error.c; sourceTree = "<group>"; };
-		94A0C2A816097E1B00207999 /* group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = group.h; sourceTree = "<group>"; };
-		94A0C2A916097E2400207999 /* group.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = group.c; sourceTree = "<group>"; };
-		94A0C2AF16098BCA00207999 /* niupai_session.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = niupai_session.c; sourceTree = "<group>"; };
-		94A0C2B016098BCA00207999 /* niupai_session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = niupai_session.h; sourceTree = "<group>"; };
-		94A0C2B116098BCB00207999 /* user.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = user.c; sourceTree = "<group>"; };
-		94A0C2B216098BCB00207999 /* user.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = user.h; sourceTree = "<group>"; };
-		94A0C2B316098BCB00207999 /* userlist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = userlist.c; sourceTree = "<group>"; };
-		94A0C2B416098BCB00207999 /* userlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = userlist.h; sourceTree = "<group>"; };
-		94A0C2E91609BD8900207999 /* notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = notification.h; sourceTree = "<group>"; };
-		94A0C2F21609BDA700207999 /* notification.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = notification.c; sourceTree = "<group>"; };
-		94A0C2F51609BDFF00207999 /* directconn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = directconn.h; sourceTree = "<group>"; };
-		94A0C2F61609BE0A00207999 /* directconn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = directconn.c; sourceTree = "<group>"; };
-		94A0C2F81609BE1500207999 /* httpconn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = httpconn.c; sourceTree = "<group>"; };
-		94A0C2FA1609BE1F00207999 /* httpconn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = httpconn.h; sourceTree = "<group>"; };
-		94A0C3031609CE2000207999 /* servconn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = servconn.h; sourceTree = "<group>"; };
-		94A0C3041609CE2A00207999 /* servconn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = servconn.c; sourceTree = "<group>"; };
 		94FA1C4C16018B4B00A910C0 /* libpurple.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libpurple.framework; sourceTree = "<group>"; };
-		94FA1CC31601B95B00A910C0 /* niupai.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = niupai.c; sourceTree = "<group>"; };
-		94FA1CC51601B96600A910C0 /* niupai.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = niupai.h; sourceTree = "<group>"; };
+		94FD7C52160B6DEA008AF095 /* buddy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buddy.c; sourceTree = "<group>"; };
+		94FD7C53160B6DEA008AF095 /* buddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buddy.h; sourceTree = "<group>"; };
+		94FD7C54160B6DEA008AF095 /* buddy_list.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buddy_list.c; sourceTree = "<group>"; };
+		94FD7C55160B6DEA008AF095 /* buddy_list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buddy_list.h; sourceTree = "<group>"; };
+		94FD7C56160B6DEA008AF095 /* cmdproc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cmdproc.c; sourceTree = "<group>"; };
+		94FD7C57160B6DEA008AF095 /* cmdproc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmdproc.h; sourceTree = "<group>"; };
+		94FD7C58160B6DEA008AF095 /* directconn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = directconn.c; sourceTree = "<group>"; };
+		94FD7C59160B6DEA008AF095 /* directconn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = directconn.h; sourceTree = "<group>"; };
+		94FD7C5A160B6DEA008AF095 /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error.c; sourceTree = "<group>"; };
+		94FD7C5B160B6DEA008AF095 /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
+		94FD7C5C160B6DEA008AF095 /* group.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = group.c; sourceTree = "<group>"; };
+		94FD7C5D160B6DEA008AF095 /* group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = group.h; sourceTree = "<group>"; };
+		94FD7C5E160B6DEA008AF095 /* httpconn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = httpconn.c; sourceTree = "<group>"; };
+		94FD7C5F160B6DEA008AF095 /* httpconn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = httpconn.h; sourceTree = "<group>"; };
+		94FD7C61160B6DEA008AF095 /* internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = internal.h; sourceTree = "<group>"; };
+		94FD7C62160B6DEA008AF095 /* NIDebuggingTools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NIDebuggingTools.c; sourceTree = "<group>"; };
+		94FD7C63160B6DEA008AF095 /* NIDebuggingTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIDebuggingTools.h; sourceTree = "<group>"; };
+		94FD7C64160B6DEA008AF095 /* niupai.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = niupai.c; sourceTree = "<group>"; };
+		94FD7C65160B6DEA008AF095 /* niupai.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = niupai.h; sourceTree = "<group>"; };
+		94FD7C66160B6DEA008AF095 /* session.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = session.c; sourceTree = "<group>"; };
+		94FD7C67160B6DEA008AF095 /* session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = session.h; sourceTree = "<group>"; };
+		94FD7C68160B6DEA008AF095 /* notification.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = notification.c; sourceTree = "<group>"; };
+		94FD7C69160B6DEA008AF095 /* notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = notification.h; sourceTree = "<group>"; };
+		94FD7C6A160B6DEA008AF095 /* npconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = npconfig.h; sourceTree = "<group>"; };
+		94FD7C6B160B6DEA008AF095 /* servconn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = servconn.c; sourceTree = "<group>"; };
+		94FD7C6C160B6DEA008AF095 /* servconn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = servconn.h; sourceTree = "<group>"; };
+		94FD7C6D160B6DEA008AF095 /* state.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = state.c; sourceTree = "<group>"; };
+		94FD7C6E160B6DEA008AF095 /* state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = state.h; sourceTree = "<group>"; };
+		94FD7C6F160B6DEA008AF095 /* transaction.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = transaction.c; sourceTree = "<group>"; };
+		94FD7C70160B6DEA008AF095 /* transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = transaction.h; sourceTree = "<group>"; };
+		94FD7C71160B6DEA008AF095 /* user.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = user.c; sourceTree = "<group>"; };
+		94FD7C72160B6DEA008AF095 /* user.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = user.h; sourceTree = "<group>"; };
+		94FD7C73160B6DEA008AF095 /* userlist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = userlist.c; sourceTree = "<group>"; };
+		94FD7C74160B6DEA008AF095 /* userlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = userlist.h; sourceTree = "<group>"; };
+		94FD7C86160B6E15008AF095 /* history.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = history.c; sourceTree = "<group>"; };
+		94FD7C87160B6E15008AF095 /* history.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = history.h; sourceTree = "<group>"; };
+		94FD7C89160B6E23008AF095 /* msg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = msg.c; sourceTree = "<group>"; };
+		94FD7C8A160B6E23008AF095 /* msg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = msg.h; sourceTree = "<group>"; };
+		94FD7C8C160B6E3B008AF095 /* table.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = table.c; sourceTree = "<group>"; };
+		94FD7C8D160B6E3B008AF095 /* table.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = table.h; sourceTree = "<group>"; };
+		94FD7C8F160B6EEA008AF095 /* command.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = command.c; sourceTree = "<group>"; };
+		94FD7C90160B6EEA008AF095 /* command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = command.h; sourceTree = "<group>"; };
+		94FD7C92160B715A008AF095 /* switchboard.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = switchboard.c; sourceTree = "<group>"; };
+		94FD7C93160B715A008AF095 /* switchboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = switchboard.h; sourceTree = "<group>"; };
+		94FD7C95160B7586008AF095 /* nputils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nputils.c; sourceTree = "<group>"; };
+		94FD7C96160B7587008AF095 /* nputils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nputils.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,14 +140,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		944181E21601CCE500E14F64 /* libpurple */ = {
-			isa = PBXGroup;
-			children = (
-				944181E31601CCE500E14F64 /* internal.h */,
-			);
-			path = libpurple;
-			sourceTree = "<group>";
-		};
 		945D3B7316022CE600AF6E0C /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,45 +239,71 @@
 		94FA1C7F1601978100A910C0 /* libpidgin-niupai */ = {
 			isa = PBXGroup;
 			children = (
-				94FA1C801601978100A910C0 /* src */,
+				94FD7C50160B6DEA008AF095 /* src */,
 			);
 			name = "libpidgin-niupai";
 			path = "../libpidgin-niupai";
 			sourceTree = "<group>";
 		};
-		94FA1C801601978100A910C0 /* src */ = {
+		94FD7C50160B6DEA008AF095 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				942438E316087F7E00F0E2AA /* niupai-config.h */,
-				944181E21601CCE500E14F64 /* libpurple */,
-				94FA1CC51601B96600A910C0 /* niupai.h */,
-				94FA1CC31601B95B00A910C0 /* niupai.c */,
-				944181EC1601D8EE00E14F64 /* buddy_list.h */,
-				944181ED1601D8F900E14F64 /* buddy_list.c */,
-				94A0C2B016098BCA00207999 /* niupai_session.h */,
-				94A0C2AF16098BCA00207999 /* niupai_session.c */,
-				94A0C2B216098BCB00207999 /* user.h */,
-				94A0C2B116098BCB00207999 /* user.c */,
-				94A0C2B416098BCB00207999 /* userlist.h */,
-				94A0C2B316098BCB00207999 /* userlist.c */,
-				94A0C2A816097E1B00207999 /* group.h */,
-				94A0C2A916097E2400207999 /* group.c */,
-				94905286160A21F1001B79C2 /* state.h */,
-				94905288160A2215001B79C2 /* state.c */,
-				94A0C2E91609BD8900207999 /* notification.h */,
-				94A0C2F21609BDA700207999 /* notification.c */,
-				94A0C2F51609BDFF00207999 /* directconn.h */,
-				94A0C2F61609BE0A00207999 /* directconn.c */,
-				94A0C2FA1609BE1F00207999 /* httpconn.h */,
-				94A0C2F81609BE1500207999 /* httpconn.c */,
-				94A0C3031609CE2000207999 /* servconn.h */,
-				94A0C3041609CE2A00207999 /* servconn.c */,
-				9490528A160A242C001B79C2 /* error.h */,
-				9490528B160A2443001B79C2 /* error.c */,
-				945D3B7E1602356A00AF6E0C /* NIDebuggingTools.h */,
-				945D3B7D1602356A00AF6E0C /* NIDebuggingTools.c */,
+				94FD7C52160B6DEA008AF095 /* buddy.c */,
+				94FD7C53160B6DEA008AF095 /* buddy.h */,
+				94FD7C54160B6DEA008AF095 /* buddy_list.c */,
+				94FD7C55160B6DEA008AF095 /* buddy_list.h */,
+				94FD7C8F160B6EEA008AF095 /* command.c */,
+				94FD7C90160B6EEA008AF095 /* command.h */,
+				94FD7C56160B6DEA008AF095 /* cmdproc.c */,
+				94FD7C57160B6DEA008AF095 /* cmdproc.h */,
+				94FD7C92160B715A008AF095 /* switchboard.c */,
+				94FD7C93160B715A008AF095 /* switchboard.h */,
+				94FD7C58160B6DEA008AF095 /* directconn.c */,
+				94FD7C59160B6DEA008AF095 /* directconn.h */,
+				94FD7C5A160B6DEA008AF095 /* error.c */,
+				94FD7C5B160B6DEA008AF095 /* error.h */,
+				94FD7C5C160B6DEA008AF095 /* group.c */,
+				94FD7C5D160B6DEA008AF095 /* group.h */,
+				94FD7C86160B6E15008AF095 /* history.c */,
+				94FD7C87160B6E15008AF095 /* history.h */,
+				94FD7C5E160B6DEA008AF095 /* httpconn.c */,
+				94FD7C5F160B6DEA008AF095 /* httpconn.h */,
+				94FD7C89160B6E23008AF095 /* msg.c */,
+				94FD7C8A160B6E23008AF095 /* msg.h */,
+				94FD7C60160B6DEA008AF095 /* libpurple */,
+				94FD7C62160B6DEA008AF095 /* NIDebuggingTools.c */,
+				94FD7C63160B6DEA008AF095 /* NIDebuggingTools.h */,
+				94FD7C64160B6DEA008AF095 /* niupai.c */,
+				94FD7C65160B6DEA008AF095 /* niupai.h */,
+				94FD7C95160B7586008AF095 /* nputils.c */,
+				94FD7C96160B7587008AF095 /* nputils.h */,
+				94FD7C66160B6DEA008AF095 /* session.c */,
+				94FD7C67160B6DEA008AF095 /* session.h */,
+				94FD7C68160B6DEA008AF095 /* notification.c */,
+				94FD7C69160B6DEA008AF095 /* notification.h */,
+				94FD7C6A160B6DEA008AF095 /* npconfig.h */,
+				94FD7C6B160B6DEA008AF095 /* servconn.c */,
+				94FD7C6C160B6DEA008AF095 /* servconn.h */,
+				94FD7C6D160B6DEA008AF095 /* state.c */,
+				94FD7C6E160B6DEA008AF095 /* state.h */,
+				94FD7C8C160B6E3B008AF095 /* table.c */,
+				94FD7C8D160B6E3B008AF095 /* table.h */,
+				94FD7C6F160B6DEA008AF095 /* transaction.c */,
+				94FD7C70160B6DEA008AF095 /* transaction.h */,
+				94FD7C71160B6DEA008AF095 /* user.c */,
+				94FD7C72160B6DEA008AF095 /* user.h */,
+				94FD7C73160B6DEA008AF095 /* userlist.c */,
+				94FD7C74160B6DEA008AF095 /* userlist.h */,
 			);
 			path = src;
+			sourceTree = "<group>";
+		};
+		94FD7C60160B6DEA008AF095 /* libpurple */ = {
+			isa = PBXGroup;
+			children = (
+				94FD7C61160B6DEA008AF095 /* internal.h */,
+			);
+			path = libpurple;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -329,19 +374,28 @@
 				9480B4E716018533000A5CA7 /* NPService.m in Sources */,
 				9480B4EA16018772000A5CA7 /* NPAccount.m in Sources */,
 				9480B4ED1601878A000A5CA7 /* NPPlugin.m in Sources */,
-				94FA1CC41601B95B00A910C0 /* niupai.c in Sources */,
-				944181EE1601D8F900E14F64 /* buddy_list.c in Sources */,
-				945D3B7F1602356A00AF6E0C /* NIDebuggingTools.c in Sources */,
-				94A0C2AA16097E2400207999 /* group.c in Sources */,
-				94A0C2B616098BCB00207999 /* niupai_session.c in Sources */,
-				94A0C2B716098BCB00207999 /* user.c in Sources */,
-				94A0C2B816098BCB00207999 /* userlist.c in Sources */,
-				94A0C2F31609BDA700207999 /* notification.c in Sources */,
-				94A0C2F71609BE0A00207999 /* directconn.c in Sources */,
-				94A0C2F91609BE1500207999 /* httpconn.c in Sources */,
-				94A0C3051609CE2A00207999 /* servconn.c in Sources */,
-				94905289160A2215001B79C2 /* state.c in Sources */,
-				9490528C160A2443001B79C2 /* error.c in Sources */,
+				94FD7C76160B6DEA008AF095 /* buddy.c in Sources */,
+				94FD7C77160B6DEA008AF095 /* buddy_list.c in Sources */,
+				94FD7C78160B6DEA008AF095 /* cmdproc.c in Sources */,
+				94FD7C79160B6DEA008AF095 /* directconn.c in Sources */,
+				94FD7C7A160B6DEA008AF095 /* error.c in Sources */,
+				94FD7C7B160B6DEA008AF095 /* group.c in Sources */,
+				94FD7C7C160B6DEA008AF095 /* httpconn.c in Sources */,
+				94FD7C7D160B6DEA008AF095 /* NIDebuggingTools.c in Sources */,
+				94FD7C7E160B6DEA008AF095 /* niupai.c in Sources */,
+				94FD7C7F160B6DEA008AF095 /* session.c in Sources */,
+				94FD7C80160B6DEA008AF095 /* notification.c in Sources */,
+				94FD7C81160B6DEA008AF095 /* servconn.c in Sources */,
+				94FD7C82160B6DEA008AF095 /* state.c in Sources */,
+				94FD7C83160B6DEA008AF095 /* transaction.c in Sources */,
+				94FD7C84160B6DEA008AF095 /* user.c in Sources */,
+				94FD7C85160B6DEA008AF095 /* userlist.c in Sources */,
+				94FD7C88160B6E15008AF095 /* history.c in Sources */,
+				94FD7C8B160B6E23008AF095 /* msg.c in Sources */,
+				94FD7C8E160B6E3B008AF095 /* table.c in Sources */,
+				94FD7C91160B6EEA008AF095 /* command.c in Sources */,
+				94FD7C94160B715B008AF095 /* switchboard.c in Sources */,
+				94FD7C97160B7587008AF095 /* nputils.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
