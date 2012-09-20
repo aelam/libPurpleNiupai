@@ -311,7 +311,7 @@ np_add_cb(NPAddRemData *data)
 #endif
 	NPUserList *userlist = data->session->userlist;
     
-	np_userlist_add_buddy(userlist, data->who, data->group);
+//	np_userlist_add_buddy(userlist, data->who, data->group);
     
 	g_free(data->group);
 	g_free(data->who);
@@ -321,18 +321,18 @@ np_add_cb(NPAddRemData *data)
 static void
 np_rem_cb(NPAddRemData *data)
 {
-	NPUserList *userlist = data->session->userlist;
-	np_complete_sync_issue(data);
-    
-    
-	if (data->group == NULL) {
-//		np_userlist_rem_buddy_from_list(userlist, data->who, NP_LIST_FL);
-	} else {
-		g_free(data->group);
-	}
-    
-	g_free(data->who);
-	g_free(data);
+//	NPUserList *userlist = data->session->userlist;
+//	np_complete_sync_issue(data);
+//    
+//    
+//	if (data->group == NULL) {
+////		np_userlist_rem_buddy_from_list(userlist, data->who, NP_LIST_FL);
+//	} else {
+//		g_free(data->group);
+//	}
+//    
+//	g_free(data->who);
+//	g_free(data);
 }
 
 void

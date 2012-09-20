@@ -79,6 +79,19 @@ static GList *server_list_build(gchar select)
 	return list;
 }
 
+
+///
+//
+
+void
+np_send_im_message(NPSession *session, NPMessage *msg)
+{
+    
+}
+
+
+//
+
 static void server_list_create(PurpleAccount *account)
 {
     NIDPRINT("\n===>");
@@ -116,16 +129,6 @@ static void server_list_create(PurpleAccount *account)
 //    
 //	qd->servers =	server_list_build('U');
 }
-
-//static void server_list_remove_all(np_data *qd)
-//{
-
-//	g_return_if_fail(qd != NULL);
-//    
-//	purple_debug_info("np", "free server list\n");
-//	g_list_free(qd->servers);
-//	qd->curr_server = NULL;
-//}
 
 static void np_login(PurpleAccount *account)
 {

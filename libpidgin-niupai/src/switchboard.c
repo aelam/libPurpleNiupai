@@ -224,7 +224,7 @@ send_clientcaps(NPSwitchBoard *swboard)
 	np_message_set_flag(msg, 'U');
 //	np_message_set_bin_data(msg, NP_CLIENTINFO, strlen(NP_CLIENTINFO));
 
-	np_switchboard_send_msg(swboard, msg, TRUE);
+//	np_switchboard_send_msg(swboard, msg, TRUE);
 
 	np_message_unref(msg);
 }
@@ -232,118 +232,118 @@ send_clientcaps(NPSwitchBoard *swboard)
 static void
 np_switchboard_add_user(NPSwitchBoard *swboard, const char *user)
 {
-	NPCmdProc *cmdproc;
-	PurpleAccount *account;
-	NPUserList *userlist;
-	NPUser *npuser;
-	char *semicolon;
-	char *passport;
-
-	g_return_if_fail(swboard != NULL);
-
-	cmdproc = swboard->cmdproc;
-	account = cmdproc->session->account;
-
-	semicolon = strchr(user, ';');
-	/* We don't really care about the machine ID. */
-	if (semicolon)
-		passport = g_strndup(user, semicolon - user);
-	else
-		passport = g_strdup(user);
-
-	userlist = swboard->session->userlist;
-	npuser = np_userlist_find_user(userlist, passport);
+//	NPCmdProc *cmdproc;
+//	PurpleAccount *account;
+//	NPUserList *userlist;
+//	NPUser *npuser;
+//	char *semicolon;
+//	char *passport;
 //
-//	/* Don't add multiple endpoints to the conversation. */
-//	if (g_list_find_custom(swboard->users, passport, (GCompareFunc)np_user_passport_cmp)) {
+//	g_return_if_fail(swboard != NULL);
+//
+//	cmdproc = swboard->cmdproc;
+//	account = cmdproc->session->account;
+//
+//	semicolon = strchr(user, ';');
+//	/* We don't really care about the machine ID. */
+//	if (semicolon)
+//		passport = g_strndup(user, semicolon - user);
+//	else
+//		passport = g_strdup(user);
+//
+//	userlist = swboard->session->userlist;
+////	npuser = np_userlist_find_user(userlist, passport);
+////
+////	/* Don't add multiple endpoints to the conversation. */
+////	if (g_list_find_custom(swboard->users, passport, (GCompareFunc)np_user_passport_cmp)) {
+////		g_free(passport);
+////		return;
+////	}
+//
+//	/* Don't add ourselves either... */
+//	if (g_str_equal(passport, purple_account_get_username(account))) {
 //		g_free(passport);
 //		return;
 //	}
-
-	/* Don't add ourselves either... */
-	if (g_str_equal(passport, purple_account_get_username(account))) {
-		g_free(passport);
-		return;
-	}
-
-	if (!npuser) {
-		purple_debug_info("np","User %s is not on our list.\n", passport);
-		npuser = np_user_new(userlist, passport, NULL);
-	} else
-		np_user_ref(npuser);
-
-	g_free(passport);
-
-	swboard->users = g_list_prepend(swboard->users, npuser);
-	swboard->current_users++;
-	swboard->empty = FALSE;
-
-	if (purple_debug_is_verbose())
-		purple_debug_info("np", "user=[%s], total=%d\n",
-		                  user, swboard->current_users);
-
-	if (!(swboard->flag & NP_SB_FLAG_IM) && (swboard->conv != NULL))
-	{
-		/* This is a helper switchboard. */
-		purple_debug_error("np", "switchboard_add_user: conv != NULL\n");
-		return;
-	}
-
-	if ((swboard->conv != NULL) &&
-		(purple_conversation_get_type(swboard->conv) == PURPLE_CONV_TYPE_CHAT))
-	{
-		purple_conv_chat_add_user(PURPLE_CONV_CHAT(swboard->conv), npuser->passport, NULL,
-								PURPLE_CBFLAGS_NONE, TRUE);
-		np_servconn_set_idle_timeout(swboard->servconn, 0);
-	}
-	else if (swboard->current_users > 1)
-	{
-		np_servconn_set_idle_timeout(swboard->servconn, 0);
-		if (swboard->conv == NULL ||
-			purple_conversation_get_type(swboard->conv) != PURPLE_CONV_TYPE_CHAT)
-		{
-			GList *l;
-
-#if 0
-			/* this is bad - it causes np_switchboard_close to be called on the
-			 * switchboard we're in the middle of using :( */
-			if (swboard->conv != NULL)
-				purple_conversation_destroy(swboard->conv);
-#endif
-
-			swboard->chat_id = np_switchboard_get_chat_id();
-			swboard->flag |= NP_SB_FLAG_IM;
-			swboard->conv = serv_got_joined_chat(account->gc,
-												 swboard->chat_id,
-												 "NP Chat");
-
-			for (l = swboard->users; l != NULL; l = l->next)
-			{
-				const char *tmp_user;
-
-				tmp_user = ((NPUser*)l->data)->passport;
-
-				purple_conv_chat_add_user(PURPLE_CONV_CHAT(swboard->conv),
-										tmp_user, NULL, PURPLE_CBFLAGS_NONE, TRUE);
-			}
-
-			purple_conv_chat_add_user(PURPLE_CONV_CHAT(swboard->conv),
-									purple_account_get_username(account),
-									NULL, PURPLE_CBFLAGS_NONE, TRUE);
-
-			g_free(swboard->im_user);
-			swboard->im_user = NULL;
-		}
-	}
-	else if (swboard->conv == NULL)
-	{
-		swboard->conv = purple_find_conversation_with_account(PURPLE_CONV_TYPE_IM,
-															npuser->passport, account);
-	}
-	else
-	{
-		purple_debug_warning("np", "switchboard_add_user: This should not happen!\n");
-	}
+//
+//	if (!npuser) {
+//		purple_debug_info("np","User %s is not on our list.\n", passport);
+//		npuser = np_user_new(userlist, passport, NULL);
+//	} else
+//		np_user_ref(npuser);
+//
+//	g_free(passport);
+//
+//	swboard->users = g_list_prepend(swboard->users, npuser);
+//	swboard->current_users++;
+//	swboard->empty = FALSE;
+//
+//	if (purple_debug_is_verbose())
+//		purple_debug_info("np", "user=[%s], total=%d\n",
+//		                  user, swboard->current_users);
+//
+//	if (!(swboard->flag & NP_SB_FLAG_IM) && (swboard->conv != NULL))
+//	{
+//		/* This is a helper switchboard. */
+//		purple_debug_error("np", "switchboard_add_user: conv != NULL\n");
+//		return;
+//	}
+//
+//	if ((swboard->conv != NULL) &&
+//		(purple_conversation_get_type(swboard->conv) == PURPLE_CONV_TYPE_CHAT))
+//	{
+//		purple_conv_chat_add_user(PURPLE_CONV_CHAT(swboard->conv), npuser->passport, NULL,
+//								PURPLE_CBFLAGS_NONE, TRUE);
+//		np_servconn_set_idle_timeout(swboard->servconn, 0);
+//	}
+//	else if (swboard->current_users > 1)
+//	{
+//		np_servconn_set_idle_timeout(swboard->servconn, 0);
+//		if (swboard->conv == NULL ||
+//			purple_conversation_get_type(swboard->conv) != PURPLE_CONV_TYPE_CHAT)
+//		{
+//			GList *l;
+//
+//#if 0
+//			/* this is bad - it causes np_switchboard_close to be called on the
+//			 * switchboard we're in the middle of using :( */
+//			if (swboard->conv != NULL)
+//				purple_conversation_destroy(swboard->conv);
+//#endif
+//
+//			swboard->chat_id = np_switchboard_get_chat_id();
+//			swboard->flag |= NP_SB_FLAG_IM;
+//			swboard->conv = serv_got_joined_chat(account->gc,
+//												 swboard->chat_id,
+//												 "NP Chat");
+//
+//			for (l = swboard->users; l != NULL; l = l->next)
+//			{
+//				const char *tmp_user;
+//
+//				tmp_user = ((NPUser*)l->data)->passport;
+//
+//				purple_conv_chat_add_user(PURPLE_CONV_CHAT(swboard->conv),
+//										tmp_user, NULL, PURPLE_CBFLAGS_NONE, TRUE);
+//			}
+//
+//			purple_conv_chat_add_user(PURPLE_CONV_CHAT(swboard->conv),
+//									purple_account_get_username(account),
+//									NULL, PURPLE_CBFLAGS_NONE, TRUE);
+//
+//			g_free(swboard->im_user);
+//			swboard->im_user = NULL;
+//		}
+//	}
+//	else if (swboard->conv == NULL)
+//	{
+//		swboard->conv = purple_find_conversation_with_account(PURPLE_CONV_TYPE_IM,
+//															npuser->passport, account);
+//	}
+//	else
+//	{
+//		purple_debug_warning("np", "switchboard_add_user: This should not happen!\n");
+//	}
 }
 
 static PurpleConversation *
@@ -432,134 +432,134 @@ msg_resend_cb(gpointer data)
 void
 msg_error_helper(NPCmdProc *cmdproc, NPMessage *msg, NPMsgErrorType error)
 {
-	NPSwitchBoard *swboard;
-
-	g_return_if_fail(cmdproc != NULL);
-	g_return_if_fail(msg     != NULL);
-
-	if ((error != NP_MSG_ERROR_SB) && (msg->nak_cb != NULL))
-		msg->nak_cb(msg, msg->ack_data);
-
-	swboard = cmdproc->data;
-
-	/* This is not good, and should be fixed somewhere else. */
-	g_return_if_fail(swboard != NULL);
-
-	if (msg->type == NP_MSG_TEXT)
-	{
-		const char *format, *str_reason;
-		char *body_str, *body_enc, *pre, *post;
-
-#if 0
-		if (swboard->conv == NULL)
-		{
-			if (msg->ack_ref)
-				np_message_unref(msg);
-
-			return;
-		}
-#endif
-
-		if (error == NP_MSG_ERROR_TIMEOUT)
-		{
-			str_reason = _("Message may have not been sent "
-						   "because a timeout occurred:");
-		}
-		else if (error == NP_MSG_ERROR_SB)
-		{
-			NPSession *session = swboard->session;
-
-			if (!session->destroying && msg->retries &&	swboard->im_user &&
-				(swboard->error == NP_SB_ERROR_CONNECTION ||
-					swboard->error == NP_SB_ERROR_UNKNOWN)) {
-				NPSwitchBoard *new_sw = np_session_find_swboard(session,
-					swboard->im_user);
-
-				if (new_sw == NULL || new_sw->reconn_timeout_h == 0) {
-					new_sw = np_switchboard_new(session);
-					new_sw->im_user = g_strdup(swboard->im_user);
-					new_sw->reconn_timeout_h = purple_timeout_add_seconds(3, msg_resend_cb, new_sw);
-					new_sw->flag |= NP_SB_FLAG_IM;
-				}
-
-				body_str = np_message_to_string(msg);
-				body_enc = g_markup_escape_text(body_str, -1);
-				g_free(body_str);
-
-				purple_debug_info("np", "queuing unsent message to %s: %s\n",
-					swboard->im_user, body_enc);
-				g_free(body_enc);
-				np_send_im_message(session, msg);
-				msg->retries--;
-
-				return;
-			}
-
-			switch (swboard->error)
-			{
-				case NP_SB_ERROR_OFFLINE:
-					str_reason = _("Message could not be sent, "
-								   "not allowed while invisible:");
-					break;
-				case NP_SB_ERROR_USER_OFFLINE:
-					str_reason = _("Message could not be sent "
-								   "because the user is offline:");
-					break;
-				case NP_SB_ERROR_CONNECTION:
-					str_reason = _("Message could not be sent "
-								   "because a connection error occurred:");
-					break;
-				case NP_SB_ERROR_TOO_FAST:
-					str_reason = _("Message could not be sent "
-								   "because we are sending too quickly:");
-					break;
-				case NP_SB_ERROR_AUTHFAILED:
-					str_reason = _("Message could not be sent "
-								   "because we were unable to establish a "
-								   "session with the server. This is "
-								   "likely a server problem, try again in "
-								   "a few minutes:");
-					break;
-				default:
-					str_reason = _("Message could not be sent "
-								   "because an error with "
-								   "the switchboard occurred:");
-					break;
-			}
-		}
-		else
-		{
-			str_reason = _("Message may have not been sent "
-						   "because an unknown error occurred:");
-		}
-
-		body_str = np_message_to_string(msg);
-		body_enc = g_markup_escape_text(body_str, -1);
-		g_free(body_str);
-
-		format = np_message_get_header_value(msg, "X-MMS-IM-Format");
-		np_parse_format(format, &pre, &post);
-		body_str = g_strdup_printf("%s%s%s", pre ? pre : "",
-								   body_enc ? body_enc : "", post ? post : "");
-		g_free(body_enc);
-		g_free(pre);
-		g_free(post);
-
-		np_switchboard_report_user(swboard, PURPLE_MESSAGE_ERROR,
-									str_reason);
-		np_switchboard_report_user(swboard, PURPLE_MESSAGE_RAW,
-									body_str);
-
-		g_free(body_str);
-	}
-
-	/* If a timeout occures we will want the msg around just in case we
-	 * receive the ACK after the timeout. */
-	if (msg->ack_ref && error != NP_MSG_ERROR_TIMEOUT)
-	{
-		swboard->ack_list = g_list_remove(swboard->ack_list, msg);
-		np_message_unref(msg);
-	}
+//	NPSwitchBoard *swboard;
+//
+//	g_return_if_fail(cmdproc != NULL);
+//	g_return_if_fail(msg     != NULL);
+//
+//	if ((error != NP_MSG_ERROR_SB) && (msg->nak_cb != NULL))
+//		msg->nak_cb(msg, msg->ack_data);
+//
+//	swboard = cmdproc->data;
+//
+//	/* This is not good, and should be fixed somewhere else. */
+//	g_return_if_fail(swboard != NULL);
+//
+//	if (msg->type == NP_MSG_TEXT)
+//	{
+//		const char *format, *str_reason;
+//		char *body_str, *body_enc, *pre, *post;
+//
+//#if 0
+//		if (swboard->conv == NULL)
+//		{
+//			if (msg->ack_ref)
+//				np_message_unref(msg);
+//
+//			return;
+//		}
+//#endif
+//
+//		if (error == NP_MSG_ERROR_TIMEOUT)
+//		{
+//			str_reason = _("Message may have not been sent "
+//						   "because a timeout occurred:");
+//		}
+//		else if (error == NP_MSG_ERROR_SB)
+//		{
+//			NPSession *session = swboard->session;
+//
+//			if (!session->destroying && msg->retries &&	swboard->im_user &&
+//				(swboard->error == NP_SB_ERROR_CONNECTION ||
+//					swboard->error == NP_SB_ERROR_UNKNOWN)) {
+//				NPSwitchBoard *new_sw = np_session_find_swboard(session,
+//					swboard->im_user);
+//
+//				if (new_sw == NULL || new_sw->reconn_timeout_h == 0) {
+//					new_sw = np_switchboard_new(session);
+//					new_sw->im_user = g_strdup(swboard->im_user);
+//					new_sw->reconn_timeout_h = purple_timeout_add_seconds(3, msg_resend_cb, new_sw);
+//					new_sw->flag |= NP_SB_FLAG_IM;
+//				}
+//
+//				body_str = np_message_to_string(msg);
+//				body_enc = g_markup_escape_text(body_str, -1);
+//				g_free(body_str);
+//
+//				purple_debug_info("np", "queuing unsent message to %s: %s\n",
+//					swboard->im_user, body_enc);
+//				g_free(body_enc);
+//				np_send_im_message(session, msg);
+//				msg->retries--;
+//
+//				return;
+//			}
+//
+//			switch (swboard->error)
+//			{
+//				case NP_SB_ERROR_OFFLINE:
+//					str_reason = _("Message could not be sent, "
+//								   "not allowed while invisible:");
+//					break;
+//				case NP_SB_ERROR_USER_OFFLINE:
+//					str_reason = _("Message could not be sent "
+//								   "because the user is offline:");
+//					break;
+//				case NP_SB_ERROR_CONNECTION:
+//					str_reason = _("Message could not be sent "
+//								   "because a connection error occurred:");
+//					break;
+//				case NP_SB_ERROR_TOO_FAST:
+//					str_reason = _("Message could not be sent "
+//								   "because we are sending too quickly:");
+//					break;
+//				case NP_SB_ERROR_AUTHFAILED:
+//					str_reason = _("Message could not be sent "
+//								   "because we were unable to establish a "
+//								   "session with the server. This is "
+//								   "likely a server problem, try again in "
+//								   "a few minutes:");
+//					break;
+//				default:
+//					str_reason = _("Message could not be sent "
+//								   "because an error with "
+//								   "the switchboard occurred:");
+//					break;
+//			}
+//		}
+//		else
+//		{
+//			str_reason = _("Message may have not been sent "
+//						   "because an unknown error occurred:");
+//		}
+//
+//		body_str = np_message_to_string(msg);
+//		body_enc = g_markup_escape_text(body_str, -1);
+//		g_free(body_str);
+//
+//		format = np_message_get_header_value(msg, "X-MMS-IM-Format");
+//		np_parse_format(format, &pre, &post);
+//		body_str = g_strdup_printf("%s%s%s", pre ? pre : "",
+//								   body_enc ? body_enc : "", post ? post : "");
+//		g_free(body_enc);
+//		g_free(pre);
+//		g_free(post);
+//
+//		np_switchboard_report_user(swboard, PURPLE_MESSAGE_ERROR,
+//									str_reason);
+//		np_switchboard_report_user(swboard, PURPLE_MESSAGE_RAW,
+//									body_str);
+//
+//		g_free(body_str);
+//	}
+//
+//	/* If a timeout occures we will want the msg around just in case we
+//	 * receive the ACK after the timeout. */
+//	if (msg->ack_ref && error != NP_MSG_ERROR_TIMEOUT)
+//	{
+//		swboard->ack_list = g_list_remove(swboard->ack_list, msg);
+//		np_message_unref(msg);
+//	}
 }
 
 /**************************************************************************
@@ -668,7 +668,7 @@ joi_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 
 	np_switchboard_add_user(swboard, passport);
 
-	np_sbconn_process_queue(swboard);
+//	np_sbconn_process_queue(swboard);
 
 	if (!session->http_method)
 		send_clientcaps(swboard);
