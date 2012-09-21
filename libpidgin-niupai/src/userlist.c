@@ -6,9 +6,7 @@
 //  Copyright (c) 2012年 Ryan Wang. All rights reserved.
 //
 
-//#include "internal.h"
 #include "userlist.h"
-//#include "niupai.h"
 #include "NIDebuggingTools.h"
 
 /**************************************************************************
