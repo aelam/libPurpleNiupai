@@ -10,6 +10,7 @@
 		945D3B7616022CE600AF6E0C /* Niupai-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 945D3B7416022CE600AF6E0C /* Niupai-small.png */; };
 		945D3B7716022CE600AF6E0C /* Niupai.png in Resources */ = {isa = PBXBuildFile; fileRef = 945D3B7516022CE600AF6E0C /* Niupai.png */; };
 		945D3B7C16022D1900AF6E0C /* PurpleDefaultsNiupai.plist in Resources */ = {isa = PBXBuildFile; fileRef = 945D3B7B16022D1900AF6E0C /* PurpleDefaultsNiupai.plist */; };
+		94772A02160C4B8900705FF9 /* libjson-glib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94772A01160C4B8900705FF9 /* libjson-glib.framework */; };
 		9480B4B816018361000A5CA7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9480B4B716018361000A5CA7 /* Cocoa.framework */; };
 		9480B4C216018361000A5CA7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9480B4C016018361000A5CA7 /* InfoPlist.strings */; };
 		9480B4DA160184CB000A5CA7 /* Adium.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9480B4D2160184CB000A5CA7 /* Adium.framework */; };
@@ -51,6 +52,7 @@
 		945D3B7416022CE600AF6E0C /* Niupai-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Niupai-small.png"; sourceTree = "<group>"; };
 		945D3B7516022CE600AF6E0C /* Niupai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Niupai.png; sourceTree = "<group>"; };
 		945D3B7B16022D1900AF6E0C /* PurpleDefaultsNiupai.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PurpleDefaultsNiupai.plist; sourceTree = "<group>"; };
+		94772A01160C4B8900705FF9 /* libjson-glib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "libjson-glib.framework"; sourceTree = "<group>"; };
 		9480B4B416018361000A5CA7 /* NiupaiOnAdium.AdiumLibpurplePlugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NiupaiOnAdium.AdiumLibpurplePlugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		9480B4B716018361000A5CA7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9480B4BA16018361000A5CA7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -134,6 +136,7 @@
 				9480B4DF160184CB000A5CA7 /* libintl.framework in Frameworks */,
 				9480B4E0160184CB000A5CA7 /* libmeanwhile.framework in Frameworks */,
 				94FA1C4D16018B4B00A910C0 /* libpurple.framework in Frameworks */,
+				94772A02160C4B8900705FF9 /* libjson-glib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +226,7 @@
 		9480B4D1160184CB000A5CA7 /* Linked Framework */ = {
 			isa = PBXGroup;
 			children = (
+				94772A01160C4B8900705FF9 /* libjson-glib.framework */,
 				94FA1C4C16018B4B00A910C0 /* libpurple.framework */,
 				9480B4D2160184CB000A5CA7 /* Adium.framework */,
 				9480B4D3160184CB000A5CA7 /* AdiumLibpurple.framework */,
