@@ -48,7 +48,11 @@ np_transaction_new(NPCmdProc *cmdproc, const char *command,
 		va_start(arg, format);
 		trans->params = g_strdup_vprintf(format, arg);
 		va_end(arg);
+        NIDPRINT("trans->params : %s %s",command,trans->params);
+
 	}
+
+    NIDPRINT("command : %s %s",command,__FILE__);
 
 	/* trans->queue = g_queue_new(); */
 

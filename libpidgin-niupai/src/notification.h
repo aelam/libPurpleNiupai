@@ -23,7 +23,7 @@ struct _NPNotification
 	 * This is a convenience pointer that always points to
 	 * servconn->cmdproc
 	 */
-	NPServConn *cmdproc;
+	NPCmdProc *cmdproc;
 	NPServConn *servconn;
     
 	gboolean in_use;

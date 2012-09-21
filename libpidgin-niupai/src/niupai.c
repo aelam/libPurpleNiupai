@@ -1127,6 +1127,7 @@ static gboolean np_load(PurplePlugin *plugin)
     NIDPRINT("=======>n");
     
     NIDPRINT("====================> \n");
+    np_notification_init();
 	return TRUE;
 }
 

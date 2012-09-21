@@ -21,8 +21,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02111-1301  USA
  */
-#ifndef NP_UTILS_H
-#define NP_UTILS_H
+#ifndef NP_UTILS_H__
+#define NP_UTILS_H__
 
 /*encode the str to RFC2047 style*/
 char *np_encode_mime(const char *str);
@@ -240,5 +240,5 @@ void np_write64be(char *buf, guint64 data);
 #define np_push64le(buf, data) np_write64le(buf, data), buf+=8
 #define np_push64be(buf, data) np_write64be(buf, data), buf+=8
 
-#endif /* NP_UTILS_H */
+#endif /* NP_UTILS_H__ */
 

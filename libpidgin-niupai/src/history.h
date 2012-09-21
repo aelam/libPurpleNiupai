@@ -21,8 +21,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02111-1301  USA
  */
-#ifndef NP_HISTORY_H
-#define NP_HISTORY_H
+#ifndef __NP_HISTORY_H__
+#define __NP_HISTORY_H__
 
 #include "internal.h"
 
@@ -47,4 +47,4 @@ void np_history_destroy(NPHistory *history);
 NPTransaction *np_history_find(NPHistory *history, unsigned int triId);
 void np_history_add(NPHistory *history, NPTransaction *trans);
 
-#endif /* NP_HISTORY_H */
+#endif /* __NP_HISTORY_H__ */

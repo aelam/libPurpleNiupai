@@ -21,8 +21,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02111-1301  USA
  */
-#ifndef NP_MSG_H
-#define NP_MSG_H
+#ifndef __NP_MSG_H__
+#define __NP_MSG_H__
 
 typedef struct _NPMessage NPMessage;
 
@@ -322,4 +322,4 @@ void np_invite_msg(NPCmdProc *cmdproc, NPMessage *msg);
 
 void np_handwritten_msg(NPCmdProc *cmdproc, NPMessage *msg);
 
-#endif /* NP_MSG_H */
+#endif /* __NP_MSG_H__ */

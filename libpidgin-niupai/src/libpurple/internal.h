@@ -26,7 +26,7 @@
 #ifndef _PURPLE_INTERNAL_H_
 #define _PURPLE_INTERNAL_H_
 
-#ifdef HAVE_CONFIG_H
+#ifdef HAVE_CONFIG_H__
 # include <config.h>
 #endif
 
@@ -64,7 +64,7 @@
 #  define dngettext(Domain, Singular, Plural, Number) ((Number == 1) ? ((const char *)Singular) : ((const char *)Plural))
 #endif
 
-#ifdef HAVE_ENDIAN_H
+#ifdef HAVE_ENDIAN_H__
 # include <endian.h>
 #endif
 

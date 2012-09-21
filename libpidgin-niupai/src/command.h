@@ -21,8 +21,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02111-1301  USA
  */
-#ifndef NP_COMMAND_H
-#define NP_COMMAND_H
+#ifndef __NP_COMMAND_H__
+#define __NP_COMMAND_H__
 
 typedef struct _NPCommand NPCommand;
 
@@ -80,5 +80,5 @@ NPCommand *np_command_ref(NPCommand *cmd);
  */
 void np_command_unref(NPCommand *cmd);
 
-#endif /* NP_COMMAND_H */
+#endif /* __NP_COMMAND_H__ */
 

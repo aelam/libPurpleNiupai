@@ -27,9 +27,10 @@
 
 #include "internal.h"
 #include "npconfig.h"
-
-//#include "account.h"
+#include "debug.h"
 
 #include "session.h"
+
+#undef purple_debug_info
 
 #endif  /* __NP_NIUPAI_H__ */

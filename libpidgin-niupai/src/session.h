@@ -11,13 +11,6 @@
 
 typedef struct _NPSession NPSession;
 
-//#include "session.h"
-//#include "user.h"
-//#include "internal.h"
-
-//#include "account.h"
-//#include "group.h"
-
 /**
  * Types of errors.
  */
@@ -73,6 +66,7 @@ struct _NPSession {
 
     guint           login_timeout; /**< Timeout to force status change if ADL/FQY fail. */
 
+    int             servconns_count;
     NPNotification  *notification;
     NPUserList      *userlist;
 };

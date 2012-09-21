@@ -21,8 +21,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02111-1301  USA
  */
-#ifndef NP_SWITCHBOARD_H
-#define NP_SWITCHBOARD_H
+#ifndef __NP_SWITCHBOARD_H__
+#define __NP_SWITCHBOARD_H__
 
 typedef struct _NPSwitchBoard NPSwitchBoard;
 
@@ -263,4 +263,4 @@ void np_switchboard_request_add_user(NPSwitchBoard *swboard, const char *user);
 void np_switchboard_show_ink(NPSwitchBoard *swboard, const char *passport,
                               const char *data);
 
-#endif /* NP_SWITCHBOARD_H */
+#endif /* __NP_SWITCHBOARD_H__ */

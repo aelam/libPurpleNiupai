@@ -21,8 +21,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02111-1301  USA
  */
-#ifndef NP_TRANSACTION_H
-#define NP_TRANSACTION_H
+#ifndef __NP_TRANSACTION_H__
+#define __NP_TRANSACTION_H__
 
 #include "internal.h"
 
@@ -84,4 +84,4 @@ void np_transaction_add_cb(NPTransaction *trans, char *answer,
 void np_transaction_set_error_cb(NPTransaction *trans, NPErrorCb cb);
 void np_transaction_set_timeout_cb(NPTransaction *trans, NPTimeoutCb cb);
 
-#endif /* NP_TRANSACTION_H */
+#endif /* __NP_TRANSACTION_H__ */

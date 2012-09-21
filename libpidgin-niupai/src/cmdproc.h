@@ -21,8 +21,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02111-1301  USA
  */
-#ifndef NP_CMDPROC_H
-#define NP_CMDPROC_H
+#ifndef NP_CMDPROC_H__
+#define NP_CMDPROC_H__
 
 typedef struct _NPCmdProc NPCmdProc;
 
@@ -97,4 +97,4 @@ void np_cmdproc_process_cmd_text(NPCmdProc *cmdproc, const char *command);
 void np_cmdproc_process_payload(NPCmdProc *cmdproc,
 								 char *payload, int payload_len);
 
-#endif /* NP_CMDPROC_H */
+#endif /* NP_CMDPROC_H__ */

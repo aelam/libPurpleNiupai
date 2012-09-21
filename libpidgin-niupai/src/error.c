@@ -309,8 +309,9 @@ np_add_cb(NPAddRemData *data)
 	/* this *should* be necessary !! */
 	np_complete_sync_issue(data);
 #endif
-	NPUserList *userlist = data->session->userlist;
-    
+    //TODO
+//	NPUserList *userlist = data->session->userlist;
+
 //	np_userlist_add_buddy(userlist, data->who, data->group);
     
 	g_free(data->group);

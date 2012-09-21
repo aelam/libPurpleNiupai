@@ -19,24 +19,23 @@ static void servconn_timeout_renew(NPServConn *servconn);
 NPServConn *
 np_servconn_new(NPSession *session, NPServConnType type)
 {
-    NIDPRINT("========= \n");
 	NPServConn *servconn;
     
 	g_return_val_if_fail(session != NULL, NULL);
     
 	servconn = g_new0(NPServConn, 1);
     
-//	servconn->type = type;
+	servconn->type = type;
     
 	servconn->session = session;
-//	servconn->cmdproc = np_cmdproc_new(session);
-//	servconn->cmdproc->servconn = servconn;
+	servconn->cmdproc = np_cmdproc_new(session);
+	servconn->cmdproc->servconn = servconn;
     
-//	servconn->httpconn = np_httpconn_new(servconn);
+	servconn->httpconn = np_httpconn_new(servconn);
     
-//	servconn->num = session->servconns_count++;
+	servconn->num = session->servconns_count++;
     
-//	servconn->tx_buf = purple_circ_buffer_new(NP_BUF_LEN);
+	servconn->tx_buf = purple_circ_buffer_new(NP_BUF_LEN);
 	servconn->tx_handler = 0;
 	servconn->timeout_sec = 0;
 	servconn->timeout_handle = 0;
@@ -64,8 +63,8 @@ np_servconn_destroy(NPServConn *servconn)
 	if (servconn->destroy_cb)
 		servconn->destroy_cb(servconn);
     
-//	if (servconn->httpconn != NULL)
-//		np_httpconn_destroy(servconn->httpconn);
+	if (servconn->httpconn != NULL)
+		np_httpconn_destroy(servconn->httpconn);
     
 	g_free(servconn->host);
     
@@ -75,7 +74,7 @@ np_servconn_destroy(NPServConn *servconn)
 	if (servconn->timeout_handle > 0)
 		purple_timeout_remove(servconn->timeout_handle);
     
-//	np_cmdproc_destroy(servconn->cmdproc);
+	np_cmdproc_destroy(servconn->cmdproc);
 	g_free(servconn);
 }
 
@@ -83,8 +82,6 @@ void
 np_servconn_set_connect_cb(NPServConn *servconn,
 							void (*connect_cb)(NPServConn *))
 {
-    NIDPRINT("========= \n");
-
 	g_return_if_fail(servconn != NULL);
 	servconn->connect_cb = connect_cb;
 }
@@ -107,9 +104,6 @@ np_servconn_set_destroy_cb(NPServConn *servconn,
 	servconn->destroy_cb = destroy_cb;
 }
 
-/**************************************************************************
- * Utility
- **************************************************************************/
 /**************************************************************************
  * Utility
  **************************************************************************/
@@ -139,12 +133,14 @@ np_servconn_got_error(NPServConn *servconn, NPServConnError error,
 				reason = _("Unknown error"); break;
 		}
 	}
-    
-	purple_debug_error("np", "Connection error from %s server (%s): %s\n",
-                       name, servconn->host, reason);
+
+    NIDPRINT("Connection error from %s server (%s): %s\n", name, servconn->host, reason);
+//	purple_debug_error("np", "Connection error from %s server (%s): %s\n",
+//                       name, servconn->host, reason);
     
 	if (type == NP_SERVCONN_SB)
 	{
+        //TODO
 //		NPSwitchBoard *swboard;
 //		swboard = servconn->cmdproc->data;
 //		if (swboard != NULL)
@@ -170,7 +166,8 @@ np_servconn_got_error(NPServConn *servconn, NPServConnError error,
 static void
 connect_cb(gpointer data, gint source, const char *error_message)
 {
-    NIDPRINT("========= \n");
+    NIDPRINT("========= \n data = %p",data);
+    NIDPRINT("[data = %s] ",data);
 
 	NPServConn *servconn;
     
@@ -185,6 +182,8 @@ connect_cb(gpointer data, gint source, const char *error_message)
         
 		/* Someone wants to know we connected. */
 		servconn->connect_cb(servconn);
+        NIDPRINT("servconn->fd = %d ",servconn->fd);
+        NIDPRINT("data = %s ",data);
 		servconn->inpa = purple_input_add(servconn->fd, PURPLE_INPUT_READ,
                                           read_cb, data);
 		servconn_timeout_renew(servconn);
@@ -215,23 +214,27 @@ np_servconn_connect(NPServConn *servconn, const char *host, int port, gboolean f
 	g_free(servconn->host);
 	servconn->host = g_strdup(host);
     
+    NIDPRINT("===> session->http_method : %d",session->http_method);
 	if (session->http_method)
 	{
 		/* HTTP Connection. */
         
-//		if (!servconn->httpconn->connected || force)
-//			if (!np_httpconn_connect(servconn->httpconn, host, port))
-//				return FALSE;
-//        
-//		servconn->connected = TRUE;
-//		servconn->httpconn->virgin = TRUE;
-//		servconn_timeout_renew(servconn);
+		if (!servconn->httpconn->connected || force)
+			if (!np_httpconn_connect(servconn->httpconn, host, port))
+				return FALSE;
+        
+		servconn->connected = TRUE;
+		servconn->httpconn->virgin = TRUE;
+		servconn_timeout_renew(servconn);
         
 		/* Someone wants to know we connected. */
 		servconn->connect_cb(servconn);
         
 		return TRUE;
 	}
+    
+    NIDPRINT("[[[[[[[[[[[===> session->http_method :servconn = %p ,servconn = %s\n\n",servconn,servconn);
+
     
 	servconn->connect_data = purple_proxy_connect(NULL, session->account,
                                                   host, port, connect_cb, servconn);
@@ -412,6 +415,7 @@ np_servconn_write(NPServConn *servconn, const char *buf, size_t len)
 static void
 read_cb(gpointer data, gint source, PurpleInputCondition cond)
 {
+    NIDPRINT("===== > cond : %d",cond);
 	NPServConn *servconn;
 	char buf[NP_BUF_LEN];
 	gssize len;
@@ -433,15 +437,15 @@ read_cb(gpointer data, gint source, PurpleInputCondition cond)
 //		return;
 //	}
     
-	buf[len] = '\0';
-    
-	servconn->rx_buf = g_realloc(servconn->rx_buf, len + servconn->rx_len + 1);
-	memcpy(servconn->rx_buf + servconn->rx_len, buf, len + 1);
-	servconn->rx_len += len;
-    
-	servconn = np_servconn_process_data(servconn);
-	if (servconn)
-		servconn_timeout_renew(servconn);
+//	buf[len] = '\0';
+//    
+//	servconn->rx_buf = g_realloc(servconn->rx_buf, len + servconn->rx_len + 1);
+//	memcpy(servconn->rx_buf + servconn->rx_len, buf, len + 1);
+//	servconn->rx_len += len;
+//    
+//	servconn = np_servconn_process_data(servconn);
+//	if (servconn)
+//		servconn_timeout_renew(servconn);
 }
 
 NPServConn *np_servconn_process_data(NPServConn *servconn)

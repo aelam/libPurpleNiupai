@@ -6,8 +6,8 @@
 //  Copyright (c) 2012年 Ryan Wang. All rights reserved.
 //
 
-#ifndef BUDDY_LIST_H
-#define BUDDY_LIST_H
+#ifndef __BUDDY_LIST_H__
+#define __BUDDY_LIST_H__
 
 #include <glib.h>
 #include <connection.h>
@@ -21,4 +21,4 @@ struct _NiupaiBuddyList
 
 
 
-#endif
+#endif /* __BUDDY_LIST_H__ */

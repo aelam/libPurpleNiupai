@@ -21,8 +21,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02111-1301  USA
  */
-#ifndef NP_TABLE_H
-#define NP_TABLE_H
+#ifndef __NP_TABLE_H__
+#define __NP_TABLE_H__
 
 typedef struct _NPTable NPTable;
 
@@ -90,4 +90,4 @@ void np_table_add_error(NPTable *table, char *answer, NPErrorCb cb);
  */
 void np_table_add_msg_type(NPTable *table, char *type, NPMsgTypeCb cb);
 
-#endif /* NP_TABLE_H */
+#endif /* __NP_TABLE_H__ */
