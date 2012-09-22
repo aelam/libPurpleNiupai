@@ -44,5 +44,8 @@
 
 #define NP_HTTPCONN_SERVER      "http://mapi.niupai.com"
 
+// Use for Test
+//#define NP_LOGIN_STRING         "LOGIN,45557212,203,1,bb680992016c289290311a0adc3aecbf"
+
 
 #endif /* __NP_NPCONFIG_H__ */

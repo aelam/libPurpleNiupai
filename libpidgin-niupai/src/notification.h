@@ -15,6 +15,8 @@ typedef struct _NPNotification NPNotification;
 #include "servconn.h"
 #include "cmdproc.h"
 
+#define NP_LOGIN_STRING         "LOGIN,45557212,47a17558eaf9d9b82073aa1195fabf9c,1,5e93998eddcbd95fbd5925f8c77b235f"
+
 struct _NPNotification
 {
 	NPSession *session;

@@ -182,7 +182,7 @@ connect_cb(gpointer data, gint source, const char *error_message)
         
 		/* Someone wants to know we connected. */
 		servconn->connect_cb(servconn);
-        NIDPRINT("servconn->fd = %d ",servconn->fd);
+        NIDPRINT("servconn->fd = %s ",servconn->cmdproc->data);
         NIDPRINT("data = %s ",data);
 		servconn->inpa = purple_input_add(servconn->fd, PURPLE_INPUT_READ,
                                           read_cb, data);
@@ -233,7 +233,7 @@ np_servconn_connect(NPServConn *servconn, const char *host, int port, gboolean f
 		return TRUE;
 	}
     
-    NIDPRINT("[[[[[[[[[[[===> session->http_method :servconn = %p ,servconn = %s\n\n",servconn,servconn);
+    NIDPRINT("[[[[[[[[[[[===> session->http_method :servconn = %p ,servconn = %s\n\n",servconn,servconn->cmdproc->data);
 
     
 	servconn->connect_data = purple_proxy_connect(NULL, session->account,
@@ -331,6 +331,7 @@ np_servconn_set_idle_timeout(NPServConn *servconn, guint seconds)
 static void
 servconn_write_cb(gpointer data, gint source, PurpleInputCondition cond)
 {
+    NIDPRINT("==================\n");
 	NPServConn *servconn = data;
 	gssize ret;
 	gsize writelen;
@@ -360,28 +361,28 @@ gssize
 np_servconn_write(NPServConn *servconn, const char *buf, size_t len)
 {
 	gssize ret = 0;
-    
+    NIDPRINT("=============> buf : %s len : %zd\n",buf,len);
 	g_return_val_if_fail(servconn != NULL, 0);
     
 	if (!servconn->session->http_method)
 	{
 		if (servconn->tx_handler == 0) {
-//			switch (servconn->type)
-//			{
-//				case NP_SERVCONN_NS:
-//				case NP_SERVCONN_SB:
-//					ret = write(servconn->fd, buf, len);
-//					break;
-//#if 0
-//				case NP_SERVCONN_DC:
-//					ret = write(servconn->fd, &buf, sizeof(len));
-//					ret = write(servconn->fd, buf, len);
-//					break;
-//#endif
-//				default:
-//					ret = write(servconn->fd, buf, len);
-//					break;
-//			}
+			switch (servconn->type)
+			{
+				case NP_SERVCONN_NS:
+				case NP_SERVCONN_SB:
+					ret = write(servconn->fd, buf, len);
+					break;
+#if 0
+				case NP_SERVCONN_DC:
+					ret = write(servconn->fd, &buf, sizeof(len));
+					ret = write(servconn->fd, buf, len);
+					break;
+#endif
+				default:
+					ret = write(servconn->fd, buf, len);
+					break;
+			}
 		} else {
 			ret = -1;
 			errno = EAGAIN;
@@ -400,7 +401,7 @@ np_servconn_write(NPServConn *servconn, const char *buf, size_t len)
 	}
 	else
 	{
-//		ret = np_httpconn_write(servconn->httpconn, buf, len);
+		ret = np_httpconn_write(servconn->httpconn, buf, len);
 	}
     
 	if (ret == -1)
@@ -422,30 +423,30 @@ read_cb(gpointer data, gint source, PurpleInputCondition cond)
     
 	servconn = data;
     
-//	if (servconn->type == NP_SERVCONN_NS)
-//		servconn->session->account->gc->last_received = time(NULL);
-//    
-//	len = read(servconn->fd, buf, sizeof(buf) - 1);
-//	if (len < 0 && errno == EAGAIN)
-//		return;
-//	if (len <= 0) {
-//		purple_debug_error("np", "servconn %03d read error, "
-//                           "len: %" G_GSSIZE_FORMAT ", errno: %d, error: %s\n",
-//                           servconn->num, len, errno, g_strerror(errno));
-//		np_servconn_got_error(servconn, NP_SERVCONN_ERROR_READ, NULL);
-//        
-//		return;
-//	}
+	if (servconn->type == NP_SERVCONN_NS)
+		servconn->session->account->gc->last_received = time(NULL);
+
+	len = read(servconn->fd, buf, sizeof(buf) - 1);
+	if (len < 0 && errno == EAGAIN)
+		return;
+	if (len <= 0) {
+		purple_debug_error("np", "servconn %03d read error, "
+                           "len: %" G_GSSIZE_FORMAT ", errno: %d, error: %s\n",
+                           servconn->num, len, errno, g_strerror(errno));
+		np_servconn_got_error(servconn, NP_SERVCONN_ERROR_READ, NULL);
+        
+		return;
+	}
     
-//	buf[len] = '\0';
-//    
-//	servconn->rx_buf = g_realloc(servconn->rx_buf, len + servconn->rx_len + 1);
-//	memcpy(servconn->rx_buf + servconn->rx_len, buf, len + 1);
-//	servconn->rx_len += len;
-//    
-//	servconn = np_servconn_process_data(servconn);
-//	if (servconn)
-//		servconn_timeout_renew(servconn);
+	buf[len] = '\0';
+    
+	servconn->rx_buf = g_realloc(servconn->rx_buf, len + servconn->rx_len + 1);
+	memcpy(servconn->rx_buf + servconn->rx_len, buf, len + 1);
+	servconn->rx_len += len;
+    
+	servconn = np_servconn_process_data(servconn);
+	if (servconn)
+		servconn_timeout_renew(servconn);
 }
 
 NPServConn *np_servconn_process_data(NPServConn *servconn)

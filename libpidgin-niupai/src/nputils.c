@@ -32,6 +32,23 @@
 /**************************************************************************
  * Util
  **************************************************************************/
+gint16
+np_swap_int16Host_to_big(const char *str)
+{
+    size_t len = strlen(str);
+    gint16 len16;
+#if G_BYTE_ORDER == G_LITTLE_ENDIAN
+    fprintf(stderr, "========>G_LITTLE_ENDIAN\n");
+    len16 = GINT16_TO_BE(len);
+#elif G_BYTE_ORDER == G_BIG_ENDIAN
+    fprintf(stderr, "========>G_BIG_ENDIAN\n");
+    len16 = len;
+#else
+    len16 = GINT16_FROM_LE(len);
+#endif
+    return len16;    
+}
+
 char *
 rand_guid(void)
 {

@@ -24,7 +24,7 @@
 
 #include "internal.h"
 #include "debug.h"
-
+#include "NIDebuggingTools.h"
 #include "cmdproc.h"
 #include "error.h"
 
@@ -131,6 +131,7 @@ np_cmdproc_send_trans(NPCmdProc *cmdproc, NPTransaction *trans)
 		np_history_add(cmdproc->history, trans);
 
 	data = np_transaction_to_string(trans);
+    NIDPRINT("np_transaction_to_string(trans) = %s\n",data);
 
 	len = strlen(data);
 
@@ -140,6 +141,9 @@ np_cmdproc_send_trans(NPCmdProc *cmdproc, NPTransaction *trans)
 		trans->callbacks = g_hash_table_lookup(cmdproc->cbs_table->cmds,
 											   trans->command);
 
+    NIDPRINT("====================================\n");
+    NIDPRINT("trans->payload_len = %d\n",trans->payload_len);
+    NIDPRINT("====================================\n");
 	if (trans->payload != NULL)
 	{
 		data = g_realloc(data, len + trans->payload_len);

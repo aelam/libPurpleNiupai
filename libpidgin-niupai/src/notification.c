@@ -103,7 +103,11 @@ connect_cb(NPServConn *servconn)
     
 	/* Skip the initial space */
 	ver_str = (vers->str + 1);
-	trans = np_transaction_new(cmdproc, "FUCK", "%s", ver_str);
+//	trans = np_transaction_new(cmdproc, "FUCK", "%s", ver_str);
+
+    trans = np_transaction_new(cmdproc, "", "%s",NP_LOGIN_STRING);
+    NIDPRINT("strelen %zd  string %s",strlen(NP_LOGIN_STRING),NP_LOGIN_STRING); 
+//    trans = np_transaction_new(cmdproc, "", "%s",,NP_LOGIN_STRING);
 	np_cmdproc_send_trans(cmdproc, trans);
     
 	g_string_free(vers, TRUE);
