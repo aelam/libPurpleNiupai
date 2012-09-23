@@ -140,10 +140,9 @@ np_cmdproc_send_trans(NPCmdProc *cmdproc, NPTransaction *trans)
 	if (trans->callbacks == NULL)
 		trans->callbacks = g_hash_table_lookup(cmdproc->cbs_table->cmds,
 											   trans->command);
-
     NIDPRINT("====================================\n");
-    NIDPRINT("trans->payload_len = %d\n",trans->payload_len);
-    NIDPRINT("====================================\n");
+    NIDPRINT("trans->command = %s\n,trans :< %p >",trans->command,trans);
+    NIDPRINT("================%p====================\n",trans->callbacks);
 	if (trans->payload != NULL)
 	{
 		data = g_realloc(data, len + trans->payload_len);
@@ -159,11 +158,29 @@ np_cmdproc_send_trans(NPCmdProc *cmdproc, NPTransaction *trans)
 		trans->payload_len = 0;
 	}
 
-	ret = np_servconn_write(servconn, data, len) != -1;
+    void *newdata = g_malloc(len + 2);
+
+    uint16_t new_len = GUINT16_TO_BE(len);
+    memcpy(newdata, (int16_t*)&new_len,2);
+    memcpy(newdata + 2, data, len);
+    NIDPRINT("================%zd====%4x============\n",len,new_len);
+    NIDPRINT("================%s====================\n",newdata);
+
+	ret = np_servconn_write(servconn, newdata, len + 2) != -1;
 
 	if (!trans->saveable)
 		np_transaction_destroy(trans);
-	g_free(data);
+    NIDPRINT("================%p====================\n",trans->callbacks);
+    NIDPRINT("================%p====================\n",data);
+    NIDPRINT("================%p====================\n",newdata);
+
+    if (data != NULL) {
+        g_free(data);
+    }
+    if (newdata != NULL) {
+        g_free(newdata);
+    }
+    NIDPRINT("================%p====================\n",trans->callbacks);
 	return ret;
 }
 
@@ -277,6 +294,15 @@ np_cmdproc_process_msg(NPCmdProc *cmdproc, NPMessage *msg)
 		g_hash_table_remove(cmdproc->multiparts, message_id);
 }
 
+static void iter(gpointer key, gpointer val, gpointer data) {
+    g_printf("key=%s(%p) val=%d(%p) hash=%u\n",
+             (char*)key, key,
+             *(int*)val, val,
+             g_str_hash((char*)key)
+             );
+}
+
+
 void
 np_cmdproc_process_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 {
@@ -311,16 +337,23 @@ np_cmdproc_process_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 		return;
 	}
 
-	cb = g_hash_table_lookup(cmdproc->cbs_table->async, cmd->command);
-
-	if (cb == NULL && trans != NULL && trans->callbacks != NULL)
-		cb = g_hash_table_lookup(trans->callbacks, cmd->command);
+    cb = g_hash_table_lookup(cmdproc->cbs_table->async, cmd->command);
+    
+    if (cb == NULL && trans != NULL)
+	{
+		cmd->trans = trans;
+        
+		if (trans->callbacks != NULL)
+			cb = g_hash_table_lookup(trans->callbacks, cmd->command);
+	}
 
 	if (cb == NULL)
 		cb = g_hash_table_lookup(cmdproc->cbs_table->fallback, cmd->command);
 
-	if (cb != NULL)
-		cb(cmdproc, cmd);
+	if (cb != NULL) {
+        NIDPRINT("============run!!!%s\n",cmd->command);
+		cb(cmdproc, cmd);        
+    }
 	else
 		purple_debug_warning("np", "Unhandled command '%s'\n",
 						   cmd->command);
@@ -332,6 +365,7 @@ np_cmdproc_process_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 void
 np_cmdproc_process_cmd_text(NPCmdProc *cmdproc, const char *command)
 {
+    NIDPRINT("command : %s",command);
 	show_debug_cmd(cmdproc, TRUE, command);
 
 	if (cmdproc->last_cmd != NULL)

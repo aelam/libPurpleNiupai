@@ -9,6 +9,7 @@
 #include "contact.h"
 #include "session.h"
 #include "NIDebuggingTools.h"
+#include "niupai.h"
 
 NPSession *np_session_new(PurpleAccount *account)
 {
@@ -63,7 +64,45 @@ np_session_connect(NPSession *session,
 void
 np_session_disconnect(NPSession *session)
 {
+    g_return_if_fail(session != NULL);
     
+	if (!session->connected)
+		return;
+    
+	if (session->login_timeout) {
+		purple_timeout_remove(session->login_timeout);
+		session->login_timeout = 0;
+	}
+    
+	session->connected = FALSE;
+    
+	if (session->notification != NULL)
+		np_notification_close(session->notification);
+
+}
+
+static gboolean
+np_login_timeout_cb(gpointer data)
+{
+	MsnSession *session = data;
+	/* This forces the login process to finish, even though we haven't heard
+     a response for our FQY requests yet. We'll at least end up online to the
+     people we've already added. The rest will follow later. */
+	np_session_finish_login(session);
+	session->login_timeout = 0;
+	return FALSE;
+}
+
+void
+np_session_activate_login_timeout(MsnSession *session)
+{
+	if (!session->logged_in && session->connected) {
+		if (session->login_timeout)
+			purple_timeout_remove(session->login_timeout);
+		session->login_timeout =
+        purple_timeout_add_seconds(MSN_LOGIN_FQY_TIMEOUT,
+                                   np_login_timeout_cb, session);
+	}
 }
 
 
@@ -217,7 +256,6 @@ get_login_step_text(NPSession *session)
 void
 np_session_set_login_step(NPSession *session, NPLoginStep step)
 {
-//    NIDPRINT("====== \n");
 	PurpleConnection *gc;
     
 	/* Prevent the connection progress going backwards, eg. if we get
@@ -238,3 +276,36 @@ np_session_set_login_step(NPSession *session, NPLoginStep step)
 	purple_connection_update_progress(gc, get_login_step_text(session), step,
                                       NP_LOGIN_STEPS);
 }
+
+void
+np_session_finish_login(NPSession *session)
+{
+	PurpleAccount *account;
+	PurpleConnection *gc;
+	PurpleStoredImage *img;
+    
+	if (!session->logged_in) {
+		account = session->account;
+		gc = purple_account_get_connection(account);
+        
+		img = purple_buddy_icons_find_account_icon(session->account);
+		/* TODO: Do we really want to call this if img is NULL? */
+		np_user_set_buddy_icon(session->user, img);
+		if (img != NULL)
+			purple_imgstore_unref(img);
+        
+		session->logged_in = TRUE;
+		purple_connection_set_state(gc, PURPLE_CONNECTED);
+        
+		/* Sync users */
+		np_session_sync_users(session);
+	}
+    
+	/* TODO: Send this when updating status instead? */
+//	msn_notification_send_uux_endpointdata(session);
+//	msn_notification_send_uux_private_endpointdata(session);
+    
+    //TODO
+//	np_change_status(session);
+}
+

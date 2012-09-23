@@ -173,11 +173,7 @@ static void np_login(PurpleAccount *account)
 	gc->flags |= PURPLE_CONNECTION_HTML | PURPLE_CONNECTION_NO_BGCOLOR | PURPLE_CONNECTION_AUTO_RESP;
 
     np_session_set_login_step(session, NP_LOGIN_STEP_START);
-
     presence = purple_account_get_presence(account);
-
-    gboolean show_notice = purple_account_get_bool(account, "show_notice", TRUE);
-    NIDINFO("=======> show_notice : %d === \n",show_notice);
 
 	if (!np_session_connect(session, host, port, http_method))
 		purple_connection_error_reason(gc,
@@ -438,25 +434,6 @@ static GList *np_status_types(PurpleAccount *ga)
     status = purple_status_type_new_full(PURPLE_STATUS_OFFLINE,
                                          "offline", _("Offline"), TRUE, TRUE, FALSE);
 	types = g_list_append(types, status);
-
-/*
-	status = purple_status_type_new_full(PURPLE_STATUS_AWAY,
-                                         "away", _("Away"), TRUE, TRUE, FALSE);
-	types = g_list_append(types, status);
-    
-	status = purple_status_type_new_full(PURPLE_STATUS_INVISIBLE,
-                                         "invisible", _("Invisible"), TRUE, TRUE, FALSE);
-	types = g_list_append(types, status);
-    
-	status = purple_status_type_new_full(PURPLE_STATUS_UNAVAILABLE,
-                                         "busy", _("Busy"), TRUE, TRUE, FALSE);
-	types = g_list_append(types, status);
-    
-    status = purple_status_type_new_full(PURPLE_STATUS_MOBILE,
-                                        "mobile", NULL, FALSE, FALSE, TRUE);
-    types = g_list_append(types, status);
-
- */
     
 	status = purple_status_type_new_with_attrs(PURPLE_STATUS_MOOD,
                                                PURPLE_MOOD_NAME, _("Mood"), TRUE, TRUE, TRUE, PURPLE_MOOD_COMMENT, _("Mood Text"), purple_value_new(PURPLE_TYPE_STRING), NULL);
@@ -465,13 +442,32 @@ static GList *np_status_types(PurpleAccount *ga)
 	return types;
 }
 
-/* initiate np away with proper change_status packet */
-static void np_change_status(PurpleAccount *account, PurpleStatus *status)
+static void
+np_change_status(PurpleAccount *account, PurpleStatus *status)
 {
-    NIDPRINT("\n===>");
+    // TODO
+    //	PurpleConnection *gc = purple_account_get_connection(account);
+    //	np_request_change_status(gc, 0);
+}
 
-//	PurpleConnection *gc = purple_account_get_connection(account);
-//	np_request_change_status(gc, 0);
+static void
+np_keepalive(PurpleConnection *gc)
+{
+    NIDPRINT("keeping alive %ld\n",time(NULL));
+    
+    NPSession *session;
+	NPTransaction *trans;
+    
+	session = gc->proto_data;
+    
+
+    NPCmdProc *cmdproc;
+    
+	cmdproc = session->notification->cmdproc;
+        
+    trans = np_transaction_new(cmdproc, "HEART","%s","HEART",NULL);
+    np_transaction_set_saveable(trans, FALSE);
+    np_cmdproc_send_trans(cmdproc, trans);
 }
 
 /* send packet to get who's detailed information */
@@ -1133,7 +1129,7 @@ static gboolean np_load(PurplePlugin *plugin)
 
 static gboolean np_unload(PurplePlugin *plugin)
 {
-    
+    np_notification_end();
     return TRUE;
 }
 
@@ -1178,10 +1174,10 @@ static PurplePluginProtocolInfo prpl_info =
 	NULL,						/* chat_invite	*/
 	NULL,						/* chat_leave */
 	NULL,						/* chat_whisper */
-	NULL,               /* chat_send */
-	NULL,						/* keepalive */
+	NULL,                       /* chat_send */
+	np_keepalive,               /* keepalive */
 	NULL,						/* register_user */
-	NULL,		/* get_cb_info	*/
+	NULL,                       /* get_cb_info	*/
 	NULL,							/* get_cb_away	*/
 	NULL,							/* alias_buddy	*/
 	NULL,							/* change buddy's group	*/

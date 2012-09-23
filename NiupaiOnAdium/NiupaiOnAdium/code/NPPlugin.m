@@ -14,6 +14,14 @@
 #import <Adium/ESDebugAILog.h>					//Everybody needs to debug
 #import <glib.h>
 
+#ifdef DEBUG
+#import "GTMStackTrace.h"
+
+void exceptionHandler(NSException *exception) {
+	NSLog(@"%@", GTMStackTraceFromException(exception));
+}
+#endif
+
 extern gboolean purple_init_np_plugin(void);
 
 @implementation NPPlugin
@@ -27,6 +35,16 @@ extern gboolean purple_init_np_plugin(void);
     [[NSFileManager defaultManager] removeItemAtPath:logPath error:nil];
     freopen([logPath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
     
+#ifdef DEBUG
+	NSLog(@"Debug enabled");
+//	NSDebugEnabled = YES;
+//	NSZombieEnabled = YES;
+//	NSDeallocateZombies = NO;
+//	NSHangOnUncaughtException = YES;
+//	[NSAutoreleasePool enableFreedObjectCheck:YES];
+	NSSetUncaughtExceptionHandler(&exceptionHandler);
+#endif
+
 	NSLog(@"Security details: %@",self);
 }
 

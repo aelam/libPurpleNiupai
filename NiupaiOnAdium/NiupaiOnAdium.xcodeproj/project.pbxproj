@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9430AB0A160F262B00332732 /* memcpy_extra.c in Sources */ = {isa = PBXBuildFile; fileRef = 9430AB09160F262B00332732 /* memcpy_extra.c */; };
+		9430AB6B160F92DF00332732 /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 9430AB68160F92DF00332732 /* GTMObjC2Runtime.m */; };
+		9430AB6C160F92DF00332732 /* GTMStackTrace.m in Sources */ = {isa = PBXBuildFile; fileRef = 9430AB6A160F92DF00332732 /* GTMStackTrace.m */; };
 		945D3B7616022CE600AF6E0C /* Niupai-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 945D3B7416022CE600AF6E0C /* Niupai-small.png */; };
 		945D3B7716022CE600AF6E0C /* Niupai.png in Resources */ = {isa = PBXBuildFile; fileRef = 945D3B7516022CE600AF6E0C /* Niupai.png */; };
 		945D3B7C16022D1900AF6E0C /* PurpleDefaultsNiupai.plist in Resources */ = {isa = PBXBuildFile; fileRef = 945D3B7B16022D1900AF6E0C /* PurpleDefaultsNiupai.plist */; };
@@ -23,6 +26,7 @@
 		9480B4E716018533000A5CA7 /* NPService.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480B4E616018533000A5CA7 /* NPService.m */; };
 		9480B4EA16018772000A5CA7 /* NPAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480B4E916018772000A5CA7 /* NPAccount.m */; };
 		9480B4ED1601878A000A5CA7 /* NPPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480B4EC1601878A000A5CA7 /* NPPlugin.m */; };
+		9491B31A160E19F500C60A69 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9491B319160E19F500C60A69 /* README.md */; };
 		94FA1C4D16018B4B00A910C0 /* libpurple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FA1C4C16018B4B00A910C0 /* libpurple.framework */; };
 		94FD7C76160B6DEA008AF095 /* buddy.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C52160B6DEA008AF095 /* buddy.c */; };
 		94FD7C77160B6DEA008AF095 /* buddy_list.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C54160B6DEA008AF095 /* buddy_list.c */; };
@@ -49,6 +53,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9430AB09160F262B00332732 /* memcpy_extra.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = memcpy_extra.c; sourceTree = "<group>"; };
+		9430AB0C160F263800332732 /* memcpy_extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memcpy_extra.h; sourceTree = "<group>"; };
+		9430AB67160F92DE00332732 /* GTMObjC2Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMObjC2Runtime.h; sourceTree = "<group>"; };
+		9430AB68160F92DF00332732 /* GTMObjC2Runtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMObjC2Runtime.m; sourceTree = "<group>"; };
+		9430AB69160F92DF00332732 /* GTMStackTrace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMStackTrace.h; sourceTree = "<group>"; };
+		9430AB6A160F92DF00332732 /* GTMStackTrace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMStackTrace.m; sourceTree = "<group>"; };
 		945D3B7416022CE600AF6E0C /* Niupai-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Niupai-small.png"; sourceTree = "<group>"; };
 		945D3B7516022CE600AF6E0C /* Niupai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Niupai.png; sourceTree = "<group>"; };
 		945D3B7B16022D1900AF6E0C /* PurpleDefaultsNiupai.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PurpleDefaultsNiupai.plist; sourceTree = "<group>"; };
@@ -73,6 +83,7 @@
 		9480B4E916018772000A5CA7 /* NPAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPAccount.m; sourceTree = "<group>"; };
 		9480B4EB1601878A000A5CA7 /* NPPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NPPlugin.h; sourceTree = "<group>"; };
 		9480B4EC1601878A000A5CA7 /* NPPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPPlugin.m; sourceTree = "<group>"; };
+		9491B319160E19F500C60A69 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		94FA1C4C16018B4B00A910C0 /* libpurple.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libpurple.framework; sourceTree = "<group>"; };
 		94FD7C52160B6DEA008AF095 /* buddy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buddy.c; sourceTree = "<group>"; };
 		94FD7C53160B6DEA008AF095 /* buddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buddy.h; sourceTree = "<group>"; };
@@ -143,6 +154,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9430AB66160F92DE00332732 /* GTMStackTrace */ = {
+			isa = PBXGroup;
+			children = (
+				9430AB67160F92DE00332732 /* GTMObjC2Runtime.h */,
+				9430AB68160F92DF00332732 /* GTMObjC2Runtime.m */,
+				9430AB69160F92DF00332732 /* GTMStackTrace.h */,
+				9430AB6A160F92DF00332732 /* GTMStackTrace.m */,
+			);
+			path = GTMStackTrace;
+			sourceTree = "<group>";
+		};
 		945D3B7316022CE600AF6E0C /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +178,8 @@
 		9480B4A916018361000A5CA7 = {
 			isa = PBXGroup;
 			children = (
+				9430AB66160F92DE00332732 /* GTMStackTrace */,
+				9491B319160E19F500C60A69 /* README.md */,
 				94FA1C7F1601978100A910C0 /* libpidgin-niupai */,
 				9480B4BD16018361000A5CA7 /* NiupaiOnAdium */,
 				9480B4B616018361000A5CA7 /* Frameworks */,
@@ -226,13 +250,13 @@
 		9480B4D1160184CB000A5CA7 /* Linked Framework */ = {
 			isa = PBXGroup;
 			children = (
+				9480B4D6160184CB000A5CA7 /* libgmodule.framework */,
 				94772A01160C4B8900705FF9 /* libjson-glib.framework */,
 				94FA1C4C16018B4B00A910C0 /* libpurple.framework */,
 				9480B4D2160184CB000A5CA7 /* Adium.framework */,
 				9480B4D3160184CB000A5CA7 /* AdiumLibpurple.framework */,
 				9480B4D4160184CB000A5CA7 /* AIUtilities.framework */,
 				9480B4D5160184CB000A5CA7 /* libglib.framework */,
-				9480B4D6160184CB000A5CA7 /* libgmodule.framework */,
 				9480B4D7160184CB000A5CA7 /* libintl.framework */,
 				9480B4D8160184CB000A5CA7 /* libmeanwhile.framework */,
 			);
@@ -252,6 +276,8 @@
 		94FD7C50160B6DEA008AF095 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				9430AB09160F262B00332732 /* memcpy_extra.c */,
+				9430AB0C160F263800332732 /* memcpy_extra.h */,
 				94FD7C52160B6DEA008AF095 /* buddy.c */,
 				94FD7C53160B6DEA008AF095 /* buddy.h */,
 				94FD7C54160B6DEA008AF095 /* buddy_list.c */,
@@ -365,6 +391,7 @@
 				945D3B7616022CE600AF6E0C /* Niupai-small.png in Resources */,
 				945D3B7716022CE600AF6E0C /* Niupai.png in Resources */,
 				945D3B7C16022D1900AF6E0C /* PurpleDefaultsNiupai.plist in Resources */,
+				9491B31A160E19F500C60A69 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +427,9 @@
 				94FD7C91160B6EEA008AF095 /* command.c in Sources */,
 				94FD7C94160B715B008AF095 /* switchboard.c in Sources */,
 				94FD7C97160B7587008AF095 /* nputils.c in Sources */,
+				9430AB0A160F262B00332732 /* memcpy_extra.c in Sources */,
+				9430AB6B160F92DF00332732 /* GTMObjC2Runtime.m in Sources */,
+				9430AB6C160F92DF00332732 /* GTMStackTrace.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

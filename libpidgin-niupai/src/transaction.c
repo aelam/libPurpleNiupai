@@ -48,13 +48,8 @@ np_transaction_new(NPCmdProc *cmdproc, const char *command,
 		va_start(arg, format);
 		trans->params = g_strdup_vprintf(format, arg);
 		va_end(arg);
-        NIDPRINT("trans->params : %s %s",command,trans->params);
 	}
-
-    NIDPRINT("command : %s ",command);
-
-	/* trans->queue = g_queue_new(); */
-
+    
 	return trans;
 }
 
@@ -102,34 +97,20 @@ np_transaction_to_string(NPTransaction *trans)
 
 	g_return_val_if_fail(trans != NULL, FALSE);
 
+#if 1
 	if (trans->params != NULL)
-    {
-        size_t len = strlen(trans->params);
-//        NIDPRINT("========> strlen(\"OK\") = %zd\n",strlen("OK"));
-//        NIDPRINT("========> strlen(\"好的OK\") = %zd\n",strlen("好的OK"));
-//        NIDPRINT("========> strlen = %zd\n",len);
-//
-//        gint16 outlen;
-//        outlen = np_swap_int16Host_to_big(trans->params);
-//        NIDPRINT("========> outlen = %d\n",(int)outlen);
-
-        int8_t len0 = (len < 8) & 0xFF; //High
-        int8_t len1 = len & 0xFF;       //Low
-
-        
-        
-        str = g_strdup_printf("%1c%1c%s",len0,len1,trans->params);
-//        NIDPRINT("========> str len0 %x [%1c] len1 %x[%1c]\n",len0,len0,len1,len1);
-//		str = g_strdup_printf("%s %u %s\r\n", trans->command, trans->trId, trans->params);
-	}
+        str = trans->params;
     else if (trans->saveable)
-		str = g_strdup_printf("%s %u\r\n", trans->command, trans->trId);
+		str = g_strdup_printf("%s %u", trans->command, trans->trId);
 	else
 		str = g_strdup_printf("%s\r\n", trans->command);
-
-    NIDPRINT("========> command %s\n",trans->command);
-    NIDPRINT("========> trId %d\n",trans->trId);
-    NIDPRINT("========> len %zu str %s \n",strlen(str),str);
+#else
+	g_return_val_if_fail(trans != NULL, FALSE);
+	if (trans->params != NULL)
+		str = g_strdup_printf("%s %u %s\r\n", trans->command, trans->trId, trans->params);
+	else
+		str = g_strdup_printf("%s %u\r\n", trans->command, trans->trId);
+#endif
 	return str;
 }
 

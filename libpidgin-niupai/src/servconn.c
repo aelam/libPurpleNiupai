@@ -8,6 +8,7 @@
 
 #include "servconn.h"
 #include "npconfig.h"
+#include "memcpy_extra.h"
 
 static void read_cb(gpointer data, gint source, PurpleInputCondition cond);
 static void servconn_timeout_renew(NPServConn *servconn);
@@ -166,7 +167,7 @@ np_servconn_got_error(NPServConn *servconn, NPServConnError error,
 static void
 connect_cb(gpointer data, gint source, const char *error_message)
 {
-    NIDPRINT("========= \n data = %p",data);
+//    NIDPRINT("========= \n data = %p",data);
     NIDPRINT("[data = %s] ",data);
 
 	NPServConn *servconn;
@@ -182,8 +183,8 @@ connect_cb(gpointer data, gint source, const char *error_message)
         
 		/* Someone wants to know we connected. */
 		servconn->connect_cb(servconn);
-        NIDPRINT("servconn->fd = %s ",servconn->cmdproc->data);
-        NIDPRINT("data = %s ",data);
+//        NIDPRINT("servconn->fd = %s ",servconn->cmdproc->data);
+//        NIDPRINT("data = %s ",data);
 		servconn->inpa = purple_input_add(servconn->fd, PURPLE_INPUT_READ,
                                           read_cb, data);
 		servconn_timeout_renew(servconn);
@@ -199,8 +200,6 @@ gboolean
 np_servconn_connect(NPServConn *servconn, const char *host, int port, gboolean force)
 {
 	NPSession *session;
-    NIDPRINT("========= \n");
-
     
 	g_return_val_if_fail(servconn != NULL, FALSE);
 	g_return_val_if_fail(host     != NULL, FALSE);
@@ -232,10 +231,7 @@ np_servconn_connect(NPServConn *servconn, const char *host, int port, gboolean f
         
 		return TRUE;
 	}
-    
-    NIDPRINT("[[[[[[[[[[[===> session->http_method :servconn = %p ,servconn = %s\n\n",servconn,servconn->cmdproc->data);
-
-    
+        
 	servconn->connect_data = purple_proxy_connect(NULL, session->account,
                                                   host, port, connect_cb, servconn);
     
@@ -249,11 +245,11 @@ np_servconn_disconnect(NPServConn *servconn)
 
 	g_return_if_fail(servconn != NULL);
     
-//	if (servconn->connect_data != NULL)
-//	{
-//		purple_proxy_connect_cancel(servconn->connect_data);
-//		servconn->connect_data = NULL;
-//	}
+	if (servconn->connect_data != NULL)
+	{
+		purple_proxy_connect_cancel(servconn->connect_data);
+		servconn->connect_data = NULL;
+	}
     
 	if (!servconn->connected)
 	{
@@ -331,7 +327,6 @@ np_servconn_set_idle_timeout(NPServConn *servconn, guint seconds)
 static void
 servconn_write_cb(gpointer data, gint source, PurpleInputCondition cond)
 {
-    NIDPRINT("==================\n");
 	NPServConn *servconn = data;
 	gssize ret;
 	gsize writelen;
@@ -361,7 +356,6 @@ gssize
 np_servconn_write(NPServConn *servconn, const char *buf, size_t len)
 {
 	gssize ret = 0;
-    NIDPRINT("=============> buf : %s len : %zd\n",buf,len);
 	g_return_val_if_fail(servconn != NULL, 0);
     
 	if (!servconn->session->http_method)
@@ -416,7 +410,6 @@ np_servconn_write(NPServConn *servconn, const char *buf, size_t len)
 static void
 read_cb(gpointer data, gint source, PurpleInputCondition cond)
 {
-    NIDPRINT("===== > cond : %d",cond);
 	NPServConn *servconn;
 	char buf[NP_BUF_LEN];
 	gssize len;
@@ -427,7 +420,7 @@ read_cb(gpointer data, gint source, PurpleInputCondition cond)
 		servconn->session->account->gc->last_received = time(NULL);
 
 	len = read(servconn->fd, buf, sizeof(buf) - 1);
-	if (len < 0 && errno == EAGAIN)
+    if (len < 0 && errno == EAGAIN)
 		return;
 	if (len <= 0) {
 		purple_debug_error("np", "servconn %03d read error, "
@@ -443,7 +436,7 @@ read_cb(gpointer data, gint source, PurpleInputCondition cond)
 	servconn->rx_buf = g_realloc(servconn->rx_buf, len + servconn->rx_len + 1);
 	memcpy(servconn->rx_buf + servconn->rx_len, buf, len + 1);
 	servconn->rx_len += len;
-    
+
 	servconn = np_servconn_process_data(servconn);
 	if (servconn)
 		servconn_timeout_renew(servconn);
@@ -451,57 +444,31 @@ read_cb(gpointer data, gint source, PurpleInputCondition cond)
 
 NPServConn *np_servconn_process_data(NPServConn *servconn)
 {
-	char *cur, *end, *old_rx_buf;
-	int cur_len;
+	char *old_rx_buf;
+    int len;
+    uint16_t real_len;
     
-	end = old_rx_buf = servconn->rx_buf;
+	old_rx_buf = servconn->rx_buf;
     
+    len  = servconn->rx_len;
 	servconn->processing = TRUE;
     
-	do
-	{
-		cur = end;
-        
-		if (servconn->payload_len)
-		{
-			if (servconn->payload_len > servconn->rx_len)
-            /* The payload is still not complete. */
-				break;
-            
-//			cur_len = servconn->payload_len;
-			end += cur_len;
-		}
-		else
-		{
-			end = strstr(cur, "\r\n");
-            
-			if (end == NULL)
-            /* The command is still not complete. */
-				break;
-            
-			*end = '\0';
-			end += 2;
-			cur_len = end - cur;
-		}
-        
-		servconn->rx_len -= cur_len;
-        
-		if (servconn->payload_len)
-		{
-			np_cmdproc_process_payload(servconn->cmdproc, cur, cur_len);
-			servconn->payload_len = 0;
-		}
-		else
-		{
-//			np_cmdproc_process_cmd_text(servconn->cmdproc, cur);
-//			servconn->payload_len = servconn->cmdproc->last_cmd->payload_len;
-		}
-	} while (servconn->connected && !servconn->wasted && servconn->rx_len > 0);
+    if(servconn->rx_len > 2) {
+//        int8_t len0 = servconn->rx_buf[0]; // High
+//        int8_t len1 = servconn->rx_buf[1]; // High
+//        real_len = ((len0 & 0xFF) > 8) | (len1 & 0xFF);
+        real_len = GUINT16_TO_BE(len);
+    }
     
-	if (servconn->connected && !servconn->wasted)
+    if (servconn->connected && !servconn->wasted)
 	{
-		if (servconn->rx_len > 0)
-			servconn->rx_buf = g_memdup(cur, servconn->rx_len);
+		if (len > 0) {
+            servconn->rx_len = real_len;
+            gchar *real_rx_buff = (gchar *) malloc((real_len ) * sizeof(gchar));
+            strcpy(real_rx_buff, old_rx_buf+2);
+			servconn->rx_buf = real_rx_buff;
+            np_cmdproc_process_cmd_text(servconn->cmdproc, real_rx_buff);
+        }
 		else
 			servconn->rx_buf = NULL;
 	}

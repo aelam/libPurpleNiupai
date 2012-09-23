@@ -11,18 +11,6 @@
 
 static NPTable *cbs_table;
 
-
-void np_notification_end(void)
-{
-    np_table_destroy(cbs_table);
-
-}
-
-void np_notification_init(void)
-{
-    cbs_table = np_table_new();
-}
-
 static void
 destroy_cb(NPServConn *servconn)
 {
@@ -39,18 +27,14 @@ NPNotification *np_notification_new(NPSession *session)
 {
     NPNotification *notification;
 	NPServConn *servconn;
-    NIDPRINT("=========== \n");
     
     g_return_val_if_fail(session != NULL, NULL);
     
 	notification = g_new0(NPNotification, 1);
 
-    NIDPRINT("=========== \n");
-    
     notification->session = session;
     notification->servconn = servconn = np_servconn_new(session, NP_SERVCONN_NS);
     np_servconn_set_destroy_cb(servconn, destroy_cb);
-    NIDPRINT("=========== \n");
     
 	notification->cmdproc = servconn->cmdproc;
 	notification->cmdproc->data = notification;
@@ -74,44 +58,27 @@ void np_notification_destroy(NPNotification *notification)
 static void
 connect_cb(NPServConn *servconn)
 {
-    NIDPRINT("__FILE__ : %s",__FILE__);
-
-    //TODO
 	NPCmdProc *cmdproc;
 	NPSession *session;
 	NPTransaction *trans;
-	GString *vers;
-	const char *ver_str;
-	int i;
     
 	g_return_if_fail(servconn != NULL);
     
 	cmdproc = servconn->cmdproc;
 	session = servconn->session;
     
-	vers = g_string_new("");
-    
-//	for (i = WLM_MAX_PROTOCOL; i >= WLM_MIN_PROTOCOL; i--)
-//		g_string_append_printf(vers, " MSNP%d", i);
-    
-	g_string_append(vers, " CVR0");
-    
-	if (session->login_step == NP_LOGIN_STEP_START)
-		np_session_set_login_step(session, NP_LOGIN_STEP_HANDSHAKE);
-	else
-		np_session_set_login_step(session, NP_LOGIN_STEP_HANDSHAKE2);
-    
-	/* Skip the initial space */
-	ver_str = (vers->str + 1);
-//	trans = np_transaction_new(cmdproc, "FUCK", "%s", ver_str);
-
-    trans = np_transaction_new(cmdproc, "", "%s",NP_LOGIN_STRING);
-    NIDPRINT("strelen %zd  string %s",strlen(NP_LOGIN_STRING),NP_LOGIN_STRING); 
-//    trans = np_transaction_new(cmdproc, "", "%s",,NP_LOGIN_STRING);
-	np_cmdproc_send_trans(cmdproc, trans);
-    
-	g_string_free(vers, TRUE);
-
+	if (session->login_step == NP_LOGIN_STEP_START) {
+		np_session_set_login_step(session, NP_LOGIN_STEP_SOCKET_AUTH_START);
+        trans = np_transaction_new(cmdproc, "LOGIN_OK", "%s",NP_LOGIN_STRING);
+        trans->trId = 'L';
+        np_cmdproc_send_trans(cmdproc, trans);
+    }
+	else {
+		np_session_set_login_step(session, NP_LOGIN_STEP_SOCKET_AUTH_END);
+        trans = np_transaction_new(cmdproc,"HEART",NULL);
+        trans->trId = 'H';
+        np_cmdproc_send_trans(cmdproc, trans);
+    }
 }
 
 gboolean np_notification_connect(NPNotification *notification,
@@ -142,3 +109,123 @@ void np_notification_disconnect(NPNotification *notification)
 	notification->in_use = FALSE;
 
 }
+
+
+/**************************************************************************
+ * Login
+ **************************************************************************/
+
+static void login_ok_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
+{
+    NIDPRINT("===============\n");
+    NPSession *session;
+//    PurpleAccount *account;
+//	PurpleConnection *gc;
+//
+    session = cmdproc->session;
+//    account = session->account;
+//    gc = purple_account_get_connection(account);
+//
+//    np_session_set_login_step(session, NP_LOGIN_STEP_END);
+//    
+//	session->logged_in = TRUE;
+//    purple_connection_set_state(gc, PURPLE_CONNECTED);
+
+    np_session_finish_login(session);
+//	connect_cb(cmdproc->servconn);
+}
+
+static void pver_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
+{
+    NIDPRINT("===============\n");
+//	np_cmdproc_send(cmdproc, "AUTH", "DES");
+}
+
+static void auth_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
+{
+	PurpleAccount *account;
+    
+	account = cmdproc->session->account;
+    NIDPRINT("===============\n");
+  
+//	np_cmdproc_send(cmdproc, "REQS", "DES %s", purple_account_get_username(account));
+}
+
+static void reqs_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
+{
+    
+    NIDPRINT("===============\n");
+
+	NPSession *session;
+	char *host;
+	int port;
+    
+	session = cmdproc->session;
+    
+	host = g_strdup(cmd->params[2]);
+	port = atoi(cmd->params[3]);
+    
+	np_session_set_login_step(session, NP_LOGIN_STEP_SOCKET_AUTH_START);
+	np_notification_connect(session->notification, host, port);
+    
+	g_free(host);
+}
+
+/**************************************************************************
+ * Log out
+ **************************************************************************/
+static void
+logout_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
+{
+    NIDPRINT("============\n");
+//	if (cmd->param_count == 0)
+//		np_session_set_error(cmdproc->session, -1, NULL);
+//	else if (!g_ascii_strcasecmp(cmd->params[0], "OTH"))
+//		msn_session_set_error(cmdproc->session, MSN_ERROR_SIGN_OTHER,
+//							  NULL);
+//	else if (!g_ascii_strcasecmp(cmd->params[0], "SSD"))
+//		msn_session_set_error(cmdproc->session, MSN_ERROR_SERV_DOWN, NULL);
+}
+
+
+void
+np_notification_close(NPNotification *notification)
+{
+	NPTransaction *trans;
+    NIDPRINT("============\n");
+
+	g_return_if_fail(notification != NULL);
+    
+	if (!notification->in_use)
+		return;
+    
+	trans = np_transaction_new(notification->cmdproc, "OUT", NULL);
+	np_transaction_set_saveable(trans, FALSE);
+	np_cmdproc_send_trans(notification->cmdproc, trans);
+    
+	np_notification_disconnect(notification);
+}
+
+
+void np_notification_end(void)
+{
+    np_table_destroy(cbs_table);
+    
+}
+
+void np_notification_init(void)
+{
+    cbs_table = np_table_new();
+    
+    // PRS server
+	np_table_add_cmd(cbs_table, "LOGIN_OK", "LOGIN_OK", login_ok_cmd);
+//	np_table_add_cmd(cbs_table, NULL, "LOGIN_OK", login_ok_cmd);
+    
+	// Login/Dispatch server
+	np_table_add_cmd(cbs_table, "PVER", "PVER", pver_cmd);
+	np_table_add_cmd(cbs_table, "AUTH", "AUTH", auth_cmd);
+	np_table_add_cmd(cbs_table, "REQS", "REQS", reqs_cmd);
+    
+    
+}
+
