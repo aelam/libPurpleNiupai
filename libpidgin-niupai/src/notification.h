@@ -29,6 +29,8 @@ struct _NPNotification
 	NPServConn *servconn;
     
 	gboolean in_use;
+    
+    
 };
 
 void np_notification_end(void);

@@ -466,8 +466,8 @@ np_keepalive(PurpleConnection *gc)
 	cmdproc = session->notification->cmdproc;
         
     trans = np_transaction_new(cmdproc, "HEART","%s","HEART",NULL);
-    trans->trId = 'H';
-    np_transaction_set_saveable(trans, FALSE);
+    trans->trId = 2;
+    np_transaction_set_saveable(trans, TRUE);
     np_cmdproc_send_trans(cmdproc, trans);
 }
 

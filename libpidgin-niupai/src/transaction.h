@@ -65,6 +65,9 @@ struct _NPTransaction
 	GQueue *queue;
 	NPCommand *pendent_cmd; /**< The command that is waiting for the result of
 							   this transaction. */
+    
+    gboolean        http_method:1;
+    
 };
 
 NPTransaction *np_transaction_new(NPCmdProc *cmdproc, const char *command,

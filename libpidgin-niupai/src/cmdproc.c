@@ -140,6 +140,9 @@ np_cmdproc_send_trans(NPCmdProc *cmdproc, NPTransaction *trans)
 	if (trans->callbacks == NULL)
 		trans->callbacks = g_hash_table_lookup(cmdproc->cbs_table->cmds,
 											   trans->command);
+
+    purple_debug_info("np", "[LINE:%d]%s,trans->command : %s trans : <%p> trans->callbacks:<%p>",__LINE__,__FUNCTION__,trans->command,trans,trans->callbacks);
+
 	if (trans->payload != NULL)
 	{
 
@@ -299,7 +302,7 @@ np_cmdproc_process_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 
 	if (cmd->trId)
 		cmd->trans = trans = np_history_find(cmdproc->history, cmd->trId);
-    purple_debug_warning("np","cmd->trId = %c\n",cmd->trId);
+    purple_debug_warning("np","cmd->trId = %d\n",cmd->trId);
     purple_debug_warning("np","cmd->trans :<%p> cmd->trans-: \n",cmd->trans);
     
 	if (trans != NULL)

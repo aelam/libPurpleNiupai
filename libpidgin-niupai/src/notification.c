@@ -70,13 +70,13 @@ connect_cb(NPServConn *servconn)
 	if (session->login_step == NP_LOGIN_STEP_START) {
 		np_session_set_login_step(session, NP_LOGIN_STEP_SOCKET_AUTH_START);
         trans = np_transaction_new(cmdproc, "LOGIN_OK", "%s",NP_LOGIN_STRING);
-        trans->trId = 'L';
+//        trans->trId = 1;
         np_cmdproc_send_trans(cmdproc, trans);
     }
 	else {
 		np_session_set_login_step(session, NP_LOGIN_STEP_SOCKET_AUTH_END);
         trans = np_transaction_new(cmdproc,"HEART",NULL);
-        trans->trId = 'H';
+        trans->trId = 2;
         np_cmdproc_send_trans(cmdproc, trans);
     }
 }
@@ -110,6 +110,12 @@ void np_notification_disconnect(NPNotification *notification)
 
 }
 
+/**************************************************************************
+ * HTTP
+ **************************************************************************/
+static void
+http_request_login(gchar *host,gchar *path,)
+
 
 /**************************************************************************
  * Login
@@ -121,7 +127,7 @@ login_ok_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
     purple_debug_warning("np","===============\n");
     NPSession *session;
     session = cmdproc->session;
-    session->logged_in = TRUE;
+//    session->logged_in = TRUE;
     np_session_finish_login(session);
 }
 

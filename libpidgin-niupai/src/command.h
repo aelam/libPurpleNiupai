@@ -28,6 +28,7 @@ typedef struct _NPCommand NPCommand;
 
 #include "cmdproc.h"
 #include "transaction.h"
+#include "debug.h"
 
 typedef void (*NPPayloadCb)(NPCmdProc *cmdproc, NPCommand *cmd,
 							 char *payload, size_t len);

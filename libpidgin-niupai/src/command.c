@@ -53,8 +53,14 @@ np_command_from_string(const char *string)
 
     
     purple_debug_warning("np","command string %s\n",string);
-
-    cmd->trId = string[0];
+    if(strcmp(string, "LOGIN_OK") == 0) {
+        cmd->trId = 1;
+    } else if (strcmp(string, "HEART") == 0) {
+        cmd->trId = 2;
+    } else {
+        cmd->trId = 0;
+    }
+    
 //    purple_debug_warning("np","%s %d %s param_start : %s \n" ,__func__,__LINE__,string,param_start);
 //	if (param_start)
 //	{

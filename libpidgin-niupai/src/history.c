@@ -57,8 +57,10 @@ np_history_find(NPHistory *history, unsigned int trId)
 	for (list = history->queue->head; list != NULL; list = list->next)
 	{
 		trans = list->data;
-		if (trans->trId == trId)
+		if (trans->trId == trId) {
+            purple_debug_info("np", "!!FOUND trans->trId: %d command : %s\n",trans->trId,trans->command);
 			return trans;
+        }
 	}
 
 	return NULL;
@@ -76,7 +78,7 @@ np_history_add(NPHistory *history, NPTransaction *trans)
 	queue = history->queue;
 
 	trans->trId = history->trId++;
-
+    purple_debug_info("np", "!!trans->trId: %d command : %s\n",trans->trId,trans->command);
 	g_queue_push_tail(queue, trans);
 
 	if (trans->cmdproc->servconn->type == NP_SERVCONN_NS)
