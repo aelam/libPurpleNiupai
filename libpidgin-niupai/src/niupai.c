@@ -1266,10 +1266,10 @@ init_plugin(PurplePlugin *plugin)
 	prpl_info.protocol_options = g_list_append(prpl_info.protocol_options,
 											   option);
     
-	option = purple_account_option_bool_new(_("Use HTTP Method"),
-                                            "http_method", FALSE);
-	prpl_info.protocol_options = g_list_append(prpl_info.protocol_options,
-											   option);
+//	option = purple_account_option_bool_new(_("Use HTTP Method"),
+//                                            "http_method", FALSE);
+//	prpl_info.protocol_options = g_list_append(prpl_info.protocol_options,
+//											   option);
     
 	option = purple_account_option_string_new(_("HTTP Method Server"),
                                               "http_method_server", NP_HTTPCONN_SERVER);

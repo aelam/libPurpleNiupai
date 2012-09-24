@@ -84,7 +84,7 @@ np_session_disconnect(NPSession *session)
 static gboolean
 np_login_timeout_cb(gpointer data)
 {
-	MsnSession *session = data;
+	NPSession *session = data;
 	/* This forces the login process to finish, even though we haven't heard
      a response for our FQY requests yet. We'll at least end up online to the
      people we've already added. The rest will follow later. */

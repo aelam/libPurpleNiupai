@@ -25,9 +25,6 @@
 #define NP_UTILS_H__
 
 
-gint16 np_swap_int16Host_to_big(const char *str);
-
-
 /*encode the str to RFC2047 style*/
 char *np_encode_mime(const char *str);
 

@@ -8,6 +8,7 @@
 
 #include "notification.h"
 #include "NIDebuggingTools.h"
+#include "npconfig.h"
 
 static NPTable *cbs_table;
 
@@ -68,10 +69,28 @@ connect_cb(NPServConn *servconn)
 	session = servconn->session;
     
 	if (session->login_step == NP_LOGIN_STEP_START) {
+        const char *http_server = purple_account_get_string(session->account, "http_method_server", NP_HTTPCONN_SERVER);
+        purple_debug_info("np", "http_server: %s",http_server);
+
+        
+//        purple_util_fetch_url_request(http_server,
+//                                      0,
+//                                      NULL,
+//                                      1,
+//                                      <#const gchar *request#>,
+//                                      <#gboolean include_headers#>,
+//                                      PurpleUtilFetchUrlCallback callback,
+//                                      <#gpointer data#>
+//                                      );
+
+        
+
+#if 0
 		np_session_set_login_step(session, NP_LOGIN_STEP_SOCKET_AUTH_START);
         trans = np_transaction_new(cmdproc, "LOGIN_OK", "%s",NP_LOGIN_STRING);
 //        trans->trId = 1;
         np_cmdproc_send_trans(cmdproc, trans);
+#endif
     }
 	else {
 		np_session_set_login_step(session, NP_LOGIN_STEP_SOCKET_AUTH_END);
@@ -109,12 +128,6 @@ void np_notification_disconnect(NPNotification *notification)
 	notification->in_use = FALSE;
 
 }
-
-/**************************************************************************
- * HTTP
- **************************************************************************/
-static void
-http_request_login(gchar *host,gchar *path,)
 
 
 /**************************************************************************

@@ -50,6 +50,7 @@
 		94FD7C91160B6EEA008AF095 /* command.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C8F160B6EEA008AF095 /* command.c */; };
 		94FD7C94160B715B008AF095 /* switchboard.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C92160B715A008AF095 /* switchboard.c */; };
 		94FD7C97160B7587008AF095 /* nputils.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C95160B7586008AF095 /* nputils.c */; };
+		94FF04B4161060F2004BDC66 /* nphttputil.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FF04B3161060F1004BDC66 /* nphttputil.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -131,6 +132,8 @@
 		94FD7C93160B715A008AF095 /* switchboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = switchboard.h; sourceTree = "<group>"; };
 		94FD7C95160B7586008AF095 /* nputils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nputils.c; sourceTree = "<group>"; };
 		94FD7C96160B7587008AF095 /* nputils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nputils.h; sourceTree = "<group>"; };
+		94FF04B1161060E7004BDC66 /* nphttputil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nphttputil.h; sourceTree = "<group>"; };
+		94FF04B3161060F1004BDC66 /* nphttputil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nphttputil.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,6 +310,8 @@
 				94FD7C65160B6DEA008AF095 /* niupai.h */,
 				94FD7C95160B7586008AF095 /* nputils.c */,
 				94FD7C96160B7587008AF095 /* nputils.h */,
+				94FF04B1161060E7004BDC66 /* nphttputil.h */,
+				94FF04B3161060F1004BDC66 /* nphttputil.c */,
 				94FD7C66160B6DEA008AF095 /* session.c */,
 				94FD7C67160B6DEA008AF095 /* session.h */,
 				94FD7C68160B6DEA008AF095 /* notification.c */,
@@ -430,6 +435,7 @@
 				9430AB0A160F262B00332732 /* memcpy_extra.c in Sources */,
 				9430AB6B160F92DF00332732 /* GTMObjC2Runtime.m in Sources */,
 				9430AB6C160F92DF00332732 /* GTMStackTrace.m in Sources */,
+				94FF04B4161060F2004BDC66 /* nphttputil.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
