@@ -10,8 +10,11 @@
 #ifndef __NP_NPHTTPUTIL_H__
 #define __NP_NPHTTPUTIL_H__
 
-static char * np_use_agent();
+#include "internal.h"
+#include "session.h"
+#include "npconfig.h"
 
+PurpleUtilFetchUrlData *http_login0(NPSession *session,PurpleUtilFetchUrlCallback callback);
 
 
 #endif /* __NP_NPHTTPUTIL_H__ */

@@ -9,6 +9,7 @@
 #include "notification.h"
 #include "NIDebuggingTools.h"
 #include "npconfig.h"
+#include "nphttputil.h"
 
 static NPTable *cbs_table;
 
@@ -55,6 +56,11 @@ void np_notification_destroy(NPNotification *notification)
 /**************************************************************************
  * Connect
  **************************************************************************/
+static void http_login0_callback(PurpleUtilFetchUrlData *url_data, gpointer user_data, const gchar *url_text, gsize len, const gchar *error_message)
+{
+    purple_debug_info("np", "url_text: %s\n",url_text);
+
+}
 
 static void
 connect_cb(NPServConn *servconn)
@@ -72,17 +78,7 @@ connect_cb(NPServConn *servconn)
         const char *http_server = purple_account_get_string(session->account, "http_method_server", NP_HTTPCONN_SERVER);
         purple_debug_info("np", "http_server: %s",http_server);
 
-        
-//        purple_util_fetch_url_request(http_server,
-//                                      0,
-//                                      NULL,
-//                                      1,
-//                                      <#const gchar *request#>,
-//                                      <#gboolean include_headers#>,
-//                                      PurpleUtilFetchUrlCallback callback,
-//                                      <#gpointer data#>
-//                                      );
-
+        http_login0(session, http_login0_callback);
         
 
 #if 0

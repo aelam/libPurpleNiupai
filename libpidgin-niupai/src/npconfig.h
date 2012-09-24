@@ -45,8 +45,8 @@
 
 #define NP_HTTPCONN_SERVER      "http://mapi.niupai.com"
 
-#define NP_LOGIN_0_PATH         "/nologin/login"
-#define NP_GET_LOGIN_INFO_PATH  "/main/start"
+#define NP_LOGIN_0_PATH         "nologin/login"
+#define NP_GET_LOGIN_INFO_PATH  "main/start"
 
 
 #endif /* __NP_NPCONFIG_H__ */
