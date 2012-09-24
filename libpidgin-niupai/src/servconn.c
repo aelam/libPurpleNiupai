@@ -49,7 +49,7 @@ np_servconn_new(NPSession *session, NPServConnType type)
 void
 np_servconn_destroy(NPServConn *servconn)
 {
-    NIDPRINT("========= \n");
+    purple_debug_warning("np","========= \n");
 
 	g_return_if_fail(servconn != NULL);
     
@@ -135,7 +135,7 @@ np_servconn_got_error(NPServConn *servconn, NPServConnError error,
 		}
 	}
 
-    NIDPRINT("Connection error from %s server (%s): %s\n", name, servconn->host, reason);
+    purple_debug_warning("np","Connection error from %s server (%s): %s\n", name, servconn->host, reason);
 //	purple_debug_error("np", "Connection error from %s server (%s): %s\n",
 //                       name, servconn->host, reason);
     
@@ -167,15 +167,15 @@ np_servconn_got_error(NPServConn *servconn, NPServConnError error,
 static void
 connect_cb(gpointer data, gint source, const char *error_message)
 {
-//    NIDPRINT("========= \n data = %p",data);
+//    purple_debug_warning("np","========= \n data = %p",data);
 
 	NPServConn *servconn;
     
 	servconn = data;
 	servconn->connect_data = NULL;
     
-    NIDPRINT("[data = %d] ",servconn->rx_len);
-    NIDPRINT("[data = %s] ",servconn->rx_buf);
+    purple_debug_warning("np","[data = %d] ",servconn->rx_len);
+    purple_debug_warning("np","[data = %s] ",servconn->rx_buf);
 
 	servconn->fd = source;
     
@@ -185,8 +185,8 @@ connect_cb(gpointer data, gint source, const char *error_message)
         
 		/* Someone wants to know we connected. */
 		servconn->connect_cb(servconn);
-//        NIDPRINT("servconn->fd = %s ",servconn->cmdproc->data);
-//        NIDPRINT("data = %s ",data);
+//        purple_debug_warning("np","servconn->fd = %s ",servconn->cmdproc->data);
+//        purple_debug_warning("np","data = %s ",data);
 		servconn->inpa = purple_input_add(servconn->fd, PURPLE_INPUT_READ,
                                           read_cb, data);
 		servconn_timeout_renew(servconn);
@@ -215,7 +215,7 @@ np_servconn_connect(NPServConn *servconn, const char *host, int port, gboolean f
 	g_free(servconn->host);
 	servconn->host = g_strdup(host);
     
-    NIDPRINT("===> session->http_method : %d",session->http_method);
+    purple_debug_warning("np","===> session->http_method : %d",session->http_method);
 	if (session->http_method)
 	{
 		/* HTTP Connection. */
@@ -243,7 +243,7 @@ np_servconn_connect(NPServConn *servconn, const char *host, int port, gboolean f
 void
 np_servconn_disconnect(NPServConn *servconn)
 {
-    NIDPRINT("========= \n");
+    purple_debug_warning("np","========= \n");
 
 	g_return_if_fail(servconn != NULL);
     
@@ -478,7 +478,7 @@ NPServConn *np_servconn_process_data(NPServConn *servconn)
             // Let socket read more bytes
             //
         } else {
-            NIDPRINT("this pack is readed done;\n");
+            purple_debug_warning("np","this pack is readed done;\n");
             
             gchar *real_content = (gchar *)g_malloc(expected_len);
             memcpy(real_content, old_rx_buf+2, expected_len);

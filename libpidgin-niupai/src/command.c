@@ -52,10 +52,10 @@ np_command_from_string(const char *string)
 	param_start = strchr(cmd->command, ' ');
 
     
-    NIDPRINT("command string %s\n",string);
+    purple_debug_warning("np","command string %s\n",string);
 
     cmd->trId = string[0];
-//    NIDPRINT("%s %d %s param_start : %s \n" ,__func__,__LINE__,string,param_start);
+//    purple_debug_warning("np","%s %d %s param_start : %s \n" ,__func__,__LINE__,string,param_start);
 //	if (param_start)
 //	{
 //		*param_start++ = '\0';

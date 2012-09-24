@@ -65,14 +65,14 @@ static gboolean
 write_raw(NPHttpConn *httpconn, const char *data, size_t data_len)
 {
     
-    NIDPRINT("=============> ");
+    purple_debug_warning("np","=============> ");
     return TRUE;
 }
 
 static char *
 np_httpconn_proxy_auth(NPHttpConn *httpconn)
 {
-    NIDPRINT("=============> ");
+    purple_debug_warning("np","=============> ");
 
     return "np_httpconn_proxy_auth";
 }
@@ -87,7 +87,7 @@ np_httpconn_poll(gpointer data)
 gssize
 np_httpconn_write(NPHttpConn *httpconn, const char *body, size_t body_len)
 {
-    NIDPRINT("=============> ");
+    purple_debug_warning("np","=============> ");
 
     return 100;
 }

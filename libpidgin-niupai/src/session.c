@@ -44,7 +44,7 @@ np_session_connect(NPSession *session,
                             const char *host, int port,
                             gboolean http_method)
 {
-    NIDPRINT("host: %s  port : %d http_method : %d",host,port,http_method);
+    purple_debug_warning("np","host: %s  port : %d http_method : %d",host,port,http_method);
 	g_return_val_if_fail(session != NULL, FALSE);
 	g_return_val_if_fail(!session->connected, TRUE);
 

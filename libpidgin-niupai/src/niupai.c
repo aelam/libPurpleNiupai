@@ -43,12 +43,12 @@
 
 static GList *server_list_build(gchar select)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 	GList *list = NULL;
     
 	if ( select == 'T' || select == 'A') {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 		list = g_list_append(list, "219.133.60.173:443");
 		list = g_list_append(list, "219.133.49.125:443");
@@ -61,7 +61,7 @@ static GList *server_list_build(gchar select)
 		list = g_list_append(list, "tcpconn6.tencent.com:8000");
 	}
 	if ( select == 'U' || select == 'A') {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 		list = g_list_append(list, "219.133.49.171:8000");
 		list = g_list_append(list, "58.60.14.37:8000");
@@ -94,7 +94,7 @@ np_send_im_message(NPSession *session, NPMessage *msg)
 
 static void server_list_create(PurpleAccount *account)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //	PurpleConnection *gc;
 //	np_data *qd;
@@ -109,11 +109,11 @@ static void server_list_create(PurpleAccount *account)
 //	custom_server = purple_account_get_string(account, "server", NULL);
 //    
 //	if (custom_server != NULL) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		purple_debug_info("np", "Select server '%s'\n", custom_server);
 //		if (*custom_server != '\0' && g_ascii_strcasecmp(custom_server, "auto") != 0) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //			qd->servers = g_list_append(qd->servers, g_strdup(custom_server));
 //			return;
@@ -121,7 +121,7 @@ static void server_list_create(PurpleAccount *account)
 //	}
 //    
 //	if (qd->use_tcp) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		qd->servers =	server_list_build('T');
 //		return;
@@ -139,14 +139,14 @@ static void np_login(PurpleAccount *account)
 	gboolean http_method = FALSE;
 	int port;
 
-    NIDPRINT("\n===> %p ",account);
+    purple_debug_warning("np","\n===> %p ",account);
 
     fprintf(stdout, "=================> Hello\n");
     
-    NIDPRINT("account->alias = %s\n",account->alias);
-    NIDPRINT("account->username = %s\n",account->username);
-    NIDPRINT("account->password = %s\n",account->password);
-    NIDPRINT("account->user_info = %s\n",account->user_info);
+    purple_debug_warning("np","account->alias = %s\n",account->alias);
+    purple_debug_warning("np","account->username = %s\n",account->username);
+    purple_debug_warning("np","account->password = %s\n",account->password);
+    purple_debug_warning("np","account->user_info = %s\n",account->user_info);
     
     NIDINFO("=======> LOGIN === \n");
     
@@ -163,7 +163,7 @@ static void np_login(PurpleAccount *account)
 
     session = np_session_new(account);
 
-    NIDPRINT("=====> session : %p ",session);
+    purple_debug_warning("np","=====> session : %p ",session);
     
     gc = purple_account_get_connection(account);
 	g_return_if_fail(gc != NULL);
@@ -185,7 +185,7 @@ static void np_login(PurpleAccount *account)
 /* clean up the given np connection and free all resources */
 static void np_close(PurpleConnection *gc)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
     NPSession *session;
     
 	session = gc->proto_data;
@@ -201,7 +201,7 @@ static void np_close(PurpleConnection *gc)
 /* returns the icon name for a buddy or protocol */
 static const gchar *np_list_icon(PurpleAccount *a, PurpleBuddy *b)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 	return "np";
 }
@@ -210,9 +210,9 @@ static const gchar *np_list_icon(PurpleAccount *a, PurpleBuddy *b)
 /* a short status text beside buddy icon*/
 static gchar *np_status_text(PurpleBuddy *b)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
-    NIDPRINT("\n===> ");
+    purple_debug_warning("np","\n===> ");
     
 	PurpleStatus *status;
 	PurplePresence *presence;
@@ -223,7 +223,7 @@ static gchar *np_status_text(PurpleBuddy *b)
     
 	/* we only provide Mood here
      switch(bd->status) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
      case np_BUDDY_OFFLINE:
      g_string_append(status, _("Offline"));
@@ -250,7 +250,7 @@ static gchar *np_status_text(PurpleBuddy *b)
 //	moodtext = purple_status_get_attr_string(status, PURPLE_MOOD_COMMENT);
 //	if (moodtext)
 //	{
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		ret = g_strdup(moodtext);		//ret will be free by invoker
 //		return ret;
@@ -263,7 +263,7 @@ static gchar *np_status_text(PurpleBuddy *b)
 /* a floating text when mouse is on the icon, show connection status here */
 static void np_tooltip_text(PurpleBuddy *b, PurpleNotifyUserInfo *user_info, gboolean full)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //	np_buddy_data *bd;
 //	gchar *tmp;
@@ -283,16 +283,16 @@ static void np_tooltip_text(PurpleBuddy *b, PurpleNotifyUserInfo *user_info, gbo
 //    
 //	/* if (PURPLE_BUDDY_IS_ONLINE(b) && bd != NULL) */
 //	if (bd->ip.s_addr != 0) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		str = g_string_new(NULL);
 //		g_string_printf(str, "%s:%d", inet_ntoa(bd->ip), bd->port);
 //		if (bd->comm_flag & np_COMM_FLAG_TCP_MODE) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //			g_string_append(str, " TCP");
 //		} else {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //			g_string_append(str, " UDP");
 //		}
@@ -304,7 +304,7 @@ static void np_tooltip_text(PurpleBuddy *b, PurpleNotifyUserInfo *user_info, gbo
 //	g_free(tmp);
 //    
 //	switch (bd->gender) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		case np_BUDDY_GENDER_GG:
 //			purple_notify_user_info_add_pair(user_info, _("Gender"), _("Male"));
@@ -317,7 +317,7 @@ static void np_tooltip_text(PurpleBuddy *b, PurpleNotifyUserInfo *user_info, gbo
 //	}
 //    
 //	if (bd->level) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		tmp = g_strdup_printf("%d", bd->level);
 //		purple_notify_user_info_add_pair(user_info, _("Level"), tmp);
@@ -326,37 +326,37 @@ static void np_tooltip_text(PurpleBuddy *b, PurpleNotifyUserInfo *user_info, gbo
 //    
 //	str = g_string_new(NULL);
 //	if (bd->comm_flag & np_COMM_FLAG_np_MEMBER) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		g_string_append( str, _("Member") );
 //	}
 //	if (bd->comm_flag & np_COMM_FLAG_np_VIP) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		g_string_append( str, _(" VIP") );
 //	}
 //	if (bd->comm_flag & np_COMM_FLAG_TCP_MODE) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		g_string_append( str, _(" TCP") );
 //	}
 //	if (bd->comm_flag & np_COMM_FLAG_MOBILE) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		g_string_append( str, _(" FromMobile") );
 //	}
 //	if (bd->comm_flag & np_COMM_FLAG_BIND_MOBILE) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		g_string_append( str, _(" BindMobile") );
 //	}
 //	if (bd->comm_flag & np_COMM_FLAG_VIDEO) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		g_string_append( str, _(" Video") );
 //	}
 //	if (bd->ext_flag & np_EXT_FLAG_ZONE) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		g_string_append( str, _(" Zone") );
 //	}
@@ -368,7 +368,7 @@ static void np_tooltip_text(PurpleBuddy *b, PurpleNotifyUserInfo *user_info, gbo
 //	moodtext = purple_status_get_attr_string(status, PURPLE_MOOD_COMMENT);
 //	if (moodtext)
 //	{
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		purple_notify_user_info_add_pair(user_info, _("Signature"), moodtext);
 //	}
@@ -390,7 +390,7 @@ static void np_tooltip_text(PurpleBuddy *b, PurpleNotifyUserInfo *user_info, gbo
 /* we can show tiny icons on the four corners of buddy icon, */
 static const char *np_list_emblem(PurpleBuddy *b)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //	PurpleAccount *account;
 //	np_buddy_data *buddy;
@@ -401,7 +401,7 @@ static const char *np_list_emblem(PurpleBuddy *b)
 //    
 //	buddy = purple_buddy_get_protocol_data(b);
 //	if (!buddy) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		return "not-authorized";
 //	}
@@ -419,10 +419,10 @@ static const char *np_list_emblem(PurpleBuddy *b)
 /* np away status (used to initiate np away packet) */
 static GList *np_status_types(PurpleAccount *ga)
 {
-    NIDPRINT("\n===> %s",ga->alias);
-    NIDPRINT("\n===> %p",ga->system_log);
-    NIDPRINT("\n===> %s",ga->username);
-    NIDPRINT("\n===> %s",ga->password);
+    purple_debug_warning("np","\n===> %s",ga->alias);
+    purple_debug_warning("np","\n===> %p",ga->system_log);
+    purple_debug_warning("np","\n===> %s",ga->username);
+    purple_debug_warning("np","\n===> %s",ga->password);
 
 	PurpleStatusType *status;
 	GList *types = NULL;
@@ -453,7 +453,7 @@ np_change_status(PurpleAccount *account, PurpleStatus *status)
 static void
 np_keepalive(PurpleConnection *gc)
 {
-    NIDPRINT("keeping alive %ld\n",time(NULL));
+    purple_debug_warning("np","keeping alive %ld\n",time(NULL));
     
     NPSession *session;
 	NPTransaction *trans;
@@ -474,7 +474,7 @@ np_keepalive(PurpleConnection *gc)
 /* send packet to get who's detailed information */
 static void np_show_buddy_info(PurpleConnection *gc, const gchar *who)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //	guint32 uid;
 //	np_data *qd;
@@ -483,7 +483,7 @@ static void np_show_buddy_info(PurpleConnection *gc, const gchar *who)
 //	uid = purple_name_to_uid(who);
 //    
 //	if (uid <= 0) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		purple_debug_error("np", "Not valid npid: %s\n", who);
 //		purple_notify_error(gc, NULL, _("Invalid name"), NULL);
@@ -497,7 +497,7 @@ static void np_show_buddy_info(PurpleConnection *gc, const gchar *who)
 //
 //static void action_update_all_rooms(PurplePluginAction *action)
 //{
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //	PurpleConnection *gc = (PurpleConnection *) action->context;
 //	np_data *qd;
@@ -506,7 +506,7 @@ static void np_show_buddy_info(PurpleConnection *gc, const gchar *who)
 //	qd = (np_data *) gc->proto_data;
 //    
 //	if ( !qd->is_login ) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		return;
 //	}
@@ -516,7 +516,7 @@ static void np_show_buddy_info(PurpleConnection *gc, const gchar *who)
 
 static void action_change_icon(PurplePluginAction *action)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //	PurpleConnection *gc = (PurpleConnection *) action->context;
 //	np_data *qd;
@@ -527,7 +527,7 @@ static void action_change_icon(PurplePluginAction *action)
 //	qd = (np_data *) gc->proto_data;
 //    
 //	if ( !qd->is_login ) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		return;
 //	}
@@ -547,7 +547,7 @@ static void action_change_icon(PurplePluginAction *action)
 
 static void action_modify_info_base(PurplePluginAction *action)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //	PurpleConnection *gc = (PurpleConnection *) action->context;
 //	np_data *qd;
@@ -559,7 +559,7 @@ static void action_modify_info_base(PurplePluginAction *action)
 
 static void action_modify_info_ext(PurplePluginAction *action)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //	PurpleConnection *gc = (PurpleConnection *) action->context;
 //	np_data *qd;
@@ -571,7 +571,7 @@ static void action_modify_info_ext(PurplePluginAction *action)
 
 static void action_modify_info_addr(PurplePluginAction *action)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //	PurpleConnection *gc = (PurpleConnection *) action->context;
 //	np_data *qd;
@@ -583,7 +583,7 @@ static void action_modify_info_addr(PurplePluginAction *action)
 
 static void action_modify_info_contact(PurplePluginAction *action)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //	PurpleConnection *gc = (PurpleConnection *) action->context;
 //	np_data *qd;
@@ -595,7 +595,7 @@ static void action_modify_info_contact(PurplePluginAction *action)
 
 static void action_change_password(PurplePluginAction *action)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 	PurpleConnection *gc = (PurpleConnection *) action->context;
     
@@ -606,7 +606,7 @@ static void action_change_password(PurplePluginAction *action)
 /* show a brief summary of what we get from login packet */
 static void action_show_account_info(PurplePluginAction *action)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //	PurpleConnection *gc = (PurpleConnection *) action->context;
 //	np_data *qd;
@@ -647,7 +647,7 @@ static void action_show_account_info(PurplePluginAction *action)
 //	g_string_append(info, "<i>Last Login Information</i><br>\n");
 //    
 //	for (index = 0; index < sizeof(qd->last_login_time) / sizeof(time_t); index++) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		tm_local = localtime(&qd->last_login_time[index]);
 //		g_string_append_printf(info, _("<b>Time</b>: %d-%d-%d, %d:%d:%d<br>\n"),
@@ -655,7 +655,7 @@ static void action_show_account_info(PurplePluginAction *action)
 //                               tm_local->tm_hour, tm_local->tm_min, tm_local->tm_sec);
 //	}
 //	if (qd->last_login_ip.s_addr != 0) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		g_string_append_printf(info, _("<b>IP</b>: %s<br>\n"), inet_ntoa(qd->last_login_ip));
 //	}
@@ -669,7 +669,7 @@ static void action_show_account_info(PurplePluginAction *action)
 
 static void action_about_libnp(PurplePluginAction *action)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 	PurpleConnection *gc = (PurpleConnection *) action->context;
 	GString *info;
@@ -748,7 +748,7 @@ static void action_about_libnp(PurplePluginAction *action)
 /*
  static void _np_menu_search_or_add_permanent_group(PurplePluginAction *action)
  {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
  purple_roomlist_show_with_account(NULL);
  }
@@ -757,7 +757,7 @@ static void action_about_libnp(PurplePluginAction *action)
 /*
  static void _np_menu_create_permanent_group(PurplePluginAction * action)
  {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
  PurpleConnection *gc = (PurpleConnection *) action->context;
  purple_request_input(gc, _("Create np Qun"),
@@ -770,7 +770,7 @@ static void action_about_libnp(PurplePluginAction *action)
 
 static void action_chat_quit(PurpleBlistNode * node)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //	PurpleChat *chat = (PurpleChat *)node;
 //	PurpleAccount *account = purple_chat_get_account(chat);
@@ -787,7 +787,7 @@ static void action_chat_quit(PurpleBlistNode * node)
 //	num_str = g_hash_table_lookup(components, np_ROOM_KEY_INTERNAL_ID);
 //	if (!num_str)
 //	{
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		purple_debug_error("np", "Cannot find Room! Wait and Retry");
 //		return;
@@ -800,7 +800,7 @@ static void action_chat_quit(PurpleBlistNode * node)
 
 static void action_show_chat(PurpleBlistNode * node, gpointer flag)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //	PurpleChat *chat = (PurpleChat *)node;
 //	PurpleAccount *account = purple_chat_get_account(chat);
@@ -817,7 +817,7 @@ static void action_show_chat(PurpleBlistNode * node, gpointer flag)
 //	num_str = g_hash_table_lookup(components, np_ROOM_KEY_INTERNAL_ID);
 //	if (!num_str)
 //	{
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		purple_debug_error("np", "Cannot find Room! Wait and Retry");
 //		return;
@@ -830,13 +830,13 @@ static void action_show_chat(PurpleBlistNode * node, gpointer flag)
 //	
 //	if (flag)
 //	{
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		rmd->is_show_chat = TRUE;
 //		g_hash_table_replace(components, g_strdup(np_ROOM_KEY_ISSHOW), g_strdup_printf("%u", TRUE));
 //		purple_notify_info(gc, _("np Chat Room"), _("Receive and Show np Chat Room Message"), num_str);
 //	} else {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		rmd->is_show_chat = FALSE;
 //		g_hash_table_replace(components, g_strdup(np_ROOM_KEY_ISSHOW), g_strdup_printf("%u", FALSE));
@@ -845,7 +845,7 @@ static void action_show_chat(PurpleBlistNode * node, gpointer flag)
 }
 static void action_chat_get_info(PurpleBlistNode * node)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //	PurpleChat *chat = (PurpleChat *)node;
 //	PurpleAccount *account = purple_chat_get_account(chat);
@@ -861,7 +861,7 @@ static void action_chat_get_info(PurpleBlistNode * node)
 //	num_str = g_hash_table_lookup(components, np_ROOM_KEY_INTERNAL_ID);
 //	if (!num_str)
 //	{
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		purple_debug_error("np", "Cannot find Room! Wait and Retry");
 //		return;
@@ -877,7 +877,7 @@ static void action_chat_get_info(PurpleBlistNode * node)
 /* TODO: re-enable this */
 static void _np_menu_send_file(PurpleBlistNode * node, gpointer ignored)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 	PurpleBuddy *buddy;
 	PurpleConnection *gc;
@@ -887,7 +887,7 @@ static void _np_menu_send_file(PurpleBlistNode * node, gpointer ignored)
 	buddy = (PurpleBuddy *) node;
 	bd = (np_buddy_data *) buddy->proto_data;
 	/*	if (is_online (bd->status)) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
  */
 	gc = purple_account_get_connection (buddy->account);
 	g_return_if_fail (gc != NULL && gc->proto_data != NULL);
@@ -899,7 +899,7 @@ static void _np_menu_send_file(PurpleBlistNode * node, gpointer ignored)
 /* protocol related menus */
 static GList *np_actions(PurplePlugin *plugin, gpointer context)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 	GList *m;
 	PurplePluginAction *act;
@@ -936,7 +936,7 @@ static GList *np_actions(PurplePlugin *plugin, gpointer context)
 
 static void np_add_buddy_from_menu_cb(PurpleBlistNode *node, gpointer data)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //	PurpleBuddy *buddy;
 //	PurpleConnection *gc;
@@ -951,7 +951,7 @@ static void np_add_buddy_from_menu_cb(PurpleBlistNode *node, gpointer data)
 
 static void np_modify_buddy_memo_from_menu_cb(PurpleBlistNode *node, gpointer data)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //	PurpleBuddy *buddy;
 //	np_buddy_data *bd;
@@ -978,14 +978,14 @@ static void np_modify_buddy_memo_from_menu_cb(PurpleBlistNode *node, gpointer da
 
 static GList *np_buddy_menu(PurpleBuddy *buddy)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 	GList *m = NULL;
 //	PurpleMenuAction *act;
 //	np_buddy_data *bd = purple_buddy_get_protocol_data(buddy);
 //    
 //	if (bd == NULL) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		act = purple_menu_action_new(_("Add Buddy"),
 //                                     PURPLE_CALLBACK(np_add_buddy_from_menu_cb),
@@ -1005,7 +1005,7 @@ static GList *np_buddy_menu(PurpleBuddy *buddy)
 //	/* TODO : not working, temp commented out by gfhuang */
 //#if 0
 //	if (bd && is_online(bd->status)) {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 //		act = purple_menu_action_new(_("Send File"), PURPLE_CALLBACK(_np_menu_send_file), NULL, NULL); /* add NULL by gfhuang */
 //		m = g_list_append(m, act);
@@ -1017,7 +1017,7 @@ static GList *np_buddy_menu(PurpleBuddy *buddy)
 /* chat-related (np Qun) menu shown up with right-click */
 static GList *np_chat_menu(PurpleBlistNode *node)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 	GList *m;
 	PurpleMenuAction *act;
@@ -1043,7 +1043,7 @@ static GList *np_chat_menu(PurpleBlistNode *node)
 /* buddy-related menu shown up with right-click */
 static GList *np_blist_node_menu(PurpleBlistNode * node)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 	if(PURPLE_BLIST_NODE_IS_CHAT(node))
 		return np_chat_menu(node);
@@ -1057,7 +1057,7 @@ static GList *np_blist_node_menu(PurpleBlistNode * node)
 /* convert name displayed in a chat channel to original np UID */
 static gchar *chat_name_to_purple_name(const gchar *const name)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 	const char *start;
 	const char *end;
@@ -1112,7 +1112,7 @@ static gchar *chat_name_to_purple_name(const gchar *const name)
 /* who is the nickname of buddy in np chat-room (Qun) */
 static gchar *np_get_chat_buddy_real_name(PurpleConnection *gc, gint channel, const gchar *who)
 {
-    NIDPRINT("\n===>");
+    purple_debug_warning("np","\n===>");
 
 	g_return_val_if_fail(who != NULL, NULL);
 	return chat_name_to_purple_name(who);
@@ -1121,9 +1121,9 @@ static gchar *np_get_chat_buddy_real_name(PurpleConnection *gc, gint channel, co
 
 static gboolean np_load(PurplePlugin *plugin)
 {
-    NIDPRINT("=======>n");
+    purple_debug_warning("np","=======>n");
     
-    NIDPRINT("====================> \n");
+    purple_debug_warning("np","====================> \n");
     np_notification_init();
 	return TRUE;
 }
@@ -1253,16 +1253,7 @@ static PurplePluginInfo info = {
 static void
 init_plugin(PurplePlugin *plugin)
 {
-    NIDPRINT("\n===>");
-
-    freopen("/Users/ryan/Desktop/purple-np.log", "a+",stdout);
-    NIMaxLogLevel = NILOGLEVEL_INFO;
-    time_t now;
-    now = time ( NULL );
-    
-    fprintf(stdout, "=================> Hello\n");
-    NIDPRINT("\n===> Log Start %s\n",asctime(gmtime(&now)));
-    
+    purple_debug_warning("np","\n=== START LOG ==\n");
     
     PurpleAccountOption *option;
 

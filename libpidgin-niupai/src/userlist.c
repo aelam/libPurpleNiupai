@@ -16,7 +16,7 @@
 NPUserList
 *np_userlist_new(NPSession *session)
 {
-    NIDPRINT("=============>");
+    purple_debug_warning("np","=============>");
     NPUserList *userlist;
     userlist = g_new0(NPUserList, 1);
 
@@ -27,7 +27,7 @@ NPUserList
 	 * XXX With smarter rate limiting code, we could allow more at once... 5 was the limit set when
 	 * we weren't retrieiving any more than 5 per NP session. */
 	userlist->buddy_icon_window = 1;
-    NIDPRINT("=============>");
+    purple_debug_warning("np","=============>");
 
     return userlist;
 }

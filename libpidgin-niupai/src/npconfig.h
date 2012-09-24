@@ -11,6 +11,7 @@
 
 #ifdef DEBUG
 #include "NIDebuggingTools.h"
+#include "debug.h"
 #endif
 
 /* Niupai Purple Version */

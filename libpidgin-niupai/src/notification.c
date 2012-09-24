@@ -39,7 +39,7 @@ NPNotification *np_notification_new(NPSession *session)
 	notification->cmdproc = servconn->cmdproc;
 	notification->cmdproc->data = notification;
 	notification->cmdproc->cbs_table = cbs_table;
-    NIDPRINT("=========== \n");
+    purple_debug_warning("np","=========== \n");
     
 	return notification;
 }
@@ -84,7 +84,7 @@ connect_cb(NPServConn *servconn)
 gboolean np_notification_connect(NPNotification *notification,
                                  const char *host, int port)
 {
-    NIDPRINT("host : %s port : %d \n",host,port);
+    purple_debug_warning("np","host : %s port : %d \n",host,port);
     
     NPServConn *servconn;
     
@@ -118,7 +118,7 @@ void np_notification_disconnect(NPNotification *notification)
 static void
 login_ok_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 {
-    NIDPRINT("===============\n");
+    purple_debug_warning("np","===============\n");
     NPSession *session;
     session = cmdproc->session;
     session->logged_in = TRUE;
@@ -128,13 +128,13 @@ login_ok_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 static void
 heartbeat_ok_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 {
-    NIDPRINT("===============\n");
+    purple_debug_warning("np","===============\n");
 
 }
 
 static void pver_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 {
-    NIDPRINT("===============\n");
+    purple_debug_warning("np","===============\n");
 //	np_cmdproc_send(cmdproc, "AUTH", "DES");
 }
 
@@ -143,7 +143,7 @@ static void auth_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 	PurpleAccount *account;
     
 	account = cmdproc->session->account;
-    NIDPRINT("===============\n");
+    purple_debug_warning("np","===============\n");
   
 //	np_cmdproc_send(cmdproc, "REQS", "DES %s", purple_account_get_username(account));
 }
@@ -151,7 +151,7 @@ static void auth_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 static void reqs_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 {
     
-    NIDPRINT("===============\n");
+    purple_debug_warning("np","===============\n");
 
 	NPSession *session;
 	char *host;
@@ -174,7 +174,7 @@ static void reqs_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 static void
 logout_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 {
-    NIDPRINT("============\n");
+    purple_debug_warning("np","============\n");
 //	if (cmd->param_count == 0)
 //		np_session_set_error(cmdproc->session, -1, NULL);
 //	else if (!g_ascii_strcasecmp(cmd->params[0], "OTH"))
@@ -189,7 +189,7 @@ void
 np_notification_close(NPNotification *notification)
 {
 	NPTransaction *trans;
-    NIDPRINT("============\n");
+    purple_debug_warning("np","============\n");
 
 	g_return_if_fail(notification != NULL);
     

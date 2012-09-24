@@ -131,7 +131,7 @@ np_cmdproc_send_trans(NPCmdProc *cmdproc, NPTransaction *trans)
 		np_history_add(cmdproc->history, trans);
 
 	data = np_transaction_to_string(trans);
-    NIDPRINT("np_transaction_to_string(trans) = %s\n",data);
+    purple_debug_warning("np","np_transaction_to_string(trans) = %s\n",data);
 
 	len = strlen(data);
 
@@ -299,7 +299,9 @@ np_cmdproc_process_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 
 	if (cmd->trId)
 		cmd->trans = trans = np_history_find(cmdproc->history, cmd->trId);
-
+    purple_debug_warning("np","cmd->trId = %c\n",cmd->trId);
+    purple_debug_warning("np","cmd->trans :<%p> cmd->trans-: \n",cmd->trans);
+    
 	if (trans != NULL)
 		if (trans->timer) {
 			purple_timeout_remove(trans->timer);
@@ -339,14 +341,11 @@ np_cmdproc_process_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 		cb = g_hash_table_lookup(cmdproc->cbs_table->fallback, cmd->command);
 
 	if (cb != NULL) {
-        NIDPRINT("! ===========run:%s\n",cmd->command);
+        purple_debug_warning("np","! ===========run:%s\n",cmd->command);
 		cb(cmdproc, cmd);        
     }
 	else
-        NIDPRINT("! ===========not run:%s\n",cmd->command);
-
-		purple_debug_warning("np", "Unhandled command '%s'\n",
-						   cmd->command);
+        purple_debug_warning("np","!Unhandled command:%s\n",cmd->command);
 
 	if (trans != NULL && trans->pendent_cmd != NULL)
 		np_transaction_unqueue_cmd(trans, cmdproc);
@@ -355,7 +354,7 @@ np_cmdproc_process_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 void
 np_cmdproc_process_cmd_text(NPCmdProc *cmdproc, const char *command)
 {
-    NIDPRINT("command : %s",command);
+    purple_debug_warning("np","command : %s",command);
 	show_debug_cmd(cmdproc, TRUE, command);
 
 	if (cmdproc->last_cmd != NULL)
