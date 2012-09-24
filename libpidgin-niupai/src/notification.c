@@ -115,24 +115,21 @@ void np_notification_disconnect(NPNotification *notification)
  * Login
  **************************************************************************/
 
-static void login_ok_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
+static void
+login_ok_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 {
     NIDPRINT("===============\n");
     NPSession *session;
-//    PurpleAccount *account;
-//	PurpleConnection *gc;
-//
     session = cmdproc->session;
-//    account = session->account;
-//    gc = purple_account_get_connection(account);
-//
-//    np_session_set_login_step(session, NP_LOGIN_STEP_END);
-//    
-//	session->logged_in = TRUE;
-//    purple_connection_set_state(gc, PURPLE_CONNECTED);
-
+    session->logged_in = TRUE;
     np_session_finish_login(session);
-//	connect_cb(cmdproc->servconn);
+}
+
+static void
+heartbeat_ok_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
+{
+    NIDPRINT("===============\n");
+
 }
 
 static void pver_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
@@ -218,10 +215,10 @@ void np_notification_init(void)
     cbs_table = np_table_new();
     
     // PRS server
-	np_table_add_cmd(cbs_table, "LOGIN_OK", "LOGIN_OK", login_ok_cmd);
-//	np_table_add_cmd(cbs_table, NULL, "LOGIN_OK", login_ok_cmd);
     
 	// Login/Dispatch server
+	np_table_add_cmd(cbs_table, "LOGIN_OK", "LOGIN_OK", login_ok_cmd);
+	np_table_add_cmd(cbs_table, "HEART", "HEART", heartbeat_ok_cmd);
 	np_table_add_cmd(cbs_table, "PVER", "PVER", pver_cmd);
 	np_table_add_cmd(cbs_table, "AUTH", "AUTH", auth_cmd);
 	np_table_add_cmd(cbs_table, "REQS", "REQS", reqs_cmd);

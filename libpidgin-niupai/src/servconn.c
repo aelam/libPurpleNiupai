@@ -168,13 +168,15 @@ static void
 connect_cb(gpointer data, gint source, const char *error_message)
 {
 //    NIDPRINT("========= \n data = %p",data);
-    NIDPRINT("[data = %s] ",data);
 
 	NPServConn *servconn;
     
 	servconn = data;
 	servconn->connect_data = NULL;
     
+    NIDPRINT("[data = %d] ",servconn->rx_len);
+    NIDPRINT("[data = %s] ",servconn->rx_buf);
+
 	servconn->fd = source;
     
 	if (source >= 0)
@@ -413,7 +415,6 @@ read_cb(gpointer data, gint source, PurpleInputCondition cond)
 	NPServConn *servconn;
 	char buf[NP_BUF_LEN];
 	gssize len;
-    
 	servconn = data;
     
 	if (servconn->type == NP_SERVCONN_NS)
@@ -437,6 +438,17 @@ read_cb(gpointer data, gint source, PurpleInputCondition cond)
 	memcpy(servconn->rx_buf + servconn->rx_len, buf, len + 1);
 	servconn->rx_len += len;
 
+    // Log Buffer
+    for(int i = 0;i < len; i++) {
+        fprintf(stdout, "[%c]",buf[i]);
+    }
+    fprintf(stdout, "\n");
+
+    for(int i = 0;i < len; i++) {
+        fprintf(stdout, "[%x]",buf[i]);
+    }
+    fprintf(stdout, "\n");
+    
 	servconn = np_servconn_process_data(servconn);
 	if (servconn)
 		servconn_timeout_renew(servconn);
@@ -444,31 +456,48 @@ read_cb(gpointer data, gint source, PurpleInputCondition cond)
 
 NPServConn *np_servconn_process_data(NPServConn *servconn)
 {
-	char *old_rx_buf;
-    int len;
-    uint16_t real_len;
+	char *cur, *end, *old_rx_buf;
+    int expected_len; // 2+real_content
     
-	old_rx_buf = servconn->rx_buf;
+	end = old_rx_buf = servconn->rx_buf;
     
-    len  = servconn->rx_len;
 	servconn->processing = TRUE;
-    
-    if(servconn->rx_len > 2) {
-//        int8_t len0 = servconn->rx_buf[0]; // High
-//        int8_t len1 = servconn->rx_buf[1]; // High
-//        real_len = ((len0 & 0xFF) > 8) | (len1 & 0xFF);
-        real_len = GUINT16_TO_BE(len);
-    }
-    
-    if (servconn->connected && !servconn->wasted)
-	{
-		if (len > 0) {
-            servconn->rx_len = real_len;
-            gchar *real_rx_buff = (gchar *) malloc((real_len ) * sizeof(gchar));
-            strcpy(real_rx_buff, old_rx_buf+2);
-			servconn->rx_buf = real_rx_buff;
-            np_cmdproc_process_cmd_text(servconn->cmdproc, real_rx_buff);
+
+
+    if (servconn->rx_len < 2) {
+        //
+        // Do nothing
+        // the first 2-bytes is the length we expecting
+        //
+    } else {
+        int8_t len0 = old_rx_buf[0] & 0xFF;
+        int8_t len1 = old_rx_buf[1] & 0xFF;
+        expected_len = (len0 > 8) | len1;
+        if (servconn->rx_len < expected_len + 2) {
+            //
+            // Let socket read more bytes
+            //
+        } else {
+            NIDPRINT("this pack is readed done;\n");
+            
+            gchar *real_content = (gchar *)g_malloc(expected_len);
+            memcpy(real_content, old_rx_buf+2, expected_len);
+            real_content[expected_len] = '\0';
+            np_cmdproc_process_cmd_text(servconn->cmdproc, real_content);
+            free(real_content);
+
+            // move pointer to 
+            servconn->rx_len = servconn->rx_len - expected_len - 2;
+            cur = old_rx_buf + expected_len + 2;
         }
+        
+    }
+
+    
+	if (servconn->connected && !servconn->wasted)
+	{
+		if (servconn->rx_len > 0)
+			servconn->rx_buf = g_memdup(cur, servconn->rx_len);
 		else
 			servconn->rx_buf = NULL;
 	}
@@ -482,6 +511,7 @@ NPServConn *np_servconn_process_data(NPServConn *servconn)
     
 	g_free(old_rx_buf);
 	return servconn;
+    
 }
 
 #if 0

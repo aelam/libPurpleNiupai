@@ -99,7 +99,7 @@ np_transaction_to_string(NPTransaction *trans)
 
 #if 1
 	if (trans->params != NULL)
-        str = trans->params;
+        str = g_strdup(trans->params);
     else if (trans->saveable)
 		str = g_strdup_printf("%s %u", trans->command, trans->trId);
 	else
@@ -113,6 +113,7 @@ np_transaction_to_string(NPTransaction *trans)
 #endif
 	return str;
 }
+
 
 void
 np_transaction_queue_cmd(NPTransaction *trans, NPCommand *cmd)

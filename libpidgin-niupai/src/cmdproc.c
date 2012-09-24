@@ -140,11 +140,9 @@ np_cmdproc_send_trans(NPCmdProc *cmdproc, NPTransaction *trans)
 	if (trans->callbacks == NULL)
 		trans->callbacks = g_hash_table_lookup(cmdproc->cbs_table->cmds,
 											   trans->command);
-    NIDPRINT("====================================\n");
-    NIDPRINT("trans->command = %s\n,trans :< %p >",trans->command,trans);
-    NIDPRINT("================%p====================\n",trans->callbacks);
 	if (trans->payload != NULL)
 	{
+
 		data = g_realloc(data, len + trans->payload_len);
 		memcpy(data + len, trans->payload, trans->payload_len);
 		len += trans->payload_len;
@@ -163,24 +161,14 @@ np_cmdproc_send_trans(NPCmdProc *cmdproc, NPTransaction *trans)
     uint16_t new_len = GUINT16_TO_BE(len);
     memcpy(newdata, (int16_t*)&new_len,2);
     memcpy(newdata + 2, data, len);
-    NIDPRINT("================%zd====%4x============\n",len,new_len);
-    NIDPRINT("================%s====================\n",newdata);
 
 	ret = np_servconn_write(servconn, newdata, len + 2) != -1;
 
 	if (!trans->saveable)
 		np_transaction_destroy(trans);
-    NIDPRINT("================%p====================\n",trans->callbacks);
-    NIDPRINT("================%p====================\n",data);
-    NIDPRINT("================%p====================\n",newdata);
 
-    if (data != NULL) {
-        g_free(data);
-    }
-    if (newdata != NULL) {
-        g_free(newdata);
-    }
-    NIDPRINT("================%p====================\n",trans->callbacks);
+    g_free(newdata);
+    g_free(data);
 	return ret;
 }
 
@@ -351,10 +339,12 @@ np_cmdproc_process_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 		cb = g_hash_table_lookup(cmdproc->cbs_table->fallback, cmd->command);
 
 	if (cb != NULL) {
-        NIDPRINT("============run!!!%s\n",cmd->command);
+        NIDPRINT("! ===========run:%s\n",cmd->command);
 		cb(cmdproc, cmd);        
     }
 	else
+        NIDPRINT("! ===========not run:%s\n",cmd->command);
+
 		purple_debug_warning("np", "Unhandled command '%s'\n",
 						   cmd->command);
 

@@ -52,8 +52,9 @@ np_command_from_string(const char *string)
 	param_start = strchr(cmd->command, ' ');
 
     
-    int equal = strcmp(string, "LOGIN_OK");
-    NIDPRINT("equal : %d string = %s",equal,string);
+    NIDPRINT("command string %s\n",string);
+
+    cmd->trId = string[0];
 //    NIDPRINT("%s %d %s param_start : %s \n" ,__func__,__LINE__,string,param_start);
 //	if (param_start)
 //	{
@@ -65,8 +66,8 @@ np_command_from_string(const char *string)
 //    }
 //    
 
-    cmd->trId = 1;
-    cmd->param_count = 0;
+//    cmd->trId = 1;
+//    cmd->param_count = 0;
 //
 //	if (cmd->params != NULL)
 //	{

@@ -18,10 +18,8 @@ NPUser
     user = g_new0(NPUser, 1);
     
     user->userlist = userlist;
-    NIDPRINT("=================== HELLO passport : %s %s ",passport,friendly_name   );
 	np_user_set_passport(user, passport);
 	np_user_set_friendly_name(user, friendly_name);
-    NIDPRINT("=================== HELLO");
     
 	return np_user_ref(user);
 }
@@ -55,7 +53,7 @@ np_user_destroy(NPUser *user)
 //    
 	g_free(user->passport);
 	g_free(user->friendly_name);
-//	g_free(user->uid);
+	g_free(user->uid);
 //	if (user->extinfo) {
 //		g_free(user->extinfo->media_album);
 //		g_free(user->extinfo->media_artist);
