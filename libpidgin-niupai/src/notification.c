@@ -10,6 +10,8 @@
 #include "NIDebuggingTools.h"
 #include "npconfig.h"
 #include "nphttputil.h"
+#include <glib-object.h>
+#include <json-glib.h>
 
 static NPTable *cbs_table;
 
@@ -60,6 +62,25 @@ static void http_login0_callback(PurpleUtilFetchUrlData *url_data, gpointer user
 {
     purple_debug_info("np", "url_text: %s\n",url_text);
 
+//    url_text = "{\"HELLO\":\"YES\"}";
+    JsonParser *parser = json_parser_new();
+    GError *error = NULL;
+    json_parser_load_from_data(parser, url_text,len, &error);
+    
+//    if (error) {
+//        purple_debug_info("np", "error->message: %s\n",error->message);
+////
+//        return;
+//    }
+//    JsonNode *root = json_parser_get_root(parser);
+//    
+////    JsonNodeType rootType = JSON_NODE_TYPE(root);
+//    
+//    purple_debug_info("np", "rootType: %d\n",rootType);
+//
+    g_object_unref (parser);
+////    g_free(root);
+    g_free(parser);
 }
 
 static void

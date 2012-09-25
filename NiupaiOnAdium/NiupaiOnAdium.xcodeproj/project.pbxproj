@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9425217E16121EEB00C15007 /* libjson-glib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9425217D16121EEB00C15007 /* libjson-glib.framework */; };
 		9430AB0A160F262B00332732 /* memcpy_extra.c in Sources */ = {isa = PBXBuildFile; fileRef = 9430AB09160F262B00332732 /* memcpy_extra.c */; };
 		9430AB6B160F92DF00332732 /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 9430AB68160F92DF00332732 /* GTMObjC2Runtime.m */; };
 		9430AB6C160F92DF00332732 /* GTMStackTrace.m in Sources */ = {isa = PBXBuildFile; fileRef = 9430AB6A160F92DF00332732 /* GTMStackTrace.m */; };
-		944A41CC1610AC8800D8FD7A /* libjson-glib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 944A41CB1610AC8800D8FD7A /* libjson-glib.framework */; };
 		945D3B7616022CE600AF6E0C /* Niupai-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 945D3B7416022CE600AF6E0C /* Niupai-small.png */; };
 		945D3B7716022CE600AF6E0C /* Niupai.png in Resources */ = {isa = PBXBuildFile; fileRef = 945D3B7516022CE600AF6E0C /* Niupai.png */; };
 		945D3B7C16022D1900AF6E0C /* PurpleDefaultsNiupai.plist in Resources */ = {isa = PBXBuildFile; fileRef = 945D3B7B16022D1900AF6E0C /* PurpleDefaultsNiupai.plist */; };
@@ -54,13 +54,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9425217D16121EEB00C15007 /* libjson-glib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "libjson-glib.framework"; sourceTree = "<group>"; };
 		9430AB09160F262B00332732 /* memcpy_extra.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = memcpy_extra.c; sourceTree = "<group>"; };
 		9430AB0C160F263800332732 /* memcpy_extra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memcpy_extra.h; sourceTree = "<group>"; };
 		9430AB67160F92DE00332732 /* GTMObjC2Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMObjC2Runtime.h; sourceTree = "<group>"; };
 		9430AB68160F92DF00332732 /* GTMObjC2Runtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMObjC2Runtime.m; sourceTree = "<group>"; };
 		9430AB69160F92DF00332732 /* GTMStackTrace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMStackTrace.h; sourceTree = "<group>"; };
 		9430AB6A160F92DF00332732 /* GTMStackTrace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMStackTrace.m; sourceTree = "<group>"; };
-		944A41CB1610AC8800D8FD7A /* libjson-glib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "libjson-glib.framework"; sourceTree = "<group>"; };
 		945D3B7416022CE600AF6E0C /* Niupai-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Niupai-small.png"; sourceTree = "<group>"; };
 		945D3B7516022CE600AF6E0C /* Niupai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Niupai.png; sourceTree = "<group>"; };
 		945D3B7B16022D1900AF6E0C /* PurpleDefaultsNiupai.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PurpleDefaultsNiupai.plist; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 				9480B4DF160184CB000A5CA7 /* libintl.framework in Frameworks */,
 				9480B4E0160184CB000A5CA7 /* libmeanwhile.framework in Frameworks */,
 				94FA1C4D16018B4B00A910C0 /* libpurple.framework in Frameworks */,
-				944A41CC1610AC8800D8FD7A /* libjson-glib.framework in Frameworks */,
+				9425217E16121EEB00C15007 /* libjson-glib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,7 +253,7 @@
 		9480B4D1160184CB000A5CA7 /* Linked Framework */ = {
 			isa = PBXGroup;
 			children = (
-				944A41CB1610AC8800D8FD7A /* libjson-glib.framework */,
+				9425217D16121EEB00C15007 /* libjson-glib.framework */,
 				9480B4D6160184CB000A5CA7 /* libgmodule.framework */,
 				94FA1C4C16018B4B00A910C0 /* libpurple.framework */,
 				9480B4D2160184CB000A5CA7 /* Adium.framework */,
@@ -509,7 +509,6 @@
 				DSTROOT = "$(HOME)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework\"/**",
 					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
@@ -522,6 +521,7 @@
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework/libglib.framework/Headers\"",
 					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework/libpurple.framework/Headers\"",
+					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework/libjson-glib.framework/Headers\"",
 				);
 				INFOPLIST_FILE = "NiupaiOnAdium/NiupaiOnAdium-Info.plist";
 				INSTALL_PATH = "/Library/Application Support/Adium 2.0/PlugIns/";
@@ -541,7 +541,6 @@
 				DSTROOT = "$(HOME)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework\"/**",
 					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
@@ -550,6 +549,7 @@
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework/libglib.framework/Headers\"",
 					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework/libpurple.framework/Headers\"",
+					"\"$(SRCROOT)/NiupaiOnAdium/Linked Framework/libjson-glib.framework/Headers\"",
 				);
 				INFOPLIST_FILE = "NiupaiOnAdium/NiupaiOnAdium-Info.plist";
 				INSTALL_PATH = "/Library/Application Support/Adium 2.0/PlugIns/";

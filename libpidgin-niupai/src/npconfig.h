@@ -46,7 +46,8 @@
 #define NP_HTTPCONN_SERVER      "http://mapi.niupai.com"
 
 #define NP_LOGIN_0_PATH         "nologin/login"
-#define NP_GET_LOGIN_INFO_PATH  "main/start"
+#define NP_MAIN_START_PATH      "main/start"
 
+#define NP_USER_AGENT           "i|5.0|niupai|4|niupai_ios_apple||320"
 
 #endif /* __NP_NPCONFIG_H__ */

@@ -1,4 +1,4 @@
-//#include <libpurple/gaim-compat.h>
+#include <libpurple/gaim-compat.h>
 #include <libpurple/connection.h>
 #include <libpurple/conversation.h>
 #include <libpurple/core.h>

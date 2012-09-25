@@ -36,6 +36,7 @@
 //#include "roomlist.h"
 //#include "server.h"
 //#include "util.h"
+#include "nputils.h"
 #include "notification.h"
 #include "version.h"
 #include "NIDebuggingTools.h"
@@ -1275,6 +1276,17 @@ init_plugin(PurplePlugin *plugin)
                                               "http_method_server", NP_HTTPCONN_SERVER);
 	prpl_info.protocol_options = g_list_append(prpl_info.protocol_options,
 											   option);
+    // User-Agent
+    option = purple_account_option_string_new(_("User-Agent"),
+                                              "np_user_agent", NP_USER_AGENT);
+	prpl_info.protocol_options = g_list_append(prpl_info.protocol_options,
+											   option);
+    
+    // Device Id
+    char *device_id =rand_guid();
+    option = purple_account_option_string_new(_("Device-ID"),
+                                              "deivce_id", device_id);
+    g_free(device_id);
     
     option = purple_account_option_bool_new(_("Allow direct connections"),
                                             "direct_connect", TRUE);
