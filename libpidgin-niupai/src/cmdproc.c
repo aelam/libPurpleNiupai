@@ -24,7 +24,6 @@
 
 #include "internal.h"
 #include "debug.h"
-#include "NIDebuggingTools.h"
 #include "cmdproc.h"
 #include "error.h"
 

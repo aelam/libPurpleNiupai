@@ -7,7 +7,6 @@
 //
 
 #include "userlist.h"
-#include "NIDebuggingTools.h"
 
 /**************************************************************************
  * UserList functions

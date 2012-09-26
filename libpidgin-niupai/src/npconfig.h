@@ -10,7 +10,6 @@
 #define __NP_NPCONFIG_H__
 
 #ifdef DEBUG
-#include "NIDebuggingTools.h"
 #include "debug.h"
 #endif
 

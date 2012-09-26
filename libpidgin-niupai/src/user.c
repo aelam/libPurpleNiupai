@@ -8,7 +8,6 @@
 
 #include "internal.h"
 #include "user.h"
-#include "NIDebuggingTools.h"
 
 NPUser
 *np_user_new(NPUserList *userlist, const char *passport,

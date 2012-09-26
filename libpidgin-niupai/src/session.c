@@ -8,7 +8,6 @@
 
 #include "contact.h"
 #include "session.h"
-#include "NIDebuggingTools.h"
 #include "niupai.h"
 
 NPSession *np_session_new(PurpleAccount *account)
@@ -55,8 +54,7 @@ np_session_connect(NPSession *session,
     
 	if (session->notification == NULL)
 	{
-        NIDERROR("NP:This shouldn't happen\n");
-//		purple_debug_error("np", "This shouldn't happen\n");
+		purple_debug_error("np", "This shouldn't happen\n");
 		g_return_val_if_reached(FALSE);
 	}
     

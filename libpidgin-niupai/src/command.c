@@ -24,7 +24,6 @@
 #include "internal.h"
 
 #include "command.h"
-#include "NIDebuggingTools.h"
 
 static gboolean
 is_num(const char *str)

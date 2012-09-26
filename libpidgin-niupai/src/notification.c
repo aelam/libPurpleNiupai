@@ -7,7 +7,6 @@
 //
 
 #include "notification.h"
-#include "NIDebuggingTools.h"
 #include "npconfig.h"
 #include "nphttputil.h"
 #include <glib-object.h>

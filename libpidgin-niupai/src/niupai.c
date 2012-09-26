@@ -32,9 +32,7 @@
 #include "nputils.h"
 #include "notification.h"
 #include "version.h"
-#include "NIDebuggingTools.h"
 #include "nphttputil.h"
-//#include <glib-object.h>
 #include <json-glib.h>
 
 
@@ -219,6 +217,7 @@ login_fail:
 static void
 np_update_cookies_and_account(NPSession *session,gchar *buffer,gsize len,GError **error)
 {
+    PurpleConnection *gc = session->account->gc;
     
     char *headers;
     size_t headers_len;
@@ -238,6 +237,10 @@ np_update_cookies_and_account(NPSession *session,gchar *buffer,gsize len,GError 
         g_free(headers);
     } else {
         // FAIL
+        purple_connection_error_reason(gc,
+                                       PURPLE_CONNECTION_ERROR_NETWORK_ERROR,
+                                       _("Unable to connect"));
+
     }
 }
 
@@ -265,14 +268,11 @@ static void np_login(PurpleAccount *account)
 
     purple_debug_warning("np","\n===> %p ",account);
 
-    fprintf(stdout, "=================> Hello\n");
     
     purple_debug_warning("np","account->alias = %s\n",account->alias);
     purple_debug_warning("np","account->username = %s\n",account->username);
     purple_debug_warning("np","account->password = %s\n",account->password);
     purple_debug_warning("np","account->user_info = %s\n",account->user_info);
-    
-    NIDINFO("=======> LOGIN === \n");
     
     g_return_if_fail(account != NULL);
     
@@ -280,14 +280,14 @@ static void np_login(PurpleAccount *account)
     gc = purple_account_get_connection(account);
 	g_return_if_fail(gc != NULL);
 
-//    if (session->login_step == NP_LOGIN_STEP_START) {
-        const char *http_server = purple_account_get_string(session->account, "http_method_server", NP_HTTPCONN_SERVER);
-        purple_debug_info("np", "http_server: %s",http_server);
-        
-        purple_connection_set_state(gc, PURPLE_CONNECTING);
-        purple_connection_update_progress(gc, _("Connecting"), 1, 3);
 
-        np_http_login0(session, np_http_login0_cb);
+    const char *http_server = purple_account_get_string(session->account, "http_method_server", NP_HTTPCONN_SERVER);
+    purple_debug_info("np", "http_server: %s",http_server);
+        
+    purple_connection_set_state(gc, PURPLE_CONNECTING);
+    purple_connection_update_progress(gc, _("Connecting"), 1, 3);
+
+    np_http_login0(session, np_http_login0_cb);
     return;
     
     host = purple_account_get_string(account, "server", NP_IM_SERVER);
