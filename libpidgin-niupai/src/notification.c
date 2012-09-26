@@ -58,14 +58,17 @@ void np_notification_destroy(NPNotification *notification)
 /**************************************************************************
  * Connect
  **************************************************************************/
-static void http_login0_callback(PurpleUtilFetchUrlData *url_data, gpointer user_data, const gchar *url_text, gsize len, const gchar *error_message)
+static void np_http_login0_cb(PurpleUtilFetchUrlData *url_data, gpointer user_data, const gchar *url_text, gsize len, const gchar *error_message)
 {
     purple_debug_info("np", "url_text: %s\n",url_text);
 
+    gchar *user_cookie;
+
+    
 //    url_text = "{\"HELLO\":\"YES\"}";
-    JsonParser *parser = json_parser_new();
-    GError *error = NULL;
-    json_parser_load_from_data(parser, url_text,len, &error);
+//    JsonParser *parser = json_parser_new();
+//    GError *error = NULL;
+//    json_parser_load_from_data(parser, url_text,len, &error);
     
 //    if (error) {
 //        purple_debug_info("np", "error->message: %s\n",error->message);
@@ -78,9 +81,9 @@ static void http_login0_callback(PurpleUtilFetchUrlData *url_data, gpointer user
 //    
 //    purple_debug_info("np", "rootType: %d\n",rootType);
 //
-    g_object_unref (parser);
+//    g_object_unref (parser);
 ////    g_free(root);
-    g_free(parser);
+//    g_free(parser);
 }
 
 static void
@@ -96,18 +99,10 @@ connect_cb(NPServConn *servconn)
 	session = servconn->session;
     
 	if (session->login_step == NP_LOGIN_STEP_START) {
-        const char *http_server = purple_account_get_string(session->account, "http_method_server", NP_HTTPCONN_SERVER);
-        purple_debug_info("np", "http_server: %s",http_server);
-
-        http_login0(session, http_login0_callback);
-        
-
-#if 0
 		np_session_set_login_step(session, NP_LOGIN_STEP_SOCKET_AUTH_START);
         trans = np_transaction_new(cmdproc, "LOGIN_OK", "%s",NP_LOGIN_STRING);
-//        trans->trId = 1;
+        trans->trId = 1;
         np_cmdproc_send_trans(cmdproc, trans);
-#endif
     }
 	else {
 		np_session_set_login_step(session, NP_LOGIN_STEP_SOCKET_AUTH_END);

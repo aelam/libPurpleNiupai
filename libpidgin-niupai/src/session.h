@@ -53,6 +53,8 @@ typedef enum
 
 struct _NPSession {
     PurpleAccount   *account;
+    
+    GHashTable      *cookie_table;
     NPUser          *user;
     guint           protocol_ver;
 

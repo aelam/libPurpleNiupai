@@ -22,7 +22,9 @@ NPSession *np_session_new(PurpleAccount *account)
     session->account = account;
     session->notification = np_notification_new(session);
     session->userlist = np_userlist_new(session);
-
+    session->cookie_table = g_hash_table_new_full(g_str_hash, g_str_equal,
+                                              g_free, g_free);
+    
     session->user = np_user_new(session->userlist, purple_account_get_username(account), NULL);
     np_userlist_add_user(session->userlist, session->user);
     
@@ -35,7 +37,7 @@ void
 np_session_destroy(NPSession *session)
 {
 	g_return_if_fail(session != NULL);
-    
+    g_hash_table_destroy(session->cookie_table);
 	session->destroying = TRUE;
 }
 

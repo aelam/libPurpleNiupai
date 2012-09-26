@@ -26,63 +26,17 @@
 
 #include "niupai.h"
 #include "accountopt.h"
-//#include "debug.h"
 #include "notify.h"
-//#include "prefs.h"
 #include "core.h"
 #include "prpl.h"
-//#include "privacy.h"
-//#include "request.h"
-//#include "roomlist.h"
-//#include "server.h"
-//#include "util.h"
 #include "nputils.h"
 #include "notification.h"
 #include "version.h"
 #include "NIDebuggingTools.h"
+#include "nphttputil.h"
+//#include <glib-object.h>
+#include <json-glib.h>
 
-
-static GList *server_list_build(gchar select)
-{
-    purple_debug_warning("np","\n===>");
-
-	GList *list = NULL;
-    
-	if ( select == 'T' || select == 'A') {
-    purple_debug_warning("np","\n===>");
-
-		list = g_list_append(list, "219.133.60.173:443");
-		list = g_list_append(list, "219.133.49.125:443");
-		list = g_list_append(list, "58.60.15.33:443");
-		list = g_list_append(list, "tcpconn.tencent.com:8000");
-		list = g_list_append(list, "tcpconn2.tencent.com:8000");
-		list = g_list_append(list, "tcpconn3.tencent.com:8000");
-		list = g_list_append(list, "tcpconn4.tencent.com:8000");
-		list = g_list_append(list, "tcpconn5.tencent.com:8000");
-		list = g_list_append(list, "tcpconn6.tencent.com:8000");
-	}
-	if ( select == 'U' || select == 'A') {
-    purple_debug_warning("np","\n===>");
-
-		list = g_list_append(list, "219.133.49.171:8000");
-		list = g_list_append(list, "58.60.14.37:8000");
-		list = g_list_append(list, "219.133.60.36:8000");
-		list = g_list_append(list, "sz.tencent.com:8000");
-		list = g_list_append(list, "sz2.tencent.com:8000");
-		list = g_list_append(list, "sz3.tencent.com:8000");
-		list = g_list_append(list, "sz4.tencent.com:8000");
-		list = g_list_append(list, "sz5.tencent.com:8000");
-		list = g_list_append(list, "sz6.tencent.com:8000");
-		list = g_list_append(list, "sz7.tencent.com:8000");
-		list = g_list_append(list, "sz8.tencent.com:8000");
-		list = g_list_append(list, "sz9.tencent.com:8000");
-	}
-	return list;
-}
-
-
-///
-//
 
 void
 np_send_im_message(NPSession *session, NPMessage *msg)
@@ -131,6 +85,175 @@ static void server_list_create(PurpleAccount *account)
 //	qd->servers =	server_list_build('U');
 }
 
+
+static void
+np_socket_login(NPSession *session)
+{
+    
+    PurpleConnection *gc;
+	PurplePresence *presence;
+	const char *host;
+	gboolean http_method = FALSE;
+	int port;
+    PurpleAccount *account ;
+    
+    account = session->account;
+    
+
+    host = purple_account_get_string(account, "server", NP_IM_SERVER);
+	port = purple_account_get_int(account, "port", NP_IM_PORT);
+    
+    session = np_session_new(account);
+    
+    purple_debug_warning("np","=====> session : %p ",session);
+    
+    gc = purple_account_get_connection(account);
+	g_return_if_fail(gc != NULL);
+    
+    gc->proto_data = session;
+    
+	gc->flags |= PURPLE_CONNECTION_HTML | PURPLE_CONNECTION_NO_BGCOLOR | PURPLE_CONNECTION_AUTO_RESP;
+    
+    np_session_set_login_step(session, NP_LOGIN_STEP_START);
+    presence = purple_account_get_presence(account);
+    
+	if (!np_session_connect(session, host, port, http_method))
+		purple_connection_error_reason(gc,
+                                       PURPLE_CONNECTION_ERROR_NETWORK_ERROR,
+                                       _("Unable to connect"));
+
+    
+}
+
+// HTTP Part
+/////////////////////////////////////////////////////////////////////////////////////
+
+static void
+np_update_cookies(NPSession *session,gchar *headers,gsize header_len,GError **error)
+{
+    purple_debug_info("np", "header_len: %zd header : %s",header_len,headers);
+    
+    const gchar *cookie_start;
+	const gchar *cookie_end;
+	gchar *cookie_name;
+	gchar *cookie_value;
+    PurpleAccount *account;
+    
+	g_return_if_fail(headers != NULL);
+    
+	header_len = strlen(headers);
+    
+	/* look for the next "Set-Cookie: " */
+	/* grab the data up until ';' */
+	cookie_start = headers;
+	while ((cookie_start = strstr(cookie_start, "\r\nSet-Cookie: ")) &&
+           (cookie_start - headers) < header_len)
+	{
+		cookie_start += 14;
+		cookie_end = strchr(cookie_start, '=');
+		cookie_name = g_strndup(cookie_start, cookie_end-cookie_start);
+		cookie_start = cookie_end + 1;
+		cookie_end = strchr(cookie_start, ';');
+		cookie_value= g_strndup(cookie_start, cookie_end-cookie_start);
+		cookie_start = cookie_end;
+        purple_debug_info("np", "cookie %s name %s ",cookie_name,cookie_value);
+        
+		g_hash_table_replace(session->cookie_table, cookie_name,
+                             cookie_value);
+	}
+    
+    
+    account = session->account;
+    
+}
+
+static void
+np_update_account(NPSession *session,gchar *body,gsize body_len,GError **error)
+{
+    //    purple_debug_info("np", "body len");
+    purple_debug_info("np", "body len : %zd content:",body_len);
+
+    PurpleAccount *account;
+    PurpleConnection *gc;
+    
+    const gchar *login_string_start;
+	const gchar *login_string_end;
+    gchar *login_string;
+    
+    const char *prefix = "loginString\":\"";
+    const char *suffix = "\"}";
+
+    account = session->account;
+    gc = purple_account_get_connection(account);
+
+    
+    login_string_start = body;
+    
+    login_string_start = strstr(login_string_start, prefix);
+    
+    if (login_string_start) {
+        login_string_end = login_string_start;
+        login_string_end = strstr(login_string_start, suffix);
+        
+        if (login_string_end > login_string_start) {
+            gsize len = login_string_end - login_string_start - strlen(prefix);
+            login_string = g_strndup(login_string_start + strlen(prefix), len);
+            purple_debug_info("np", "login_string: %s",login_string);
+            purple_connection_update_progress(gc, _("Got Token!"), 1, 3);
+
+            np_socket_login(session);
+            
+            return;
+        } else {
+            goto login_fail;
+        }
+    } else {
+        goto login_fail;
+    }
+    
+login_fail:
+    purple_connection_update_progress(gc, _("Fail"), 1, 3);
+    
+}
+
+static void
+np_update_cookies_and_account(NPSession *session,gchar *buffer,gsize len,GError **error)
+{
+    
+    char *headers;
+    size_t headers_len;
+    char *body;
+    
+    body = g_strstr_len(buffer, len, "\r\n\r\n");
+    if (body) {
+        body = body + 4;
+        headers_len = body - buffer;
+        
+        headers = g_strndup(buffer,headers_len);
+        headers[headers_len] = '\0';
+        
+        np_update_account(session, body, len - headers_len, error);
+        np_update_cookies(session, headers, headers_len, error);
+        
+        g_free(headers);
+    } else {
+        // FAIL
+    }
+}
+
+
+static void
+np_http_login0_cb(PurpleUtilFetchUrlData *url_data, gpointer user_data, const gchar *url_text, gsize len, const gchar *error_message)
+{
+//    purple_debug_info("np", "url_text: %s\n",url_text);
+    NPSession *session = user_data;
+    GError *error = NULL;
+    np_update_cookies_and_account(session,(char *)url_text, len , &error);
+    
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+
 static void np_login(PurpleAccount *account)
 {
     PurpleConnection *gc;
@@ -153,13 +276,21 @@ static void np_login(PurpleAccount *account)
     
     g_return_if_fail(account != NULL);
     
+    session = np_session_new(account);
+    gc = purple_account_get_connection(account);
+	g_return_if_fail(gc != NULL);
 
-    http_method = purple_account_get_bool(account, "http_method", FALSE);
+//    if (session->login_step == NP_LOGIN_STEP_START) {
+        const char *http_server = purple_account_get_string(session->account, "http_method_server", NP_HTTPCONN_SERVER);
+        purple_debug_info("np", "http_server: %s",http_server);
+        
+        purple_connection_set_state(gc, PURPLE_CONNECTING);
+        purple_connection_update_progress(gc, _("Connecting"), 1, 3);
+
+        np_http_login0(session, np_http_login0_cb);
+    return;
     
-	if (http_method)
-		host = purple_account_get_string(account, "http_method_server", NP_HTTPCONN_SERVER);
-	else
-		host = purple_account_get_string(account, "server", NP_IM_SERVER);
+    host = purple_account_get_string(account, "server", NP_IM_SERVER);
 	port = purple_account_get_int(account, "port", NP_IM_PORT);
 
     session = np_session_new(account);

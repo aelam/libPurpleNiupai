@@ -8,9 +8,8 @@
 
 #include "nphttputil.h"
 
-
 static PurpleUtilFetchUrlData *
-np_util_post_url(const gchar *url, const gchar *postdata, PurpleUtilFetchUrlCallback callback, gpointer data)
+np_util_post_url(const gchar *url, const gchar *postdata,gboolean include_headers, PurpleUtilFetchUrlCallback callback, gpointer data)
 {
 	PurpleUtilFetchUrlData *urldata;
 	gchar *host, *path, *request;
@@ -25,7 +24,7 @@ np_util_post_url(const gchar *url, const gchar *postdata, PurpleUtilFetchUrlCall
                               "Content-Length: %" G_GSIZE_FORMAT "\r\n\r\n%s",
                               path, host, strlen(postdata), postdata);
 	
-	urldata = purple_util_fetch_url_request(url, TRUE, NULL, TRUE, request, FALSE, callback, data);
+	urldata = purple_util_fetch_url_request(url, TRUE, NULL, TRUE, request, include_headers, callback, data);
 	
 	g_free(host);
 	g_free(path);
@@ -36,7 +35,7 @@ np_util_post_url(const gchar *url, const gchar *postdata, PurpleUtilFetchUrlCall
 
 
 PurpleUtilFetchUrlData *
-http_login0(NPSession *session,PurpleUtilFetchUrlCallback callback)
+np_http_login0(NPSession *session,PurpleUtilFetchUrlCallback callback)
 {
     PurpleUtilFetchUrlData *url_data;
     PurpleAccount *account;
@@ -67,7 +66,7 @@ http_login0(NPSession *session,PurpleUtilFetchUrlCallback callback)
                                      _ua,
                                      NULL
                                      );
-    url_data = np_util_post_url(login_url, content, callback, session);
+    url_data = np_util_post_url(login_url, content,TRUE, callback, session);
     
     g_free(plain_login_key);
     g_free(login_key);
@@ -94,10 +93,11 @@ http_main_start(NPSession *session,PurpleUtilFetchUrlCallback callback)
         
     gchar *content = g_strdup_printf("_ua=%s",_ua,NULL);
     
-    url_data = np_util_post_url(start_url, content, callback, session);
+    url_data = np_util_post_url(start_url, content, FALSE , callback, session);
     
     g_free(content);
     
     return url_data;
     
 }
+
