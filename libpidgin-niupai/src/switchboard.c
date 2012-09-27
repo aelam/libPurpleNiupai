@@ -670,8 +670,8 @@ joi_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 
 //	np_sbconn_process_queue(swboard);
 
-	if (!session->http_method)
-		send_clientcaps(swboard);
+//	if (!session->http_method)
+//		send_clientcaps(swboard);
 
 	if (swboard->closed)
 		np_switchboard_close(swboard);

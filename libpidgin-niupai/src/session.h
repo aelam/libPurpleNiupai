@@ -33,11 +33,8 @@ typedef enum
 typedef enum
 {
 	NP_LOGIN_STEP_START,
-    NP_LOGIN_STEP_LOGIN,
-	NP_LOGIN_STEP_GET_COOKIE,
-    NP_LOGIN_STEP_GET_LOGIN_INFO,
-	NP_LOGIN_STEP_SOCKET_AUTH_START,
-	NP_LOGIN_STEP_SOCKET_AUTH_END,    
+    NP_LOGIN_STEP_LOGIN_HTTP_SERVER,
+    NP_LOGIN_STEP_LOGIN_IM_SERVER,
 	NP_LOGIN_STEP_SYN,
 	NP_LOGIN_STEP_END
 } NPLoginStep;
@@ -64,7 +61,7 @@ struct _NPSession {
 	gboolean        connected:1;
 	gboolean        logged_in:1; /**< A temporal flag to ignore local buddy list adds. */
 	gboolean        destroying:1; /**< A flag that states if the session is being destroyed. */
-	gboolean        http_method:1;
+//	gboolean        http_method:1;
 
     guint           login_timeout; /**< Timeout to force status change if ADL/FQY fail. */
 
@@ -102,6 +99,13 @@ void np_session_destroy(NPSession *session);
 gboolean np_session_connect(NPSession *session,
 							 const char *host, int port,
 							 gboolean http_method);
+
+
+gboolean np_session_connect0(NPSession *session,
+                            const char *socket_server, int socket_port,
+                            const char *http_server, int http_port);
+
+
 
 /**
  * Disconnects from an NP session.

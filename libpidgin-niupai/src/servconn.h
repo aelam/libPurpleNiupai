@@ -57,7 +57,7 @@ struct _NPServConn {
                  connected to. */
 	int num; /**< A number id of this connection. */
 
-    NPHttpConn *httpconn; /**< The HTTP connection this connection should use. */
+//    NPHttpConn *httpconn; /**< The HTTP connection this connection should use. */
 
     int fd; /**< The connection's file descriptor. */
 	int inpa; /**< The connection's input handler. */

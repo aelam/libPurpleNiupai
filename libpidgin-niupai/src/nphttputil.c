@@ -70,10 +70,12 @@ np_util_post_url2(const gchar *url, const gchar *postdata,gchar *cookies,gboolea
 
 
 PurpleUtilFetchUrlData *
-np_http_login0(NPSession *session,PurpleUtilFetchUrlCallback callback)
+np_http_login0(NPNotification *notification,PurpleUtilFetchUrlCallback callback)
 {
     PurpleUtilFetchUrlData *url_data;
     PurpleAccount *account;
+    NPSession *session;
+    session = notification->session;
     
     account = session->account;
     
@@ -101,7 +103,7 @@ np_http_login0(NPSession *session,PurpleUtilFetchUrlCallback callback)
                                      _ua,
                                      NULL
                                      );
-    url_data = np_util_post_url(login_url, content,TRUE, callback, session);
+    url_data = np_util_post_url(login_url, content,TRUE, callback, notification);
     
     g_free(plain_login_key);
     g_free(login_key);

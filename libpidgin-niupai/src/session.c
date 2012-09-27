@@ -41,25 +41,30 @@ np_session_destroy(NPSession *session)
 }
 
 gboolean
-np_session_connect(NPSession *session,
-                            const char *host, int port,
-                            gboolean http_method)
+np_session_connect0(NPSession *session,
+                             const char *socket_server, int socket_port,
+                             const char *http_server, int http_port)
 {
-    purple_debug_warning("np","host: %s  port : %d http_method : %d",host,port,http_method);
+    purple_debug_warning("np","socket_server: %s  socket_port : %d http_server: %s http_port : %d",socket_server,socket_port,http_server,http_port);
+    purple_debug_info("npc", "%s session = %p %p",__FUNCTION__,session,session->cookie_table);
+    
 	g_return_val_if_fail(session != NULL, FALSE);
 	g_return_val_if_fail(!session->connected, TRUE);
-
-    session->connected = TRUE;
-	session->http_method = http_method;
     
+    session->connected = TRUE;
+
 	if (session->notification == NULL)
 	{
 		purple_debug_error("np", "This shouldn't happen\n");
 		g_return_val_if_reached(FALSE);
 	}
+    purple_debug_info("npc", "%s session = %p %p",__FUNCTION__,session,session->cookie_table);
+
     
-	return np_notification_connect(session->notification, host, port);
+    return np_notification_connect0(session->notification, socket_server, socket_port,http_server,http_port);
+
 }
+
 
 void
 np_session_disconnect(NPSession *session)

@@ -14,7 +14,10 @@
 #include "session.h"
 #include "npconfig.h"
 
-PurpleUtilFetchUrlData *np_http_login0(NPSession *session,PurpleUtilFetchUrlCallback callback);
+
+
+
+PurpleUtilFetchUrlData *np_http_login0(NPNotification *notification,PurpleUtilFetchUrlCallback callback);
 
 PurpleUtilFetchUrlData *http_get_friend_list(NPSession *session,PurpleUtilFetchUrlCallback callback);
 

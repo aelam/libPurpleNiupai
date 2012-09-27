@@ -28,6 +28,12 @@ struct _NPNotification
 	NPCmdProc *cmdproc;
 	NPServConn *servconn;
     
+    gchar     *socket_server;
+    int       socket_port;
+    gchar     *http_server;
+    int       http_port;
+    
+    
 	gboolean in_use;
     
     
@@ -40,6 +46,11 @@ NPNotification *np_notification_new(NPSession *session);
 void np_notification_destroy(NPNotification *notification);
 gboolean np_notification_connect(NPNotification *notification,
                                   const char *host, int port);
+
+gboolean np_notification_connect0(NPNotification *notification,
+                                  const char *socket_server, int socket_port,
+                                  const char *http_server, int http_port);
+
 void np_notification_disconnect(NPNotification *notification);
 
 /**

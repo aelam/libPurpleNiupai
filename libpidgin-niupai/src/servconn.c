@@ -32,7 +32,7 @@ np_servconn_new(NPSession *session, NPServConnType type)
 	servconn->cmdproc = np_cmdproc_new(session);
 	servconn->cmdproc->servconn = servconn;
     
-	servconn->httpconn = np_httpconn_new(servconn);
+//	servconn->httpconn = np_httpconn_new(servconn);
     
 	servconn->num = session->servconns_count++;
     
@@ -64,8 +64,8 @@ np_servconn_destroy(NPServConn *servconn)
 	if (servconn->destroy_cb)
 		servconn->destroy_cb(servconn);
     
-	if (servconn->httpconn != NULL)
-		np_httpconn_destroy(servconn->httpconn);
+//	if (servconn->httpconn != NULL)
+//		np_httpconn_destroy(servconn->httpconn);
     
 	g_free(servconn->host);
     
@@ -215,25 +215,25 @@ np_servconn_connect(NPServConn *servconn, const char *host, int port, gboolean f
 	g_free(servconn->host);
 	servconn->host = g_strdup(host);
     
-    purple_debug_warning("np","===> session->http_method : %d",session->http_method);
-	if (session->http_method)
-	{
-		/* HTTP Connection. */
-        
-		if (!servconn->httpconn->connected || force)
-			if (!np_httpconn_connect(servconn->httpconn, host, port))
-				return FALSE;
-        
-		servconn->connected = TRUE;
-		servconn->httpconn->virgin = TRUE;
-		servconn_timeout_renew(servconn);
-        
-		/* Someone wants to know we connected. */
-		servconn->connect_cb(servconn);
-        
-		return TRUE;
-	}
-        
+//    purple_debug_warning("np","===> session->http_method : %d",session->http_method);
+//	if (session->http_method)
+//	{
+//		/* HTTP Connection. */
+//        
+//		if (!servconn->httpconn->connected || force)
+//			if (!np_httpconn_connect(servconn->httpconn, host, port))
+//				return FALSE;
+//        
+//		servconn->connected = TRUE;
+//		servconn->httpconn->virgin = TRUE;
+//		servconn_timeout_renew(servconn);
+//        
+//		/* Someone wants to know we connected. */
+//		servconn->connect_cb(servconn);
+//        
+//		return TRUE;
+//	}
+    
 	servconn->connect_data = purple_proxy_connect(NULL, session->account,
                                                   host, port, connect_cb, servconn);
     
@@ -262,14 +262,14 @@ np_servconn_disconnect(NPServConn *servconn)
 		return;
 	}
     
-	if (servconn->session->http_method)
-	{
-		/* Fake disconnection. */
-		if (servconn->disconnect_cb != NULL)
-			servconn->disconnect_cb(servconn);
-        
-		return;
-	}
+//	if (servconn->session->http_method)
+//	{
+//		/* Fake disconnection. */
+//		if (servconn->disconnect_cb != NULL)
+//			servconn->disconnect_cb(servconn);
+//        
+//		return;
+//	}
     
 	if (servconn->inpa > 0)
 	{
@@ -360,7 +360,8 @@ np_servconn_write(NPServConn *servconn, const char *buf, size_t len)
 	gssize ret = 0;
 	g_return_val_if_fail(servconn != NULL, 0);
     
-	if (!servconn->session->http_method)
+//	if (!servconn->session->http_method)
+    if (1)
 	{
 		if (servconn->tx_handler == 0) {
 			switch (servconn->type)
@@ -395,10 +396,10 @@ np_servconn_write(NPServConn *servconn, const char *buf, size_t len)
                                       len - ret);
 		}
 	}
-	else
-	{
-		ret = np_httpconn_write(servconn->httpconn, buf, len);
-	}
+//	else
+//	{
+//		ret = np_httpconn_write(servconn->httpconn, buf, len);
+//	}
     
 	if (ret == -1)
 	{

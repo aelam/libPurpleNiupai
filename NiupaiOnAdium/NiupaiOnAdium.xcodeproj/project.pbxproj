@@ -34,7 +34,6 @@
 		94FD7C79160B6DEA008AF095 /* directconn.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C58160B6DEA008AF095 /* directconn.c */; };
 		94FD7C7A160B6DEA008AF095 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C5A160B6DEA008AF095 /* error.c */; };
 		94FD7C7B160B6DEA008AF095 /* group.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C5C160B6DEA008AF095 /* group.c */; };
-		94FD7C7C160B6DEA008AF095 /* httpconn.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C5E160B6DEA008AF095 /* httpconn.c */; };
 		94FD7C7E160B6DEA008AF095 /* niupai.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C64160B6DEA008AF095 /* niupai.c */; };
 		94FD7C7F160B6DEA008AF095 /* session.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C66160B6DEA008AF095 /* session.c */; };
 		94FD7C80160B6DEA008AF095 /* notification.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C68160B6DEA008AF095 /* notification.c */; };
@@ -97,8 +96,6 @@
 		94FD7C5B160B6DEA008AF095 /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
 		94FD7C5C160B6DEA008AF095 /* group.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = group.c; sourceTree = "<group>"; };
 		94FD7C5D160B6DEA008AF095 /* group.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = group.h; sourceTree = "<group>"; };
-		94FD7C5E160B6DEA008AF095 /* httpconn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = httpconn.c; sourceTree = "<group>"; };
-		94FD7C5F160B6DEA008AF095 /* httpconn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = httpconn.h; sourceTree = "<group>"; };
 		94FD7C61160B6DEA008AF095 /* internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = internal.h; sourceTree = "<group>"; };
 		94FD7C64160B6DEA008AF095 /* niupai.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = niupai.c; sourceTree = "<group>"; };
 		94FD7C65160B6DEA008AF095 /* niupai.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = niupai.h; sourceTree = "<group>"; };
@@ -296,8 +293,6 @@
 				94FD7C5D160B6DEA008AF095 /* group.h */,
 				94FD7C86160B6E15008AF095 /* history.c */,
 				94FD7C87160B6E15008AF095 /* history.h */,
-				94FD7C5E160B6DEA008AF095 /* httpconn.c */,
-				94FD7C5F160B6DEA008AF095 /* httpconn.h */,
 				94FD7C89160B6E23008AF095 /* msg.c */,
 				94FD7C8A160B6E23008AF095 /* msg.h */,
 				94FD7C60160B6DEA008AF095 /* libpurple */,
@@ -411,7 +406,6 @@
 				94FD7C79160B6DEA008AF095 /* directconn.c in Sources */,
 				94FD7C7A160B6DEA008AF095 /* error.c in Sources */,
 				94FD7C7B160B6DEA008AF095 /* group.c in Sources */,
-				94FD7C7C160B6DEA008AF095 /* httpconn.c in Sources */,
 				94FD7C7E160B6DEA008AF095 /* niupai.c in Sources */,
 				94FD7C7F160B6DEA008AF095 /* session.c in Sources */,
 				94FD7C80160B6DEA008AF095 /* notification.c in Sources */,

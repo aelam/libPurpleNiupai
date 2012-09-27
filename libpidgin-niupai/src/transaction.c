@@ -101,7 +101,7 @@ np_transaction_to_string(NPTransaction *trans)
 	if (trans->params != NULL)
         str = g_strdup(trans->params);
     else if (trans->saveable)
-		str = g_strdup_printf("%s %u", trans->command, trans->trId);
+		str = g_strdup_printf("%s", trans->command);
 	else
 		str = g_strdup_printf("%s\r\n", trans->command);
 #else
