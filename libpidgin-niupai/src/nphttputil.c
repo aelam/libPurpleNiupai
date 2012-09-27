@@ -81,7 +81,7 @@ np_http_login0(NPNotification *notification,PurpleUtilFetchUrlCallback callback)
     
     const char *username = account->username;
     const char *pwd_md5 = g_compute_checksum_for_string(G_CHECKSUM_MD5,account->password,strlen(account->password));
-    const char *http_server = purple_account_get_string(session->account, "http_method_server", NP_HTTPCONN_SERVER);
+    const char *http_server = notification->http_server ;//purple_account_get_string(session->account, "http_method_server", NP_HTTPCONN_SERVER);
     const char *_ua = purple_account_get_string(session->account, "np_user_agent", NP_USER_AGENT);
 
     char *login_url = g_strdup_printf("%s/%s",http_server,NP_LOGIN_0_PATH);
@@ -115,14 +115,15 @@ np_http_login0(NPNotification *notification,PurpleUtilFetchUrlCallback callback)
 }
 
 PurpleUtilFetchUrlData *
-http_main_start(NPSession *session,PurpleUtilFetchUrlCallback callback)
+http_main_start(NPNotification *notitication,PurpleUtilFetchUrlCallback callback)
 {
     PurpleUtilFetchUrlData *url_data;
     PurpleAccount *account;
+    NPSession *session = notitication->session;
     
     account = session->account;
     
-    const char *http_server = purple_account_get_string(session->account, "http_method_server", NP_HTTPCONN_SERVER);
+    char *http_server = notitication->http_server ;//purple_account_get_string(session->account, "http_method_server", NP_HTTPCONN_SERVER);
     const char *_ua = purple_account_get_string(session->account, "np_user_agent", NP_USER_AGENT);
     
     char *start_url = g_strdup_printf("%s/%s",http_server,NP_MAIN_START_PATH);
@@ -130,7 +131,7 @@ http_main_start(NPSession *session,PurpleUtilFetchUrlCallback callback)
         
     gchar *content = g_strdup_printf("_ua=%s",_ua,NULL);
     
-    url_data = np_util_post_url(start_url, content, FALSE , callback, session);
+    url_data = np_util_post_url(start_url, content, FALSE , callback, notitication);
     
     g_free(content);
     
@@ -139,16 +140,19 @@ http_main_start(NPSession *session,PurpleUtilFetchUrlCallback callback)
 }
 
 PurpleUtilFetchUrlData *
-http_get_friend_list(NPSession *session,PurpleUtilFetchUrlCallback callback)
+http_get_friend_list(NPNotification *notification,PurpleUtilFetchUrlCallback callback)
 {
     PurpleUtilFetchUrlData *url_data;
     PurpleAccount *account;
     gchar *cookies;
     
+    NPSession *session;
+    session = notification->session;
+
     account = session->account;
     cookies = np_session_get_encoded_cookie(session);
-    
-    const char *http_server = purple_account_get_string(session->account, "http_method_server", NP_HTTPCONN_SERVER);
+
+    char *http_server = notification->http_server;//purple_account_get_string(session->account, "http_method_server", NP_HTTPCONN_SERVER);
     const char *_ua = purple_account_get_string(session->account, "np_user_agent", NP_USER_AGENT);
     
     char *friend_list_url = g_strdup_printf("%s/%s",http_server,NP_FRIEND_LIST_PATH);
@@ -157,7 +161,7 @@ http_get_friend_list(NPSession *session,PurpleUtilFetchUrlCallback callback)
     
     gchar *content = g_strdup_printf("_ua=%s",_ua,NULL);
     
-    url_data = np_util_post_url2(friend_list_url, content,cookies, FALSE , callback, session);
+    url_data = np_util_post_url2(friend_list_url, content,cookies, FALSE , callback, notification);
     
     g_free(content);
 

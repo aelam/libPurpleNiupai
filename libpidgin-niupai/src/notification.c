@@ -10,7 +10,10 @@
 #include "npconfig.h"
 #include "nphttputil.h"
 #include <glib-object.h>
-#include <json-glib.h>
+//#include "jsmn.h"
+#include "jsmn.h"
+//#include <json-glib/json-glib.h>
+#include "json-glib/json-glib.h"
 
 static NPTable *cbs_table;
 
@@ -71,14 +74,13 @@ np_got_friend_list_cb(PurpleUtilFetchUrlData *url_data, gpointer user_data, cons
 {
     purple_debug_info("np", "url_text: %s\n",url_text);
 //    NPSession *session = user_data;
+    JsonParser *parser = json_parser_new();
+    GError *error = NULL;
+    json_parser_load_from_data(parser, url_text, len, &error);
+    if (error) {
+        purple_debug_info("np", "error happenned : %p\n",error);
 
-//    JsonParser *parser = json_parser_new();
-//    GError *error = NULL;
-//    json_parser_load_from_data(parser, url_text, len, &error);
-//    if (error) {
-//        purple_debug_info("np", "error happenned : %p\n",error);
-//
-//    }
+    }
 }
 
 // HTTP Part
@@ -252,7 +254,6 @@ connect_cb(NPServConn *servconn)
         np_cmdproc_send_trans(cmdproc, trans);
     }
 	else {
-//		np_session_set_login_step(session, NP_LOGIN_STEP);
         trans = np_transaction_new(cmdproc,"HEART",NULL);
         trans->trId = 2;
         np_cmdproc_send_trans(cmdproc, trans);
@@ -362,24 +363,12 @@ void np_notification_disconnect(NPNotification *notification)
 static void
 login_ok_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 {
-    purple_debug_warning("np","===============\n");
     NPSession *session;
     session = cmdproc->session;
-//    session->logged_in = TRUE;
     np_session_finish_login(session);
-    
-//    PurpleGroup *np_group;
-//    PurpleBuddy *buddy;
-//
-//    np_group = purple_group_new("好友");
-//    purple_blist_add_group(np_group, NULL);
-//    buddy = purple_buddy_new(session->account, "name", "alias");
-    purple_debug_info("npc", "%s session = %p %p",__FUNCTION__,session,session->cookie_table);
 
-    gchar *cookie =  np_session_get_encoded_cookie(cmdproc->session);
-    purple_debug_warning("np","==============cookie : %s=\n",cookie);
-
-    http_get_friend_list(session, np_got_friend_list_cb);
+    //
+    http_get_friend_list(session->notification, np_got_friend_list_cb);
     
 }
 
