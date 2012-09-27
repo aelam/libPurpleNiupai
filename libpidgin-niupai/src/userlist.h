@@ -25,6 +25,8 @@ struct _NPUserList {
 
 };
 
+
+
 NPUserList *np_userlist_new(NPSession *session);
 void np_userlist_destroy(NPUserList *userlist);
 

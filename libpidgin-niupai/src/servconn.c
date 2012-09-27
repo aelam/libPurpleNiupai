@@ -457,11 +457,12 @@ read_cb(gpointer data, gint source, PurpleInputCondition cond)
 NPServConn *np_servconn_process_data(NPServConn *servconn)
 {
 	char *cur, *end, *old_rx_buf;
-    int expected_len; // 2+real_content
+    u_int16_t expected_len; // 2+real_content
     
 	end = old_rx_buf = servconn->rx_buf;
     
 	servconn->processing = TRUE;
+
 
 
     if (servconn->rx_len < 2) {
@@ -470,25 +471,30 @@ NPServConn *np_servconn_process_data(NPServConn *servconn)
         // the first 2-bytes is the length we expecting
         //
     } else {
-        int8_t len0 = old_rx_buf[0] & 0xFF;
-        int8_t len1 = old_rx_buf[1] & 0xFF;
-        expected_len = (len0 > 8) | len1;
+        u_int16_t len0 = old_rx_buf[0] & 0x00FF;
+        u_int16_t len1 = old_rx_buf[1] & 0x00FF;
+        expected_len = (len0 << 8) | len1;
+
         if (servconn->rx_len < expected_len + 2) {
             //
             // Let socket read more bytes
             //
         } else {
             purple_debug_warning("np","this pack is readed done;\n");
-            
             gchar *real_content = (gchar *)g_malloc(expected_len);
             memcpy(real_content, old_rx_buf+2, expected_len);
             real_content[expected_len] = '\0';
             np_cmdproc_process_cmd_text(servconn->cmdproc, real_content);
+            purple_debug_warning("np","socket message : %s\n",real_content);
             free(real_content);
 
             // move pointer to 
             servconn->rx_len = servconn->rx_len - expected_len - 2;
             cur = old_rx_buf + expected_len + 2;
+            for (int i = 0; i < MIN(servconn->rx_len, 10); i++) {
+                purple_debug_warning("nps","cur = %c\n",cur[i]);
+            }
+
         }
         
     }

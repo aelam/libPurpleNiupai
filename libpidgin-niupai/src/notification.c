@@ -57,11 +57,11 @@ void np_notification_destroy(NPNotification *notification)
 /**************************************************************************
  * Connect
  **************************************************************************/
-static void np_http_login0_cb(PurpleUtilFetchUrlData *url_data, gpointer user_data, const gchar *url_text, gsize len, const gchar *error_message)
-{
-    purple_debug_info("np", "url_text: %s\n",url_text);
-
-    gchar *user_cookie;
+//static void np_http_login0_cb(PurpleUtilFetchUrlData *url_data, gpointer user_data, const gchar *url_text, gsize len, const gchar *error_message)
+//{
+//    purple_debug_info("np", "url_text: %s\n",url_text);
+//
+//    gchar *user_cookie;
 
     
 //    url_text = "{\"HELLO\":\"YES\"}";
@@ -83,7 +83,7 @@ static void np_http_login0_cb(PurpleUtilFetchUrlData *url_data, gpointer user_da
 //    g_object_unref (parser);
 ////    g_free(root);
 //    g_free(parser);
-}
+//}
 
 static void
 connect_cb(NPServConn *servconn)
@@ -162,7 +162,14 @@ heartbeat_ok_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 
 }
 
-static void pver_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
+static void
+ntfy_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
+{
+    purple_debug_warning("np"," %s ==============> %s\n",cmd->command,__FUNCTION__);
+}
+
+static void
+pver_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 {
     purple_debug_warning("np","===============\n");
 //	np_cmdproc_send(cmdproc, "AUTH", "DES");
@@ -253,6 +260,9 @@ void np_notification_init(void)
 	np_table_add_cmd(cbs_table, "AUTH", "AUTH", auth_cmd);
 	np_table_add_cmd(cbs_table, "REQS", "REQS", reqs_cmd);
     
+    /* Asynchronous */
+    np_table_add_cmd(cbs_table, NULL, "NOTIFY", ntfy_cmd);
+
     
 }
 

@@ -1281,27 +1281,27 @@ static PurplePluginProtocolInfo prpl_info =
 	np_tooltip_text,			/* tooltip_text */
 	np_status_types,			/* away_states	*/
 	np_blist_node_menu,			/* blist_node_menu */
-	NULL,				/* chat_info */
-	NULL,		/* chat_info_defaults */
+	NULL,                       /* chat_info */
+	NULL,                       /* chat_info_defaults */
 	np_login,					/* open */
 	np_close,					/* close */
-	NULL,                 /* send_im */
+	NULL,                       /* send_im */
 	NULL,                       /* set_info */
-	NULL,				/* send_typing	*/
+	NULL,                       /* send_typing	*/
 	np_show_buddy_info,         /* get_info */
 	np_change_status,			/* change status */
 	NULL,						/* set_idle */
 	NULL,						/* change_passwd */
-	NULL,               /* add_buddy */
+	NULL,                       /* add_buddy */
 	NULL,						/* add_buddies	*/
-	NULL,            /* remove_buddy */
+	NULL,                       /* remove_buddy */
 	NULL,						/* remove_buddies */
 	NULL,						/* add_permit */
 	NULL,						/* add_deny */
 	NULL,						/* rem_permit */
 	NULL,						/* rem_deny */
 	NULL,						/* set_permit_deny */
-	NULL,              /* join_chat */
+	NULL,                       /* join_chat */
 	NULL,						/* reject chat	invite */
 	NULL,						/* get_chat_name */
 	NULL,						/* chat_invite	*/
@@ -1311,39 +1311,39 @@ static PurplePluginProtocolInfo prpl_info =
 	np_keepalive,               /* keepalive */
 	NULL,						/* register_user */
 	NULL,                       /* get_cb_info	*/
-	NULL,							/* get_cb_away	*/
-	NULL,							/* alias_buddy	*/
-	NULL,							/* change buddy's group	*/
-	NULL,							/* rename_group */
-	NULL,							/* buddy_free */
-	NULL,							/* convo_closed */
-	NULL,							/* normalize */
+	NULL,                       /* get_cb_away	*/
+	NULL,						/* alias_buddy	*/
+	NULL,						/* change buddy's group	*/
+	NULL,						/* rename_group */
+	NULL,						/* buddy_free */
+	NULL,						/* convo_closed */
+	NULL,						/* normalize */
 	NULL,
-	NULL,							/* remove_group */
-	NULL,    /* get_cb_real_name */
-	NULL,							/* set_chat_topic */
-	NULL,							/* find_blist_chat */
-	purple_roomlist_get_list,           /* roomlist_get_list */
-	NULL,             /* roomlist_cancel */
-	NULL,							/* roomlist_expand_category */
-	NULL,							/* can_receive_file */
-	NULL,							/* np_send_file send_file */
-	NULL,							/* new xfer */
-	NULL,							/* offline_message */
-	NULL,							/* PurpleWhiteboardPrplOps */
-	NULL,							/* send_raw */
-	NULL,							/* roomlist_room_serialize */
-	NULL,							/* unregister_user */
-	NULL,							/* send_attention */
-	NULL,							/* get attention_types */
+	NULL,						/* remove_group */
+	NULL,                       /* get_cb_real_name */
+	NULL,						/* set_chat_topic */
+	NULL,						/* find_blist_chat */
+	purple_roomlist_get_list,   /* roomlist_get_list */
+	NULL,                       /* roomlist_cancel */
+	NULL,						/* roomlist_expand_category */
+	NULL,						/* can_receive_file */
+	NULL,						/* np_send_file send_file */
+	NULL,						/* new xfer */
+	NULL,						/* offline_message */
+	NULL,						/* PurpleWhiteboardPrplOps */
+	NULL,						/* send_raw */
+	NULL,						/* roomlist_room_serialize */
+	NULL,						/* unregister_user */
+	NULL,						/* send_attention */
+	NULL,						/* get attention_types */
     
 	sizeof(PurplePluginProtocolInfo), /* struct_size */
-	NULL,							/* get_account_text_table */
-	NULL,							/* initiate_media */
-	NULL,							/* get_media_caps */
-	NULL,							/* get_moods */
-	NULL,							/* set_public_alias */
-	NULL							/* get_public_alias */
+	NULL,						/* get_account_text_table */
+	NULL,						/* initiate_media */
+	NULL,						/* get_media_caps */
+	NULL,						/* get_moods */
+	NULL,						/* set_public_alias */
+	NULL						/* get_public_alias */
 };
 
 static PurplePluginInfo info = {
@@ -1360,14 +1360,14 @@ static PurplePluginInfo info = {
 	NP_PLUGIN_ID,                   /**< id             */
 	NP_PLUGIN_NAME,                 /**< name           */
 	LIBNP_VERSION,                  /**< version		*/
-	N_(NP_PLUGIN_SUMMARY),              /**< summary		*/
+	N_(NP_PLUGIN_SUMMARY),          /**< summary		*/
 
-	N_(NP_PLUGIN_DESCRIPTION),          /**< description	*/
+	N_(NP_PLUGIN_DESCRIPTION),      /**< description	*/
 	NP_PLUGIN_AUTHOR,               /**< author         */
 	PURPLE_WEBSITE,                 /**< homepage       */
     
-	np_load,                        /**< load		*/
-	np_unload,                      /**< unload		*/
+	np_load,                        /**< load           */
+	np_unload,                      /**< unload         */
 	NULL,                           /**< destroy		*/
     
 	NULL,                           /**< ui_info		*/
@@ -1398,11 +1398,6 @@ init_plugin(PurplePlugin *plugin)
 	prpl_info.protocol_options = g_list_append(prpl_info.protocol_options,
 											   option);
     
-//	option = purple_account_option_bool_new(_("Use HTTP Method"),
-//                                            "http_method", FALSE);
-//	prpl_info.protocol_options = g_list_append(prpl_info.protocol_options,
-//											   option);
-    
 	option = purple_account_option_string_new(_("HTTP Method Server"),
                                               "http_method_server", NP_HTTPCONN_SERVER);
 	prpl_info.protocol_options = g_list_append(prpl_info.protocol_options,
@@ -1430,9 +1425,7 @@ init_plugin(PurplePlugin *plugin)
 											   option);
     
     purple_prefs_remove("/plugins/prpl/np");
-    
-//	purple_signal_connect(purple_get_core(), "uri-handler", plugin,
-//                          PURPLE_CALLBACK(np_uri_handler), NULL);
+
 }
 
 PURPLE_INIT_PLUGIN(np, init_plugin, info);

@@ -40,58 +40,45 @@ is_num(const char *str)
 NPCommand *
 np_command_from_string(const char *string)
 {
-    // TODO
 	NPCommand *cmd;
+    char *tmp;
 	char *param_start;
 
 	g_return_val_if_fail(string != NULL, NULL);
 
-	cmd = g_new0(NPCommand, 1);
-	cmd->command = g_strdup(string);
-	param_start = strchr(cmd->command, ' ');
+    tmp = g_strdup(string);
 
-    
-    purple_debug_warning("np","command string %s\n",string);
-    if(strcmp(string, "LOGIN_OK") == 0) {
-        cmd->trId = 1;
-    } else if (strcmp(string, "HEART") == 0) {
-        cmd->trId = 2;
+	cmd = g_new0(NPCommand, 1);
+    cmd->command = tmp;
+
+	
+	param_start = strchr(cmd->command, ':');
+
+    if (param_start) {
+        char *param;
+		int c;
+        
+		*param_start++ = '\0';
+
+        cmd->params = g_strsplit(param_start, ",", 2);
+
+        for (c = 0; cmd->params[c]; c++);
+		cmd->param_count = c;
+        
+        param = cmd->params[0];
+                
+        cmd->trId = is_num(param) ? atoi(param) : 0;
     } else {
-        cmd->trId = 0;
+        if(strcmp(string, "LOGIN_OK") == 0) {
+            cmd->trId = 1;
+        } else if (strcmp(string, "HEART") == 0) {
+            cmd->trId = 2;
+        } else {
+            cmd->trId = 0;
+        }
+        
     }
     
-//    purple_debug_warning("np","%s %d %s param_start : %s \n" ,__func__,__LINE__,string,param_start);
-//	if (param_start)
-//	{
-//		*param_start++ = '\0';
-//		cmd->params = g_strsplit_set(param_start, " ", 0);
-//	} else {
-//        param_start = strchr(cmd->command, '\0');
-//
-//    }
-//    
-
-//    cmd->trId = 1;
-//    cmd->param_count = 0;
-//
-//	if (cmd->params != NULL)
-//	{
-//		int c;
-//
-//		for (c = 0; cmd->params[c] && cmd->params[c][0]; c++);
-//		cmd->param_count = c;
-//
-//		if (cmd->param_count) {
-//			char *param = cmd->params[0];
-//			cmd->trId = is_num(param) ? atoi(param) : 0;
-//		} else {
-//			cmd->trId = 0;
-//		}
-//	}
-//	else
-//	{
-//		cmd->trId = 0;
-//	}
 
 	np_command_ref(cmd);
 
