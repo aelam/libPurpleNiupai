@@ -30,6 +30,8 @@ struct _NPUserList {
 NPUserList *np_userlist_new(NPSession *session);
 void np_userlist_destroy(NPUserList *userlist);
 
+
+
 void np_userlist_add_user(NPUserList *userlist, NPUser *user);
 void np_userlist_remove_user(NPUserList *userlist, NPUser *user);
 

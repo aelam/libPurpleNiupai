@@ -16,6 +16,8 @@
 
 PurpleUtilFetchUrlData *np_http_login0(NPSession *session,PurpleUtilFetchUrlCallback callback);
 
+PurpleUtilFetchUrlData *http_get_friend_list(NPSession *session,PurpleUtilFetchUrlCallback callback);
+
 //void np_update_cookies_and_account(NPSession *session,gchar *buffer,gsize len,GError **error);
 
 #endif /* __NP_NPHTTPUTIL_H__ */

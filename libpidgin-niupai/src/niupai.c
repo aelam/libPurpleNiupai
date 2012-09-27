@@ -101,7 +101,7 @@ np_socket_login(NPSession *session)
     host = purple_account_get_string(account, "server", NP_IM_SERVER);
 	port = purple_account_get_int(account, "port", NP_IM_PORT);
     
-    session = np_session_new(account);
+//    session = np_session_new(account);
     
     purple_debug_warning("np","=====> session : %p ",session);
     
@@ -160,8 +160,8 @@ np_update_cookies(NPSession *session,gchar *headers,gsize header_len,GError **er
                              cookie_value);
 	}
     
-    
-    account = session->account;
+    purple_debug_info("npc", "session = %p",session);
+//    account = session->account;
     
 }
 
@@ -289,7 +289,7 @@ static void np_login(PurpleAccount *account)
 
     np_http_login0(session, np_http_login0_cb);
     return;
-    
+/*
     host = purple_account_get_string(account, "server", NP_IM_SERVER);
 	port = purple_account_get_int(account, "port", NP_IM_PORT);
 
@@ -311,7 +311,7 @@ static void np_login(PurpleAccount *account)
 		purple_connection_error_reason(gc,
                                        PURPLE_CONNECTION_ERROR_NETWORK_ERROR,
                                        _("Unable to connect"));
-    
+*/
 }
 
 /* clean up the given np connection and free all resources */
@@ -330,10 +330,19 @@ static void np_close(PurpleConnection *gc)
 
 }
 
-/* returns the icon name for a buddy or protocol */
-static const gchar *np_list_icon(PurpleAccount *a, PurpleBuddy *b)
+static void
+np_send_im(PurpleConnection *gc, const gchar *who, const gchar *message,
+             PurpleMessageFlags flags)
 {
-    purple_debug_warning("np","\n===>");
+    purple_debug_warning("np","\n%s",__FUNCTION__);
+
+}
+
+/* returns the icon name for a buddy or protocol */
+static const
+gchar *np_list_icon(PurpleAccount *a, PurpleBuddy *b)
+{
+    purple_debug_warning("np","\n%s",__FUNCTION__);
 
 	return "np";
 }
@@ -1285,7 +1294,7 @@ static PurplePluginProtocolInfo prpl_info =
 	NULL,                       /* chat_info_defaults */
 	np_login,					/* open */
 	np_close,					/* close */
-	NULL,                       /* send_im */
+	np_send_im,                 /* send_im */
 	NULL,                       /* set_info */
 	NULL,                       /* send_typing	*/
 	np_show_buddy_info,         /* get_info */

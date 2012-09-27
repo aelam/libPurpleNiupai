@@ -55,6 +55,7 @@ struct _NPSession {
     PurpleAccount   *account;
     
     GHashTable      *cookie_table;
+    gchar           *cookie_string;
     NPUser          *user;
     guint           protocol_ver;
 
@@ -126,5 +127,11 @@ void np_session_set_login_step(NPSession *session, NPLoginStep step);
  */
 void np_session_finish_login(NPSession *session);
 
+
+/**
+ * Encode cookies to a string used for HTTP Request
+ * @param session The NP session
+ */
+gchar *np_session_get_encoded_cookie(NPSession *session);
 
 #endif /* __NP_NIUPAI_SESSION_H__ */

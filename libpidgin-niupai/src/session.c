@@ -309,3 +309,21 @@ np_session_finish_login(NPSession *session)
 //	np_change_status(session);
 }
 
+static void
+np_cookie_foreach_cb(gchar *cookie_name,
+                                 gchar *cookie_value, GString *str)
+{
+	/* TODO: Need to escape name and value? */
+	g_string_append_printf(str, "%s=%s;", cookie_name, cookie_value);
+}
+
+gchar *
+np_session_get_encoded_cookie(NPSession *session)
+{
+    GString *str;
+    
+    str = g_string_new(NULL);
+    g_hash_table_foreach(session->cookie_table,(GHFunc)np_cookie_foreach_cb, str);
+    
+    return g_string_free(str, FALSE);
+}

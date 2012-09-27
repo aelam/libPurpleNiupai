@@ -34,6 +34,41 @@ np_util_post_url(const gchar *url, const gchar *postdata,gboolean include_header
 }
 
 
+static PurpleUtilFetchUrlData *
+np_util_post_url2(const gchar *url, const gchar *postdata,gchar *cookies,gboolean include_headers, PurpleUtilFetchUrlCallback callback, gpointer data)
+{
+	PurpleUtilFetchUrlData *urldata;
+	gchar *host, *path, *request;
+	int port;
+    
+    gchar *formatted_cookie;
+    if (cookies && strlen(cookies)) {
+        formatted_cookie = g_strdup_printf("Cookie: %s",cookies);
+    } else {
+        formatted_cookie = g_strdup_printf("");
+    }
+    
+	purple_url_parse(url, &host, &port, &path, NULL, NULL);
+	request = g_strdup_printf("POST /%s HTTP/1.1\r\n"
+                              "Connection: close\r\n"
+                              "Host: %s\r\n"
+                              "Accept: */*\r\n"
+                              "%s"
+                              "Content-Type: application/x-www-form-urlencoded\r\n"
+                              "Content-Length: %" G_GSIZE_FORMAT "\r\n\r\n%s",
+                              path, host,formatted_cookie ,strlen(postdata), postdata);
+	
+	urldata = purple_util_fetch_url_request(url, TRUE, NULL, TRUE, request, include_headers, callback, data);
+	
+	g_free(formatted_cookie);
+    g_free(host);
+	g_free(path);
+	g_free(request);
+	
+	return urldata;
+}
+
+
 PurpleUtilFetchUrlData *
 np_http_login0(NPSession *session,PurpleUtilFetchUrlCallback callback)
 {
@@ -100,4 +135,32 @@ http_main_start(NPSession *session,PurpleUtilFetchUrlCallback callback)
     return url_data;
     
 }
+
+PurpleUtilFetchUrlData *
+http_get_friend_list(NPSession *session,PurpleUtilFetchUrlCallback callback)
+{
+    PurpleUtilFetchUrlData *url_data;
+    PurpleAccount *account;
+    gchar *cookies;
+    
+    account = session->account;
+    cookies = np_session_get_encoded_cookie(session);
+    
+    const char *http_server = purple_account_get_string(session->account, "http_method_server", NP_HTTPCONN_SERVER);
+    const char *_ua = purple_account_get_string(session->account, "np_user_agent", NP_USER_AGENT);
+    
+    char *friend_list_url = g_strdup_printf("%s/%s",http_server,NP_FRIEND_LIST_PATH);
+
+    purple_debug_info("np", "friendListURL: %s",friend_list_url);
+    
+    gchar *content = g_strdup_printf("_ua=%s",_ua,NULL);
+    
+    url_data = np_util_post_url2(friend_list_url, content,cookies, FALSE , callback, session);
+    
+    g_free(content);
+
+    return url_data;
+}
+
+
 

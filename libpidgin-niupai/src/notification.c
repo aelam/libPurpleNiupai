@@ -57,33 +57,20 @@ void np_notification_destroy(NPNotification *notification)
 /**************************************************************************
  * Connect
  **************************************************************************/
-//static void np_http_login0_cb(PurpleUtilFetchUrlData *url_data, gpointer user_data, const gchar *url_text, gsize len, const gchar *error_message)
-//{
-//    purple_debug_info("np", "url_text: %s\n",url_text);
-//
-//    gchar *user_cookie;
+static void
+np_got_friend_list_cb(PurpleUtilFetchUrlData *url_data, gpointer user_data, const gchar *url_text, gsize len, const gchar *error_message)
+{
+    purple_debug_info("np", "url_text: %s\n",url_text);
+//    NPSession *session = user_data;
 
-    
-//    url_text = "{\"HELLO\":\"YES\"}";
-//    JsonParser *parser = json_parser_new();
-//    GError *error = NULL;
-//    json_parser_load_from_data(parser, url_text,len, &error);
-    
-//    if (error) {
-//        purple_debug_info("np", "error->message: %s\n",error->message);
-////
-//        return;
-//    }
-//    JsonNode *root = json_parser_get_root(parser);
-//    
-////    JsonNodeType rootType = JSON_NODE_TYPE(root);
-//    
-//    purple_debug_info("np", "rootType: %d\n",rootType);
-//
-//    g_object_unref (parser);
-////    g_free(root);
-//    g_free(parser);
-//}
+    JsonParser *parser = json_parser_new();
+    GError *error = NULL;
+    json_parser_load_from_data(parser, url_text, len, &error);
+    if (error) {
+        purple_debug_info("np", "error happenned : %p\n",error);
+
+    }
+}
 
 static void
 connect_cb(NPServConn *servconn)
@@ -153,13 +140,26 @@ login_ok_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
     session = cmdproc->session;
 //    session->logged_in = TRUE;
     np_session_finish_login(session);
+    
+//    PurpleGroup *np_group;
+//    PurpleBuddy *buddy;
+//
+//    np_group = purple_group_new("好友");
+//    purple_blist_add_group(np_group, NULL);
+//    buddy = purple_buddy_new(session->account, "name", "alias");
+    purple_debug_info("npc", "session = %p",session);
+
+    gchar *cookie =  np_session_get_encoded_cookie(cmdproc->session);
+    purple_debug_warning("np","==============cookie : %s=\n",cookie);
+
+    http_get_friend_list(session, np_got_friend_list_cb);
+    
 }
 
 static void
 heartbeat_ok_cmd(NPCmdProc *cmdproc, NPCommand *cmd)
 {
     purple_debug_warning("np","===============\n");
-
 }
 
 static void

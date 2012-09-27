@@ -11,6 +11,21 @@
 /**************************************************************************
  * UserList functions
  **************************************************************************/
+NPUserList *
+np_get_full_user_list(NPSession *session)
+{
+    session->cookie_table;
+    
+    
+}
+
+void
+np_got_full_user_list_cb(NPSession *session)
+{
+    
+}
+
+
 
 NPUserList
 *np_userlist_new(NPSession *session)
