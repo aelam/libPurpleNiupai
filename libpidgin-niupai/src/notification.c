@@ -11,7 +11,6 @@
 #include "nphttputil.h"
 #include <glib-object.h>
 //#include "jsmn.h"
-#include "jsmn.h"
 //#include <json-glib/json-glib.h>
 #include "json-glib/json-glib.h"
 
@@ -74,6 +73,9 @@ np_got_friend_list_cb(PurpleUtilFetchUrlData *url_data, gpointer user_data, cons
 {
     purple_debug_info("np", "url_text: %s\n",url_text);
 //    NPSession *session = user_data;
+    FILE *f = fopen("/Users/ryan/Desktop/test.json", "a+");
+    fprintf(f,"%s",url_text);
+    fclose(f);
     JsonParser *parser = json_parser_new();
     GError *error = NULL;
     json_parser_load_from_data(parser, url_text, len, &error);
