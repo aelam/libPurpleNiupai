@@ -35,7 +35,6 @@
 #include "nphttputil.h"
 #include <json-glib.h>
 
-
 void
 np_send_im_message(NPSession *session, NPMessage *msg)
 {
@@ -384,6 +383,41 @@ np_change_status(PurpleAccount *account, PurpleStatus *status)
     // TODO
     //	PurpleConnection *gc = purple_account_get_connection(account);
     //	np_request_change_status(gc, 0);
+}
+
+static void
+np_add_buddy(PurpleAccount *account, PurpleBuddy *buddy,PurpleGroup *group)
+{
+    purple_debug_info("np:", "account : %s\n",account->username);
+    
+    
+    
+//    PurpleAccount *acct = purple_accounts_find(username, NULLPRPL_ID);
+//    const char *username = gc->account->username;
+//    PurpleConnection *buddy_gc = get_nullprpl_gc(buddy->name);
+    
+//    purple_debug_info("nullprpl", "adding %s to %s's buddy list\n", buddy->name,
+//                      username);
+    
+//    if (buddy_gc) {
+//        PurpleAccount *buddy_acct = buddy_gc->account;
+//        
+////        discover_status(gc, buddy_gc, NULL);
+//        
+//        if (purple_find_buddy(buddy_acct, username)) {
+//            purple_debug_info("nullprpl", "%s is already on %s's buddy list\n",
+//                              username, buddy->name);
+//        } else {
+//            purple_debug_info("nullprpl", "asking %s if they want to add %s\n",
+//                              buddy->name, username);
+//            purple_account_request_add(buddy_acct,
+//                                       username,
+//                                       NULL,   /* local account id (rarely used) */
+//                                       NULL,   /* alias */
+//                                       NULL);  /* message */
+//        }
+//    }
+
 }
 
 static void
@@ -1096,7 +1130,7 @@ static PurplePluginProtocolInfo prpl_info =
 	np_change_status,			/* change status */
 	NULL,						/* set_idle */
 	NULL,						/* change_passwd */
-	NULL,                       /* add_buddy */
+	np_add_buddy,               /* add_buddy */
 	NULL,						/* add_buddies	*/
 	NULL,                       /* remove_buddy */
 	NULL,						/* remove_buddies */

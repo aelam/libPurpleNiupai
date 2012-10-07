@@ -41,6 +41,7 @@
 		9480B4ED1601878A000A5CA7 /* NPPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 9480B4EC1601878A000A5CA7 /* NPPlugin.m */; };
 		9491B31A160E19F500C60A69 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9491B319160E19F500C60A69 /* README.md */; };
 		94FA1C4D16018B4B00A910C0 /* libpurple.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FA1C4C16018B4B00A910C0 /* libpurple.framework */; };
+		94FB360116199C4700F3567F /* nullprpl.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FB360016199C4700F3567F /* nullprpl.c */; };
 		94FD7C76160B6DEA008AF095 /* buddy.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C52160B6DEA008AF095 /* buddy.c */; };
 		94FD7C77160B6DEA008AF095 /* buddy_list.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C54160B6DEA008AF095 /* buddy_list.c */; };
 		94FD7C78160B6DEA008AF095 /* cmdproc.c in Sources */ = {isa = PBXBuildFile; fileRef = 94FD7C56160B6DEA008AF095 /* cmdproc.c */; };
@@ -125,6 +126,7 @@
 		9480B4EC1601878A000A5CA7 /* NPPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NPPlugin.m; sourceTree = "<group>"; };
 		9491B319160E19F500C60A69 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		94FA1C4C16018B4B00A910C0 /* libpurple.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libpurple.framework; sourceTree = "<group>"; };
+		94FB360016199C4700F3567F /* nullprpl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nullprpl.c; sourceTree = "<group>"; };
 		94FD7C52160B6DEA008AF095 /* buddy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buddy.c; sourceTree = "<group>"; };
 		94FD7C53160B6DEA008AF095 /* buddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buddy.h; sourceTree = "<group>"; };
 		94FD7C54160B6DEA008AF095 /* buddy_list.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buddy_list.c; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 		94FD7C50160B6DEA008AF095 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				94FB360016199C4700F3567F /* nullprpl.c */,
 				9430AB09160F262B00332732 /* memcpy_extra.c */,
 				9430AB0C160F263800332732 /* memcpy_extra.h */,
 				94FD7C52160B6DEA008AF095 /* buddy.c */,
@@ -546,6 +549,7 @@
 				9448CE4D16161A88008EDC62 /* yajl_parser.c in Sources */,
 				9448CE4E16161A88008EDC62 /* yajl_tree.c in Sources */,
 				9448CE4F16161A88008EDC62 /* yajl_version.c in Sources */,
+				94FB360116199C4700F3567F /* nullprpl.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,6 +618,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_LOCATION = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				DSTROOT = "$(HOME)";

@@ -30,6 +30,7 @@ extern gboolean purple_init_np_plugin(void);
 
     [NPService registerService];
     purple_init_np_plugin();
+//    purple_init_null_plugin();
     
     NSString *logPath = @"/Users/ryan/Desktop/libpurple-np.log";
     [[NSFileManager defaultManager] removeItemAtPath:logPath error:nil];

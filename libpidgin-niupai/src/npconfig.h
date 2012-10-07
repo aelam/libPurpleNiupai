@@ -50,4 +50,8 @@
 
 #define NP_USER_AGENT           "i|5.0|niupai|4|niupai_ios_apple||320"
 
+#define NP_STATUS_ONLINE        "online"
+#define NP_STATUS_OFFLINE       "offline"
+
+
 #endif /* __NP_NPCONFIG_H__ */
