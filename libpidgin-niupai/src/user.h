@@ -21,16 +21,24 @@ struct _NPUser {
     
 	guint8 refcount;        /**< The reference count of this object */
     
-	char *passport;         /**< The passport account.          */
 	char *friendly_name;    /**< The friendly name.             */
     
-	char *uid;              /*< User ID                         */
-	GSList *endpoints;      /*< Endpoint-specific data          */
-    
+	
 	const char *status;     /**< The state of the user.         */
 	char *statusline;       /**< The state of the user.         */
     
 	gboolean idle;          /**< The idle state of the user.    */
+    
+	char *uid;              /*< User ID                         */
+    guint age;
+	gchar *gender;
+	gchar *location;
+	gchar *face_url;
+
+    gchar *nickname;
+    gchar *remark_name;
+    
+    
 };
 
 

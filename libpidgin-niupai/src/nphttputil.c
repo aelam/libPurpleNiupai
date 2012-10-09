@@ -168,5 +168,20 @@ http_get_friend_list(NPNotification *notification,PurpleUtilFetchUrlCallback cal
     return url_data;
 }
 
+PurpleUtilFetchUrlData *np_http_send_im(NPSession *session, const gchar *who, const gchar *message,PurpleMessageFlags flags)
+{
+    ///type=0&location=31.300000%2C121.490000&fid=22909360&related=0&content=%E5%96%94%20%E5%8E%9A%E9%81%93&c_mtime=1349798362558015
+    NPNotification *notification;
+    char *http_server;
+    
+    notification = session->notification;
+    
+    http_server = notification->http_server;
+    const char *_ua = purple_account_get_string(session->account, "np_user_agent", NP_USER_AGENT);
+    
+    char *send_im_url = g_strdup_printf("%s/%s",http_server,NP_FRIEND_LIST_PATH);
+
+}
+
 
 

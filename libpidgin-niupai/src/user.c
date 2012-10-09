@@ -50,7 +50,7 @@ np_user_destroy(NPUser *user)
 //	if (user->npobj != NULL)
 //		np_object_destroy(user->npobj);
 //    
-	g_free(user->passport);
+//	g_free(user->passport);
 	g_free(user->friendly_name);
 	g_free(user->uid);
 //	if (user->extinfo) {
@@ -103,8 +103,8 @@ void np_user_update(NPUser *user)
 	offline = (user->status == NULL);
     
 	if (!offline) {
-		purple_prpl_got_user_status(account, user->passport, user->status,
-                                    "message", user->statusline, NULL);
+//		purple_prpl_got_user_status(account, user->passport, user->status,
+//                                    "message", user->statusline, NULL);
 	} else {
     }
     
@@ -116,7 +116,7 @@ void np_user_set_statusline(NPUser *user, const char *statusline)
     g_return_if_fail(user != NULL);
     
 	g_free(user->statusline);
-	user->passport = g_strdup(statusline);
+//	user->passport = g_strdup(statusline);
 
 }
 
@@ -159,8 +159,8 @@ void np_user_set_passport(NPUser *user, const char *passport)
 {
     g_return_if_fail(user != NULL);
     
-	g_free(user->passport);
-	user->passport = g_strdup(passport);
+//	g_free(user->passport);
+//	user->passport = g_strdup(passport);
 }
 
 gboolean np_user_set_friendly_name(NPUser *user, const char *name)
@@ -171,15 +171,15 @@ gboolean np_user_set_friendly_name(NPUser *user, const char *name)
 	if (!name)
 		return FALSE;
     
-	if (user->friendly_name && (!strcmp(user->friendly_name, name) ||
-                                !strcmp(user->passport, name)))
+//	if (user->friendly_name && (!strcmp(user->friendly_name, name) ||
+//                                !strcmp(user->passport, name)))
 		return FALSE;
     
 	g_free(user->friendly_name);
 	user->friendly_name = g_strdup(name);
     
-	serv_got_alias(purple_account_get_connection(user->userlist->session->account),
-                   user->passport, name);
+//	serv_got_alias(purple_account_get_connection(user->userlist->session->account),
+//                   user->passport, name);
 	return TRUE;
     return TRUE;
 }
@@ -201,7 +201,7 @@ const char
 {
     g_return_val_if_fail(user != NULL, NULL);
     
-	return user->passport;
+	return NULL;// user->passport;
 }
 
 const char *np_user_get_friendly_name(const NPUser *user)

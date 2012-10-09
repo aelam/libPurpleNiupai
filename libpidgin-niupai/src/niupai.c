@@ -82,30 +82,6 @@ static void np_login(PurpleAccount *account)
 
     np_session_connect0(session, im_server, im_port, http_server, http_port);
     
-    return;
-/*
-    host = purple_account_get_string(account, "server", NP_IM_SERVER);
-	port = purple_account_get_int(account, "port", NP_IM_PORT);
-
-    session = np_session_new(account);
-
-    purple_debug_warning("np","=====> session : %p ",session);
-    
-    gc = purple_account_get_connection(account);
-	g_return_if_fail(gc != NULL);
-
-    gc->proto_data = session;
-    
-	gc->flags |= PURPLE_CONNECTION_HTML | PURPLE_CONNECTION_NO_BGCOLOR | PURPLE_CONNECTION_AUTO_RESP;
-
-    np_session_set_login_step(session, NP_LOGIN_STEP_START);
-    presence = purple_account_get_presence(account);
-
-	if (!np_session_connect(session, host, port, http_method))
-		purple_connection_error_reason(gc,
-                                       PURPLE_CONNECTION_ERROR_NETWORK_ERROR,
-                                       _("Unable to connect"));
-*/
 }
 
 /* clean up the given np connection and free all resources */
@@ -124,12 +100,13 @@ static void np_close(PurpleConnection *gc)
 
 }
 
-static void
+static int
 np_send_im(PurpleConnection *gc, const gchar *who, const gchar *message,
              PurpleMessageFlags flags)
 {
-    purple_debug_warning("np","\n%s",__FUNCTION__);
+    purple_debug_warning("np","\n%s who : %s message : %s flags : %d",__FUNCTION__,who,message,flags);
 
+    return 1;
 }
 
 /* returns the icon name for a buddy or protocol */
@@ -385,7 +362,7 @@ np_change_status(PurpleAccount *account, PurpleStatus *status)
     //	np_request_change_status(gc, 0);
 }
 
-static void
+static int
 np_add_buddy(PurpleAccount *account, PurpleBuddy *buddy,PurpleGroup *group)
 {
     purple_debug_info("np:", "account : %s\n",account->username);
@@ -418,6 +395,7 @@ np_add_buddy(PurpleAccount *account, PurpleBuddy *buddy,PurpleGroup *group)
 //        }
 //    }
 
+    return 1;
 }
 
 static void
@@ -1078,6 +1056,14 @@ static gchar *chat_name_to_purple_name(const gchar *const name)
 //	np_request_get_buddy_info(gc, uid, 0, np_BUDDY_INFO_DISPLAY);
 //}
 
+int np_send_raw(PurpleConnection *gc, const char *buf, int len)
+{
+    purple_debug_warning("np","\n===>%s %s",__func__,buf);
+
+    return 1;
+}
+
+
 /* convert chat nickname to uid to invite individual IM to buddy */
 /* who is the nickname of buddy in np chat-room (Qun) */
 static gchar *np_get_chat_buddy_real_name(PurpleConnection *gc, gint channel, const gchar *who)
@@ -1169,7 +1155,7 @@ static PurplePluginProtocolInfo prpl_info =
 	NULL,						/* new xfer */
 	NULL,						/* offline_message */
 	NULL,						/* PurpleWhiteboardPrplOps */
-	NULL,						/* send_raw */
+	np_send_raw,                /* send_raw */
 	NULL,						/* roomlist_room_serialize */
 	NULL,						/* unregister_user */
 	NULL,						/* send_attention */

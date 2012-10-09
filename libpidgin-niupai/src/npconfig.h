@@ -47,6 +47,7 @@
 #define NP_LOGIN_0_PATH         "nologin/login"
 #define NP_MAIN_START_PATH      "main/start"
 #define NP_FRIEND_LIST_PATH     "friend/get"
+#define NP_SEND_IM_PATH         "msg/add"
 
 #define NP_USER_AGENT           "i|5.0|niupai|4|niupai_ios_apple||320"
 

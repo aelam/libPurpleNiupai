@@ -10,6 +10,7 @@
 #include "npconfig.h"
 #include "nphttputil.h"
 #include <yajl/yajl_parse.h>
+#include <yajl/yajl_gen.h>
 #include <yajl/yajl_tree.h>
 #include "niupai.h"
 
@@ -67,10 +68,12 @@ void np_notification_destroy(NPNotification *notification)
 /**************************************************************************
  * Connect
  **************************************************************************/
+
 static void
 np_got_friend_list_cb(PurpleUtilFetchUrlData *url_data, gpointer user_data, const gchar *url_text, gsize len, const gchar *error_message)
 {
-    purple_debug_info("np", "url_text: %s\n","got friend list raw data");
+    purple_debug_info("np", "url_text: %s\n",url_text);//"got friend list raw data");
+    
     
     PurpleGroup *group;
 	PurpleBuddy *buddy;
@@ -81,14 +84,14 @@ np_got_friend_list_cb(PurpleUtilFetchUrlData *url_data, gpointer user_data, cons
     notification = (NPNotification *)user_data;
     session = notification->session;
     
-    char *group_name = "Hello";
+    char *group_name = "好友";
     group = purple_find_group(group_name);
 	if (!group) {
 		group = purple_group_new(group_name);
 		/* Add group to beginning. See #2752. */
 		purple_blist_add_group(group, NULL);
 	}
-	purple_blist_load();
+//	purple_blist_load();
 
     
     yajl_val node;
@@ -110,10 +113,6 @@ np_got_friend_list_cb(PurpleUtilFetchUrlData *url_data, gpointer user_data, cons
         
     }
     
-    
-    
-    /* ... and extract a nested value from the config file */
-    
     {
         
         const char * path[] = { "ok", (const char *) 0 };
@@ -134,33 +133,48 @@ np_got_friend_list_cb(PurpleUtilFetchUrlData *url_data, gpointer user_data, cons
         
         if (friends && YAJL_IS_ARRAY(friends)) {
             
-            purple_debug_info("yajl","len:%zd",friends->u.array.len);
+            purple_debug_info("yajl","len:%zd",friends->u.object.len);
+            
             size_t len = friends->u.array.len;
+            
+            
             for(int i = 0;i < len; i++) {
                 yajl_val f = friends->u.array.values[i];
-//                const char *n_path[] = {"nickname",(const char *)0};
-//                yajl_val n = yajl_tree_get(f,n_path, f->u.string);
-                purple_debug_info("yajl","nickname : %p %s",f ,f->u.string);
-                char *username = "abc";//f->u.string;
-                /* 2. Get or create buddy */
-                buddy = purple_find_buddy(session->account, username);
-                if (!buddy) {
-                    purple_debug_info("msim_add_contact_from_server_cb",
-                                      "creating new buddy: %s\n", username);
-                    buddy = purple_buddy_new(session->account, username, NULL);
-                    purple_prpl_got_user_status(session->account, username, NP_STATUS_ONLINE, NULL);
-//                    buddy->
+
+                for (int i = 0; i < f->u.object.len; i++) {
+//                    purple_debug_info("yajl","key : %s value : [%s] ",f->u.object.keys[i],YAJL_GET_STRING(f->u.object.values[i]));
+                    
                 }
 
-                /* TODO: use 'Position' in contact_info to take into account where buddy is */
-                purple_blist_add_buddy(buddy, NULL, group, NULL /* insertion point */);
-
+                
+                // nickname
+                const char *n_path[] = {"nickname_pinyin",(const char *)0};
+                yajl_val nick_v = yajl_tree_get(f,n_path, yajl_t_any);
+                char *nick = YAJL_GET_STRING(nick_v);
+                purple_debug_info("yajl","nick : %p %s",nick,nick);
+                
+                // face_url
+                const char *face_path[] = {"face_url",(const char *)0};
+                yajl_val face_v = yajl_tree_get(f,face_path, yajl_t_any);
+                char *face = YAJL_GET_STRING(face_v);
+//                purple_debug_info("yajl","face_url : %p %s",face,face);
+                
+                // uid
+                const char *uid_path[] = {"uid",(const char *)0};
+                yajl_val uid_v = yajl_tree_get(f,uid_path, yajl_t_any);
+                char *uid = YAJL_GET_STRING(uid_v);
+                purple_debug_info("yajl","uid : %p %s",uid,uid);
+                
+                buddy = purple_find_buddy(session->account, uid);
+                if (!buddy) {
+                    purple_debug_info("msim_add_contact_from_server_cb",
+                                      "creating new buddy: %s\n", uid);
+                    buddy = purple_buddy_new(session->account, uid, nick);
+                    purple_prpl_got_user_status(session->account, uid, NP_STATUS_ONLINE, NULL);
+                }
+                purple_blist_add_buddy(buddy, NULL, group, NULL );
             }
-//            
-//            purple_debug_info("yajl","%s %p\n", f_path[0], friends);
-            
         }
-        
     }
     
     yajl_tree_free(node);
